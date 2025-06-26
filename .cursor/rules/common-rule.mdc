@@ -1,0 +1,26 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Tech stack:
+
+- The UI framework is **Mantine v8.1.2**.
+- Forms are built with `@mantine/form` — do **not** use React Hook Form.
+- For date handling, use `dayjs` — avoid `Date` or `date-fns`.
+- Routing is handled by `react-router v7.6.2` in **declarative mode** (use `<Routes>`, `<Route>`, `<Outlet>`).
+
+Mantine usage:
+
+- Import components only from `@mantine/core`, `@mantine/form`, `@mantine/dates`, `@mantine/dropzone` and `@mantine/hooks`.
+- Use `useForm` from `@mantine/form` with `initialValues` and `validate` for form handling.
+- Date values inside forms should use `dayjs` objects, not raw strings or `Date`.
+- Do not use `withAsterisk`; mark required fields through validation logic.
+- Use a clean, modular component style. Avoid `any`; prefer explicit interfaces or types.
+- Use bdrs to set the border-radius.
+
+Routing:
+
+- Use `<Routes>`, `<Route>`, and `<Outlet>` in declarative form.
+- Use `<Link>` for navigation, and `useNavigate` only inside event handlers.
+- Do not overuse `navigate(...)` calls for things that should be expressed through routes.

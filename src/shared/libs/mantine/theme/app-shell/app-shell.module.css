@@ -1,0 +1,4 @@
+.navbar {
+  transition: width 200ms ease;
+  will-change: width;
+}
