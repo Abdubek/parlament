@@ -23,19 +23,17 @@ export const Navbar = ({ opened, open, items }: Props) => {
   useEffect(() => {
     if (!opened) {
       setActiveItem(null);
+      return;
     }
-  }, [opened]);
 
-  useEffect(() => {
     for (const item of items) {
       const isRouteMatch = matchRoute({ to: item.value, fuzzy: true });
       if (isRouteMatch) {
         setActiveItem(item.value);
-        open();
         return;
       }
     }
-  }, [items, matchRoute, open]);
+  }, [opened, items, matchRoute]);
 
   const handleChange = (value: string | null) => {
     setActiveItem(value);

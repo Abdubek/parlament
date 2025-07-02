@@ -5,26 +5,26 @@ import type { NavbarItem } from "@/features/navbar";
 
 export const knowledgeRoute = createRoute({
   getParentRoute: () => authedRoute,
-  path: "knowledge",
+  path: "/cabinet/knowledge",
   component: () => <div>Knowledge</div>,
 });
 
 export const knowledgeNavbarItem: NavbarItem = {
   icon: <Inventory2 />,
   label: "База знаний",
-  value: "/knowledge",
+  value: "/cabinet/knowledge",
   children: [
     {
       label: "База знаний",
-      value: "/knowledge",
+      value: "/cabinet/knowledge",
     },
     {
       label: "Информационный фонд",
-      value: "/knowledge/information-fund",
+      value: "/cabinet/knowledge/information-fund",
     },
     {
       label: "Образцы документов",
-      value: "/knowledge/documents",
+      value: "/cabinet/knowledge/documents",
     },
   ],
 };
