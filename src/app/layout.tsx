@@ -3,8 +3,13 @@ import { AppShell, Burger, Box, ScrollArea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Outlet } from "@tanstack/react-router";
 import { Navbar } from "@/features/navbar";
+import type { NavbarItem } from "@/features/navbar";
 
-export function Layout() {
+type Props = {
+  items: NavbarItem[];
+};
+
+export function Layout({ items }: Props) {
   const [opened, { toggle, open }] = useDisclosure(true);
   return (
     <AppShell
@@ -27,7 +32,7 @@ export function Layout() {
         </Header>
       </AppShell.Header>
       <AppShell.Navbar bg="primary.9" px={8}>
-        <Navbar opened={opened} open={open} />
+        <Navbar opened={opened} open={open} items={items} />
       </AppShell.Navbar>
       <AppShell.Aside bg="primary.9"></AppShell.Aside>
       <AppShell.Main>

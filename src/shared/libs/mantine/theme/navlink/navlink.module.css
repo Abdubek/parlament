@@ -1,0 +1,10 @@
+.root {
+  --nl-bg: transparent !important;
+  --nl-color: #ffffff !important;
+  --nl-hover: #ffffff33 !important;
+  border-radius: 8px;
+
+  &[data-active] {
+    background-color: var(--nl-hover);
+  }
+}

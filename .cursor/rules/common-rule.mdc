@@ -26,8 +26,7 @@ alwaysApply: true
 # Routing
 
 - Uses **TanStack Router** for routing.
-- Route files are located in [`src/routes/`](mdc:src/routes/).
-- Route tree is generated in [`src/routeTree.gen.ts`](mdc:src/routeTree.gen.ts).
+- Use code-based routing system. The main route is in @`src/app/main.tsx`. Routers for each module are located in @`src/modules/${module-name}/index.tsx`.
 - For route setup and architecture, see the following rules:
   - [tanstack-react-router_setup-and-architecture](mdc:tanstack-react-router_setup-and-architecture.mdc)
   - [tanstack-react-router_routing](mdc:tanstack-react-router_routing.mdc)

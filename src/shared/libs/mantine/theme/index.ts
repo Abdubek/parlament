@@ -3,6 +3,7 @@ import { StyledText } from "./text";
 import { StyledTitle } from "./title";
 import { StyledAppShell } from "./app-shell";
 import { StyledAccordion } from "./accordion";
+import { StyledNavLink } from "./navlink";
 
 const commonTheme = {
   fontFamily:
@@ -12,6 +13,7 @@ const commonTheme = {
     Title: StyledTitle,
     AppShell: StyledAppShell,
     Accordion: StyledAccordion,
+    NavLink: StyledNavLink,
   },
   primaryColor: "primary",
 };
