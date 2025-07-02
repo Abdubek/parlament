@@ -3,6 +3,7 @@
   --nl-color: #ffffff !important;
   --nl-hover: #ffffff33 !important;
   border-radius: 8px;
+  white-space: nowrap;
 
   &[data-active] {
     background-color: var(--nl-hover);
