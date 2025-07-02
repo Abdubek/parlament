@@ -1,0 +1,32 @@
+.root[data-variant="navbar"] {
+  border-bottom: 1px solid var(--mantine-color-grey1-3);
+
+  .list {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .tab {
+    padding: 19px 24px;
+    border-bottom: 4px solid transparent;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    flex: 0 0 auto;
+
+    &[data-hidden] {
+      position: absolute;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    &[data-active="true"] {
+      background-color: white;
+      border-bottom: 4px solid var(--mantine-color-primary-9);
+    }
+  }
+}

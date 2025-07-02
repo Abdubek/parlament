@@ -10,7 +10,7 @@ type Props = {
 };
 
 export function Layout({ items }: Props) {
-  const [opened, { toggle, open }] = useDisclosure(true);
+  const [opened, { toggle, open }] = useDisclosure(false);
   return (
     <AppShell
       header={{ height: 80 }}
@@ -39,7 +39,7 @@ export function Layout({ items }: Props) {
       <AppShell.Aside bg="primary.9"></AppShell.Aside>
       <AppShell.Main>
         <Box
-          bg="white"
+          bg="grey2.2"
           style={{ borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }}
         >
           <ScrollArea h="calc(100vh - 80px)" type="scroll">

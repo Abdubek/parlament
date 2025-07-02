@@ -11,4 +11,8 @@ declare module "@mantine/core" {
   export interface AccordionProps {
     variant?: "separated" | "contained" | "filled" | "default" | "navbar";
   }
+
+  export interface TabsProps {
+    variant?: "default" | "outline" | "pills" | "navbar";
+  }
 }
