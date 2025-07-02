@@ -1,16 +1,11 @@
+import { Header } from "@/features/header";
 import { AppShell, Burger, Box, ScrollArea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Header } from "@/features/header";
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import { Navbar } from "@/features/navbar";
 
-export const Route = createFileRoute("/_authed")({
-  component: Layout,
-});
-
-function Layout() {
+export function Layout() {
   const [opened, { toggle, open }] = useDisclosure(true);
-
   return (
     <AppShell
       header={{ height: 80 }}
@@ -31,13 +26,10 @@ function Layout() {
           <Burger opened={opened} onClick={toggle} size="sm" color="white" />
         </Header>
       </AppShell.Header>
-
       <AppShell.Navbar bg="primary.9" px={8}>
         <Navbar opened={opened} open={open} />
       </AppShell.Navbar>
-
       <AppShell.Aside bg="primary.9"></AppShell.Aside>
-
       <AppShell.Main>
         <Box
           bg="white"
