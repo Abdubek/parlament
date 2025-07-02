@@ -6,3 +6,9 @@ declare module "@mantine/dates" {
     variant?: "title" | "subtitle" | "body" | "caption" | "tagline";
   }
 }
+
+declare module "@mantine/core" {
+  export interface AccordionProps {
+    variant?: "separated" | "contained" | "filled" | "default" | "navbar";
+  }
+}

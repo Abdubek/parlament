@@ -1,4 +1,6 @@
 .navbar {
-  transition: width 200ms ease;
+  transition-timing-function: ease !important;
+  transition-duration: 200ms !important;
+  transition-property: width !important;
   will-change: width;
 }

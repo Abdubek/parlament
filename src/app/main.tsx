@@ -1,13 +1,21 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "@mantine/core/styles.css";
-import { MantineProvider } from "../shared/libs/mantine";
-import { Router } from "./routes";
+import { MantineProvider } from "@/shared/libs/mantine";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { routeTree } from "@/routeTree.gen";
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MantineProvider>
-      <Router />
+      <RouterProvider router={router} />
     </MantineProvider>
   </StrictMode>
 );

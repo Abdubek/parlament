@@ -2,6 +2,7 @@ import { createTheme } from "@mantine/core";
 import { StyledText } from "./text";
 import { StyledTitle } from "./title";
 import { StyledAppShell } from "./app-shell";
+import { StyledAccordion } from "./accordion";
 
 const commonTheme = {
   fontFamily:
@@ -10,6 +11,7 @@ const commonTheme = {
     Text: StyledText,
     Title: StyledTitle,
     AppShell: StyledAppShell,
+    Accordion: StyledAccordion,
   },
   primaryColor: "primary",
 };

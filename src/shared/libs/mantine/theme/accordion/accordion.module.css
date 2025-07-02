@@ -1,0 +1,46 @@
+.root[data-variant="navbar"] {
+  .item {
+    --item-filled-color: #ffffff26;
+
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+
+    &:hover,
+    &[data-active] {
+      background-color: var(--item-filled-color);
+    }
+
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+
+    .label {
+      white-space: nowrap;
+    }
+
+    .control {
+      color: #ffffff;
+
+      .label {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  &[data-opened="false"] {
+    .control {
+      padding: 11px 0;
+      display: block;
+    }
+    .icon {
+      margin-right: 0;
+    }
+    .chevron,
+    .label {
+      display: none;
+    }
+  }
+}

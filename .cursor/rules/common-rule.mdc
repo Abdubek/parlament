@@ -3,24 +3,43 @@ description:
 globs: 
 alwaysApply: true
 ---
-Tech stack:
+# Mantine & Form Handling
 
 - The UI framework is **Mantine v8.1.2**.
-- Forms are built with `@mantine/form` — do **not** use React Hook Form.
-- For date handling, use `dayjs` — avoid `Date` or `date-fns`.
-- Routing is handled by `react-router v7.6.2` in **declarative mode** (use `<Routes>`, `<Route>`, `<Outlet>`).
+- Use Mantine components from `@mantine/core`, `@mantine/form`, `@mantine/dates`, `@mantine/dropzone`, and `@mantine/hooks`.
+- All forms must use `useForm` from `@mantine/form` with `initialValues` and `validate`.
+- Do **not** use React Hook Form or other form libraries.
+- For date handling, use `dayjs` objects (not raw strings or `Date` or `date-fns`).
+- Do **not** use `withAsterisk`; mark required fields through validation logic.
+- Always use Mantine theming and colorScheme from context; do not hardcode colors.
+- Use `bdrs` for border-radius styling.
+- Avoid `any`; always use explicit interfaces or types for props and state.
 
-Mantine usage:
+# Project Structure
 
-- Import components only from `@mantine/core`, `@mantine/form`, `@mantine/dates`, `@mantine/dropzone` and `@mantine/hooks`.
-- Use `useForm` from `@mantine/form` with `initialValues` and `validate` for form handling.
-- Date values inside forms should use `dayjs` objects, not raw strings or `Date`.
-- Do not use `withAsterisk`; mark required fields through validation logic.
-- Use a clean, modular component style. Avoid `any`; prefer explicit interfaces or types.
-- Use bdrs to set the border-radius.
+- Main entry point: [`src/app/main.tsx`](mdc:src/app/main.tsx)
+- Route definitions and tree: [`src/routes/`](mdc:src/routes) and [`src/routeTree.gen.ts`](mdc:src/routeTree.gen.ts)
+- Shared Mantine theme and customizations: [`src/shared/libs/mantine/theme/`](mdc:src/shared/libs/mantine/theme)
+- Shared icons: [`src/shared/icons/`](mdc:src/shared/icons)
+- Features are organized in [`src/features/`](mdc:src/features) by domain (e.g., `header`, `navbar`).
 
-Routing:
+# Routing
 
-- Use `<Routes>`, `<Route>`, and `<Outlet>` in declarative form.
-- Use `<Link>` for navigation, and `useNavigate` only inside event handlers.
-- Do not overuse `navigate(...)` calls for things that should be expressed through routes.
+- Uses **TanStack Router** for routing.
+- Route files are located in [`src/routes/`](mdc:src/routes/).
+- Route tree is generated in [`src/routeTree.gen.ts`](mdc:src/routeTree.gen.ts).
+- For route setup and architecture, see the following rules:
+  - [tanstack-react-router_setup-and-architecture](mdc:tanstack-react-router_setup-and-architecture.mdc)
+  - [tanstack-react-router_routing](mdc:tanstack-react-router_routing.mdc)
+  - [tanstack-react-router_api](mdc:tanstack-react-router_api.mdc)
+  - [tanstack-react-router_guide](mdc:tanstack-react-router_guide.mdc)
+  
+# Theming & Styles
+
+- All custom Mantine theme overrides are in [`src/shared/libs/mantine/theme/`](mdc:src/shared/libs/mantine/theme).
+- Use Mantine's theming system; do not hardcode colors or styles.
+- For custom styles, prefer CSS modules (e.g., `app-shell.module.css`).
+
+# Icon Usage
+- All SVG icons are stored in [`src/shared/icons/`](mdc:src/shared/icons).
+- Import icons as React components where possible.

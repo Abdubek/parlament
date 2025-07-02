@@ -4,6 +4,7 @@ import type { PropsWithChildren } from "react";
 import { DatesProvider } from "@mantine/dates";
 import "dayjs/locale/ru";
 
+import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/dropzone/styles.css";
 

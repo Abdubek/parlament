@@ -1,18 +1,18 @@
-import {
-  AppShell as MantineAppShell,
-  Burger,
-  Box,
-  ScrollArea,
-} from "@mantine/core";
+import { AppShell, Burger, Box, ScrollArea } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Outlet } from "react-router";
 import { Header } from "@/features/header";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/features/navbar";
 
-export const AppShell = () => {
-  const [opened, { toggle }] = useDisclosure();
+export const Route = createFileRoute("/_authed")({
+  component: Layout,
+});
+
+function Layout() {
+  const [opened, { toggle, open }] = useDisclosure(true);
 
   return (
-    <MantineAppShell
+    <AppShell
       header={{ height: 80 }}
       navbar={{
         width: { base: opened ? 275 : 56 },
@@ -26,17 +26,19 @@ export const AppShell = () => {
       withBorder={false}
       bg="primary.9"
     >
-      <MantineAppShell.Header bg="primary.9">
+      <AppShell.Header bg="primary.9">
         <Header>
           <Burger opened={opened} onClick={toggle} size="sm" color="white" />
         </Header>
-      </MantineAppShell.Header>
+      </AppShell.Header>
 
-      <MantineAppShell.Navbar bg="primary.9"></MantineAppShell.Navbar>
+      <AppShell.Navbar bg="primary.9" px={8}>
+        <Navbar opened={opened} open={open} />
+      </AppShell.Navbar>
 
-      <MantineAppShell.Aside bg="primary.9"></MantineAppShell.Aside>
+      <AppShell.Aside bg="primary.9"></AppShell.Aside>
 
-      <MantineAppShell.Main>
+      <AppShell.Main>
         <Box
           bg="white"
           style={{ borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }}
@@ -45,7 +47,7 @@ export const AppShell = () => {
             <Outlet />
           </ScrollArea>
         </Box>
-      </MantineAppShell.Main>
-    </MantineAppShell>
+      </AppShell.Main>
+    </AppShell>
   );
-};
+}
