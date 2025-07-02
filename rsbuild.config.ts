@@ -22,4 +22,12 @@ export default defineConfig({
       index: "./src/app/main.tsx",
     },
   },
+  tools: {
+    cssLoader: {
+      modules: {
+        auto: true,
+        localIdentName: "[name]__[local]--[hash:base64:5]",
+      },
+    },
+  },
 });

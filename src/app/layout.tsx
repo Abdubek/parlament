@@ -32,7 +32,9 @@ export function Layout({ items }: Props) {
         </Header>
       </AppShell.Header>
       <AppShell.Navbar bg="primary.9" px={8}>
-        <Navbar opened={opened} open={open} items={items} />
+        <AppShell.Section grow component={ScrollArea} scrollbarSize={6}>
+          <Navbar opened={opened} open={open} items={items} />
+        </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Aside bg="primary.9"></AppShell.Aside>
       <AppShell.Main>
