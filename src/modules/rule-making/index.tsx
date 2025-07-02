@@ -3,14 +3,14 @@ import { createRoute } from "@tanstack/react-router";
 import StickyNote2 from "@/shared/icons/sticky_note_2.svg?react";
 import type { NavbarItem } from "@/features/navbar";
 
-export const legislationRoute = createRoute({
+export const ruleMakingRoute = createRoute({
   getParentRoute: () => authedRoute,
-  path: "/cabinet/legislation",
+  path: "/cabinet/rule-making",
   component: () => <div>Нормотворчество</div>,
 });
 
-export const legislationNavbarItem: NavbarItem = {
+export const ruleMakingNavbarItem: NavbarItem = {
   icon: <StickyNote2 />,
   label: "Нормотворчество",
-  value: "/cabinet/legislation",
+  value: "/cabinet/rule-making",
 };

@@ -3,14 +3,14 @@ import { createRoute } from "@tanstack/react-router";
 import Topic from "@/shared/icons/topic.svg?react";
 import type { NavbarItem } from "@/features/navbar";
 
-export const workflowRoute = createRoute({
+export const documentsRoute = createRoute({
   getParentRoute: () => authedRoute,
-  path: "/cabinet/workflow",
+  path: "/cabinet/documents",
   component: () => <div>Документооборот</div>,
 });
 
-export const workflowNavbarItem: NavbarItem = {
+export const documentsNavbarItem: NavbarItem = {
   icon: <Topic />,
   label: "Документооборот",
-  value: "/cabinet/workflow",
+  value: "/cabinet/documents",
 };

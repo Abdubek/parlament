@@ -18,9 +18,9 @@ import { employeesRoute, employeesNavbarItem } from "@/modules/employees";
 import { tasksRoute, tasksNavbarItem } from "@/modules/tasks";
 import { calendarRoute, calendarNavbarItem } from "@/modules/calendar";
 import { crmRoute, crmNavbarItem } from "@/modules/crm";
-import { workflowRoute, workflowNavbarItem } from "@/modules/workflow";
-import { hrRoute, hrNavbarItem } from "@/modules/hr";
-import { legislationRoute, legislationNavbarItem } from "@/modules/legislation";
+import { documentsRoute, documentsNavbarItem } from "@/modules/documents";
+import { managementRoute, managementNavbarItem } from "@/modules/management";
+import { ruleMakingRoute, ruleMakingNavbarItem } from "@/modules/rule-making";
 import { analyticsRoute, analyticsNavbarItem } from "@/modules/analytics";
 import {
   administrationRoute,
@@ -36,9 +36,9 @@ const items: NavbarItem[] = [
   tasksNavbarItem,
   calendarNavbarItem,
   crmNavbarItem,
-  workflowNavbarItem,
-  hrNavbarItem,
-  legislationNavbarItem,
+  documentsNavbarItem,
+  managementNavbarItem,
+  ruleMakingNavbarItem,
   analyticsNavbarItem,
   administrationNavbarItem,
   knowledgeNavbarItem,
@@ -80,9 +80,9 @@ const routeTree = rootRoute.addChildren([
     tasksRoute,
     calendarRoute,
     crmRoute,
-    workflowRoute,
-    hrRoute,
-    legislationRoute,
+    documentsRoute,
+    managementRoute,
+    ruleMakingRoute,
     analyticsRoute,
     administrationRoute,
     knowledgeRoute,
