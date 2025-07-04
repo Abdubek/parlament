@@ -17,6 +17,7 @@
     font-weight: 500;
     line-height: 26px;
     flex: 0 0 auto;
+    color: var(--mantine-color-grey1-4);
 
     &[data-hidden] {
       position: absolute;
@@ -26,6 +27,7 @@
 
     &[data-active="true"] {
       background-color: white;
+      color: var(--mantine-color-grey1-7);
       border-bottom: 4px solid var(--mantine-color-primary-9);
     }
   }
