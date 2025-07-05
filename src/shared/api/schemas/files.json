@@ -23,9 +23,7 @@
   "paths": {
     "/process-folders/update/{folderId}": {
       "post": {
-        "tags": [
-          "process-folder-controller"
-        ],
+        "tags": ["process-folder-controller"],
         "operationId": "updateFolder",
         "parameters": [
           {
@@ -65,9 +63,7 @@
     },
     "/process-folders/create": {
       "post": {
-        "tags": [
-          "process-folder-controller"
-        ],
+        "tags": ["process-folder-controller"],
         "operationId": "createFolder",
         "requestBody": {
           "content": {
@@ -96,9 +92,7 @@
     },
     "/process-folders/assignee-process-to-user": {
       "post": {
-        "tags": [
-          "process-folder-controller"
-        ],
+        "tags": ["process-folder-controller"],
         "operationId": "assigneeProcessToUser",
         "requestBody": {
           "content": {
@@ -120,9 +114,7 @@
     },
     "/process-files/upload": {
       "post": {
-        "tags": [
-          "process-file-controller"
-        ],
+        "tags": ["process-file-controller"],
         "operationId": "uploadFileForProcessInstance",
         "parameters": [
           {
@@ -138,9 +130,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "file"
-                ],
+                "required": ["file"],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -168,9 +158,7 @@
     },
     "/process-files/delete/{processFileId}": {
       "post": {
-        "tags": [
-          "process-file-controller"
-        ],
+        "tags": ["process-file-controller"],
         "operationId": "deleteFile",
         "parameters": [
           {
@@ -199,9 +187,7 @@
     },
     "/onlyoffice/{id}/callback": {
       "post": {
-        "tags": [
-          "only-office-controller"
-        ],
+        "tags": ["only-office-controller"],
         "operationId": "callback",
         "parameters": [
           {
@@ -239,9 +225,7 @@
     },
     "/folder/create": {
       "post": {
-        "tags": [
-          "folder-controller"
-        ],
+        "tags": ["folder-controller"],
         "summary": "Создать каталог",
         "description": "Создать каталог",
         "operationId": "createFolder_1",
@@ -281,9 +265,7 @@
     },
     "/document/create": {
       "post": {
-        "tags": [
-          "document-controller"
-        ],
+        "tags": ["document-controller"],
         "summary": "Создать документ",
         "description": "Создать документ",
         "operationId": "createDocument",
@@ -291,10 +273,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "file",
-                  "request"
-                ],
+                "required": ["file", "request"],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -335,9 +314,7 @@
     },
     "/access-rights/create": {
       "post": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Назначить права группе пользователей",
         "operationId": "create",
         "requestBody": {
@@ -369,9 +346,7 @@
     },
     "/folder/update/{id}": {
       "patch": {
-        "tags": [
-          "folder-controller"
-        ],
+        "tags": ["folder-controller"],
         "summary": "Обновить каталог",
         "description": "Обновить каталог",
         "operationId": "updateFolder_1",
@@ -422,9 +397,7 @@
     },
     "/document/update/{id}": {
       "patch": {
-        "tags": [
-          "document-controller"
-        ],
+        "tags": ["document-controller"],
         "summary": "Обновить документ",
         "description": "Обновить документ",
         "operationId": "updateDocument",
@@ -475,9 +448,7 @@
     },
     "/section/search": {
       "get": {
-        "tags": [
-          "section-controller"
-        ],
+        "tags": ["section-controller"],
         "summary": "Поиск секций",
         "description": "Поиск секций",
         "operationId": "findAll",
@@ -561,9 +532,7 @@
     },
     "/process-folders/{processInstanceId}/folder": {
       "get": {
-        "tags": [
-          "process-folder-controller"
-        ],
+        "tags": ["process-folder-controller"],
         "operationId": "getAllByProcessInstance",
         "parameters": [
           {
@@ -592,9 +561,7 @@
     },
     "/process-folders/available-for-me": {
       "get": {
-        "tags": [
-          "process-folder-controller"
-        ],
+        "tags": ["process-folder-controller"],
         "operationId": "getAvailableForMe",
         "responses": {
           "200": {
@@ -616,9 +583,7 @@
     },
     "/process-files/download-file/{fileId}": {
       "get": {
-        "tags": [
-          "process-file-controller"
-        ],
+        "tags": ["process-file-controller"],
         "operationId": "downloadFile",
         "parameters": [
           {
@@ -647,9 +612,7 @@
     },
     "/process-files/available-for-me": {
       "get": {
-        "tags": [
-          "process-file-controller"
-        ],
+        "tags": ["process-file-controller"],
         "operationId": "getAvailableForMe_1",
         "parameters": [
           {
@@ -689,9 +652,7 @@
     },
     "/onlyoffice/{id}": {
       "get": {
-        "tags": [
-          "only-office-controller"
-        ],
+        "tags": ["only-office-controller"],
         "summary": "Открыть документ",
         "description": "Открыть документ",
         "operationId": "open",
@@ -711,10 +672,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "view",
-                "edit"
-              ],
+              "enum": ["view", "edit"],
               "default": "view"
             }
           },
@@ -754,9 +712,7 @@
     },
     "/onlyoffice/{id}/history": {
       "get": {
-        "tags": [
-          "only-office-controller"
-        ],
+        "tags": ["only-office-controller"],
         "operationId": "getDocumentHistory",
         "parameters": [
           {
@@ -785,9 +741,7 @@
     },
     "/onlyoffice/{id}/history/data": {
       "get": {
-        "tags": [
-          "only-office-controller"
-        ],
+        "tags": ["only-office-controller"],
         "operationId": "getHistoryData",
         "parameters": [
           {
@@ -825,9 +779,7 @@
     },
     "/onlyoffice/{id}/download": {
       "get": {
-        "tags": [
-          "only-office-controller"
-        ],
+        "tags": ["only-office-controller"],
         "operationId": "download",
         "parameters": [
           {
@@ -865,9 +817,7 @@
     },
     "/document/{documentId}": {
       "get": {
-        "tags": [
-          "document-controller"
-        ],
+        "tags": ["document-controller"],
         "summary": "Получить документ по Id",
         "description": "Получить документ по Id",
         "operationId": "getDocumentById",
@@ -908,9 +858,7 @@
     },
     "/api/type/status": {
       "get": {
-        "tags": [
-          "Types API"
-        ],
+        "tags": ["Types API"],
         "summary": "Статусы в системе",
         "description": "Возвращает список всех доступных статусов документов/каталогов",
         "operationId": "getStatuses",
@@ -943,9 +891,7 @@
     },
     "/api/type/section": {
       "get": {
-        "tags": [
-          "Types API"
-        ],
+        "tags": ["Types API"],
         "summary": "Тип сущности в системе",
         "description": "Возвращает список всех типов",
         "operationId": "getTypes",
@@ -978,9 +924,7 @@
     },
     "/api/type/document": {
       "get": {
-        "tags": [
-          "Types API"
-        ],
+        "tags": ["Types API"],
         "summary": "Тип документа",
         "description": "Возвращает список всех типов документа",
         "operationId": "getDocumentTypes",
@@ -1013,9 +957,7 @@
     },
     "/access-rights": {
       "get": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Получить все права доступа",
         "operationId": "getAll",
         "responses": {
@@ -1037,9 +979,7 @@
     },
     "/access-rights/{id}": {
       "get": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Получить право доступа по ID",
         "operationId": "getById",
         "parameters": [
@@ -1067,9 +1007,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Удалить право доступа по ID",
         "operationId": "delete",
         "parameters": [
@@ -1092,9 +1030,7 @@
     },
     "/access-rights/get-for-object": {
       "get": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Получить права доступа пользователя по userId для конкретного объекта objectId",
         "operationId": "getRightsForObject",
         "parameters": [
@@ -1136,9 +1072,7 @@
     },
     "/folder/delete/{ids}": {
       "delete": {
-        "tags": [
-          "folder-controller"
-        ],
+        "tags": ["folder-controller"],
         "summary": "Удалить каталоги",
         "description": "Удалить каталоги",
         "operationId": "deleteFolders",
@@ -1175,9 +1109,7 @@
     },
     "/document/delete/{ids}": {
       "delete": {
-        "tags": [
-          "document-controller"
-        ],
+        "tags": ["document-controller"],
         "summary": "Удалить документы",
         "description": "Удалить документы",
         "operationId": "deleteDocuments",
@@ -1214,9 +1146,7 @@
     },
     "/access-rights/remove-permission": {
       "delete": {
-        "tags": [
-          "access-rights-controller"
-        ],
+        "tags": ["access-rights-controller"],
         "summary": "Удалить конкретное право доступа у пользователя",
         "operationId": "removePermission",
         "requestBody": {
@@ -1323,11 +1253,7 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "0",
-              "1",
-              "2"
-            ]
+            "enum": ["0", "1", "2"]
           },
           "userid": {
             "type": "string"
@@ -1351,12 +1277,7 @@
           },
           "forcesavetype": {
             "type": "string",
-            "enum": [
-              "0",
-              "1",
-              "2",
-              "3"
-            ]
+            "enum": ["0", "1", "2", "3"]
           },
           "formsdataurl": {
             "type": "string"
@@ -1369,14 +1290,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "1",
-              "2",
-              "3",
-              "4",
-              "6",
-              "7"
-            ]
+            "enum": ["1", "2", "3", "4", "6", "7"]
           },
           "url": {
             "type": "string"
@@ -1440,10 +1354,7 @@
             "type": "string",
             "description": "Тип секции",
             "readOnly": true,
-            "enum": [
-              "FOLDER",
-              "FILE"
-            ]
+            "enum": ["FOLDER", "FILE"]
           },
           "parentFolderId": {
             "type": "string",
@@ -1558,10 +1469,7 @@
         "properties": {
           "objectType": {
             "type": "string",
-            "enum": [
-              "FOLDER",
-              "FILE"
-            ]
+            "enum": ["FOLDER", "FILE"]
           },
           "objectId": {
             "type": "string",
@@ -1574,13 +1482,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": [
-                  "READ",
-                  "CREATE",
-                  "UPDATE",
-                  "SHARE",
-                  "FULL_ACCESS"
-                ]
+                "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
               }
             }
           }
@@ -1611,10 +1513,7 @@
           },
           "objectType": {
             "type": "string",
-            "enum": [
-              "FOLDER",
-              "FILE"
-            ]
+            "enum": ["FOLDER", "FILE"]
           },
           "objectId": {
             "type": "string",
@@ -1625,13 +1524,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": [
-                "READ",
-                "CREATE",
-                "UPDATE",
-                "SHARE",
-                "FULL_ACCESS"
-              ]
+              "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
             }
           }
         }
@@ -1752,10 +1645,7 @@
             "type": "string",
             "description": "Тип секции",
             "readOnly": true,
-            "enum": [
-              "FOLDER",
-              "FILE"
-            ]
+            "enum": ["FOLDER", "FILE"]
           },
           "parentFolderId": {
             "type": "string",
@@ -1843,10 +1733,7 @@
           },
           "objectType": {
             "type": "string",
-            "enum": [
-              "FOLDER",
-              "FILE"
-            ]
+            "enum": ["FOLDER", "FILE"]
           },
           "objectId": {
             "type": "string",
@@ -1854,13 +1741,7 @@
           },
           "permission": {
             "type": "string",
-            "enum": [
-              "READ",
-              "CREATE",
-              "UPDATE",
-              "SHARE",
-              "FULL_ACCESS"
-            ]
+            "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
           }
         }
       }

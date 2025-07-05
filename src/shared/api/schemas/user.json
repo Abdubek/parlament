@@ -17,9 +17,7 @@
   "paths": {
     "/api/vacation/{uuid}/update": {
       "put": {
-        "tags": [
-          "vacation-controller"
-        ],
+        "tags": ["vacation-controller"],
         "summary": "Обновить информацию о отпуске",
         "operationId": "update",
         "parameters": [
@@ -62,9 +60,7 @@
     },
     "/api/vacation-application/{uuid}/update": {
       "put": {
-        "tags": [
-          "vacation-application-controller"
-        ],
+        "tags": ["vacation-application-controller"],
         "summary": "Обновить заявление на отпуск",
         "operationId": "update_1",
         "parameters": [
@@ -107,9 +103,7 @@
     },
     "/api/users/{userId}/update": {
       "put": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Обновление пользователя по userId",
         "operationId": "updateUser",
         "parameters": [
@@ -127,9 +121,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "user"
-                ],
+                "required": ["user"],
                 "type": "object",
                 "properties": {
                   "user": {
@@ -160,9 +152,7 @@
     },
     "/api/substitution/{uuid}/update": {
       "put": {
-        "tags": [
-          "substitution-controller"
-        ],
+        "tags": ["substitution-controller"],
         "summary": "Обновить информацию о отпуске",
         "operationId": "update_2",
         "parameters": [
@@ -205,9 +195,7 @@
     },
     "/api/personal-affair/{uuid}/update": {
       "put": {
-        "tags": [
-          "personal-affair-controller"
-        ],
+        "tags": ["personal-affair-controller"],
         "summary": "Обновить личное дело по UUID",
         "operationId": "update_3",
         "parameters": [
@@ -250,9 +238,7 @@
     },
     "/api/vacation/create": {
       "post": {
-        "tags": [
-          "vacation-controller"
-        ],
+        "tags": ["vacation-controller"],
         "summary": "Создать отпуск",
         "operationId": "create",
         "requestBody": {
@@ -281,9 +267,7 @@
     },
     "/api/vacation-application/create": {
       "post": {
-        "tags": [
-          "vacation-application-controller"
-        ],
+        "tags": ["vacation-application-controller"],
         "summary": "Создать заявление на отпуск",
         "operationId": "create_1",
         "requestBody": {
@@ -312,9 +296,7 @@
     },
     "/api/users/{userId}/upload": {
       "post": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Изменение аватарки пользователя",
         "operationId": "uploadAvatarByUserId",
         "parameters": [
@@ -332,9 +314,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "image"
-                ],
+                "required": ["image"],
                 "type": "object",
                 "properties": {
                   "image": {
@@ -362,18 +342,14 @@
     },
     "/api/users/create": {
       "post": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Создание пользователя",
         "operationId": "create_2",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "user"
-                ],
+                "required": ["user"],
                 "type": "object",
                 "properties": {
                   "user": {
@@ -404,9 +380,7 @@
     },
     "/api/users/block": {
       "post": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Блокировка всех пользователей по userIds",
         "operationId": "blockUsersByIds",
         "requestBody": {
@@ -438,9 +412,7 @@
     },
     "/api/users/activate": {
       "post": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Разблокировка всех пользователей по userIds",
         "operationId": "activateUsersByIds",
         "requestBody": {
@@ -472,9 +444,7 @@
     },
     "/api/substitution/create": {
       "post": {
-        "tags": [
-          "substitution-controller"
-        ],
+        "tags": ["substitution-controller"],
         "summary": "Создать замещание",
         "operationId": "create_3",
         "requestBody": {
@@ -503,9 +473,7 @@
     },
     "/api/personal-affair/create": {
       "post": {
-        "tags": [
-          "personal-affair-controller"
-        ],
+        "tags": ["personal-affair-controller"],
         "summary": "Создать личное дело",
         "operationId": "create_4",
         "requestBody": {
@@ -534,9 +502,7 @@
     },
     "/api/organizations/{uuid}/update": {
       "post": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Редактирование организаций",
         "operationId": "update_4",
         "parameters": [
@@ -576,9 +542,7 @@
     },
     "/api/organizations/create": {
       "post": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Создание организаций",
         "operationId": "create_5",
         "requestBody": {
@@ -607,9 +571,7 @@
     },
     "/api/org-structure/{uuid}/update": {
       "post": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "update_5",
         "parameters": [
           {
@@ -648,9 +610,7 @@
     },
     "/api/org-structure/versions/publish/{organizationId}": {
       "post": {
-        "tags": [
-          "org-structure-version-controller"
-        ],
+        "tags": ["org-structure-version-controller"],
         "summary": "Публикации новый версии",
         "operationId": "publishNewVersion",
         "parameters": [
@@ -690,9 +650,7 @@
     },
     "/api/org-structure/update-manager-position/{departmentId}/in-department/{positionId}": {
       "post": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "updateManagerPosition",
         "parameters": [
           {
@@ -740,9 +698,7 @@
     },
     "/api/org-structure/update-employee/{departmentId}/in-department/{positionId}": {
       "post": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "updateEmployee",
         "parameters": [
           {
@@ -790,9 +746,7 @@
     },
     "/api/org-structure/create": {
       "post": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "create_6",
         "requestBody": {
           "content": {
@@ -820,9 +774,7 @@
     },
     "/api/org-structure/add-employee/{departmentId}": {
       "post": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "addEmployeeToDepartment",
         "parameters": [
           {
@@ -861,9 +813,7 @@
     },
     "/api/groups/update/{uuid}": {
       "post": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Редактирование группы по UUID",
         "operationId": "update_6",
         "parameters": [
@@ -903,9 +853,7 @@
     },
     "/api/groups/create": {
       "post": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Создание группы",
         "operationId": "create_7",
         "requestBody": {
@@ -934,9 +882,7 @@
     },
     "/api/groups/add/user/to/group": {
       "post": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Добавление пользователя в группу",
         "operationId": "addUserToGroup",
         "requestBody": {
@@ -965,9 +911,7 @@
     },
     "/api/vacation": {
       "get": {
-        "tags": [
-          "vacation-controller"
-        ],
+        "tags": ["vacation-controller"],
         "summary": "Получить cписок отпусков",
         "operationId": "getAll",
         "responses": {
@@ -989,9 +933,7 @@
     },
     "/api/vacation/{uuid}": {
       "get": {
-        "tags": [
-          "vacation-controller"
-        ],
+        "tags": ["vacation-controller"],
         "summary": "Получить информацию о отпуске по UUID",
         "operationId": "getById",
         "parameters": [
@@ -1021,9 +963,7 @@
     },
     "/api/vacation-application": {
       "get": {
-        "tags": [
-          "vacation-application-controller"
-        ],
+        "tags": ["vacation-application-controller"],
         "summary": "Получить cписок заявление на отпуск",
         "operationId": "getAll_1",
         "responses": {
@@ -1045,9 +985,7 @@
     },
     "/api/vacation-application/{uuid}": {
       "get": {
-        "tags": [
-          "vacation-application-controller"
-        ],
+        "tags": ["vacation-application-controller"],
         "summary": "Получить информацию о заявление на отпуске по UUID",
         "operationId": "getById_1",
         "parameters": [
@@ -1077,9 +1015,7 @@
     },
     "/api/users": {
       "get": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Получение всех пользователей",
         "operationId": "getAll_2",
         "parameters": [
@@ -1139,11 +1075,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "ACTIVE",
-                "BLOCKED",
-                "CLOSED"
-              ]
+              "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
             }
           }
         ],
@@ -1163,9 +1095,7 @@
     },
     "/api/users/{userId}": {
       "get": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Получение данных пользователя по userId",
         "operationId": "getUserInfoById",
         "parameters": [
@@ -1195,9 +1125,7 @@
     },
     "/api/users/me": {
       "get": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Получение данных пользователя под кем авторизовались",
         "operationId": "getUserInfoMe",
         "responses": {
@@ -1216,9 +1144,7 @@
     },
     "/api/users/image/download/{imageUUID}": {
       "get": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Скачивание аватарки пользователя",
         "operationId": "downloadImage",
         "parameters": [
@@ -1248,9 +1174,7 @@
     },
     "/api/substitution": {
       "get": {
-        "tags": [
-          "substitution-controller"
-        ],
+        "tags": ["substitution-controller"],
         "summary": "Получить cписок замещании",
         "operationId": "getAll_3",
         "responses": {
@@ -1272,9 +1196,7 @@
     },
     "/api/substitution/{uuid}": {
       "get": {
-        "tags": [
-          "substitution-controller"
-        ],
+        "tags": ["substitution-controller"],
         "summary": "Получить информацию о замещании по UUID",
         "operationId": "getById_2",
         "parameters": [
@@ -1304,9 +1226,7 @@
     },
     "/api/personal-affair": {
       "get": {
-        "tags": [
-          "personal-affair-controller"
-        ],
+        "tags": ["personal-affair-controller"],
         "summary": "Получить cписок личное дело",
         "operationId": "getAll_4",
         "responses": {
@@ -1328,9 +1248,7 @@
     },
     "/api/personal-affair/{uuid}": {
       "get": {
-        "tags": [
-          "personal-affair-controller"
-        ],
+        "tags": ["personal-affair-controller"],
         "summary": "Получить личное дело по UUID",
         "operationId": "getById_3",
         "parameters": [
@@ -1360,9 +1278,7 @@
     },
     "/api/organizations": {
       "get": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Получить все организаций",
         "operationId": "getAll_5",
         "responses": {
@@ -1384,9 +1300,7 @@
     },
     "/api/organizations/{uuid}": {
       "get": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Получить организаций по UUID",
         "operationId": "getById_4",
         "parameters": [
@@ -1416,9 +1330,7 @@
     },
     "/api/organizations/{uuid}/child": {
       "get": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Получить все подорганизаций по UUID(uuid главного организаций)",
         "operationId": "childOrganizations",
         "parameters": [
@@ -1451,9 +1363,7 @@
     },
     "/api/org-structure": {
       "get": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "summary": "Получить все данные по оргструктуре",
         "operationId": "getAll_6",
         "parameters": [
@@ -1463,11 +1373,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "DEPARTMENT",
-                "POSITION",
-                "GROUP"
-              ]
+              "enum": ["DEPARTMENT", "POSITION", "GROUP"]
             }
           }
         ],
@@ -1490,9 +1396,7 @@
     },
     "/api/org-structure/{uuid}": {
       "get": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "get",
         "parameters": [
           {
@@ -1521,9 +1425,7 @@
     },
     "/api/org-structure/{uuid}/child": {
       "get": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "childOrgStructures",
         "parameters": [
           {
@@ -1555,9 +1457,7 @@
     },
     "/api/org-structure/versions": {
       "get": {
-        "tags": [
-          "org-structure-version-controller"
-        ],
+        "tags": ["org-structure-version-controller"],
         "summary": "Получение всех версий",
         "operationId": "getAllVersions",
         "responses": {
@@ -1579,9 +1479,7 @@
     },
     "/api/org-structure/versions/{versionId}/org-structures": {
       "get": {
-        "tags": [
-          "org-structure-version-controller"
-        ],
+        "tags": ["org-structure-version-controller"],
         "summary": "Получение версии по ID",
         "operationId": "getOrgStructuresByVersionId",
         "parameters": [
@@ -1614,9 +1512,7 @@
     },
     "/api/groups": {
       "get": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Список группы",
         "operationId": "getAll_7",
         "responses": {
@@ -1638,9 +1534,7 @@
     },
     "/api/vacation/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "vacation-controller"
-        ],
+        "tags": ["vacation-controller"],
         "summary": "Удалить информацию о отпуске по UUID",
         "operationId": "delete",
         "parameters": [
@@ -1670,9 +1564,7 @@
     },
     "/api/vacation-application/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "vacation-application-controller"
-        ],
+        "tags": ["vacation-application-controller"],
         "summary": "Удалить заявление на отпуск по UUID",
         "operationId": "delete_1",
         "parameters": [
@@ -1702,9 +1594,7 @@
     },
     "/api/users/delete": {
       "delete": {
-        "tags": [
-          "user-controller"
-        ],
+        "tags": ["user-controller"],
         "summary": "Удаление пользователей по userIds",
         "operationId": "deleteUsersByIds",
         "requestBody": {
@@ -1733,9 +1623,7 @@
     },
     "/api/substitution/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "substitution-controller"
-        ],
+        "tags": ["substitution-controller"],
         "summary": "Удалить информацию о отпуске по UUID",
         "operationId": "delete_2",
         "parameters": [
@@ -1765,9 +1653,7 @@
     },
     "/api/personal-affair/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "personal-affair-controller"
-        ],
+        "tags": ["personal-affair-controller"],
         "summary": "Удалить личное дело по UUID",
         "operationId": "delete_3",
         "parameters": [
@@ -1797,9 +1683,7 @@
     },
     "/api/organizations/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "organization-controller"
-        ],
+        "tags": ["organization-controller"],
         "summary": "Удаление организаций по UUID",
         "operationId": "delete_4",
         "parameters": [
@@ -1829,9 +1713,7 @@
     },
     "/api/org-structure/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "delete_5",
         "parameters": [
           {
@@ -1860,9 +1742,7 @@
     },
     "/api/org-structure/delete-employee/{departmentId}/in-department/{positionId}": {
       "delete": {
-        "tags": [
-          "org-structure-controller"
-        ],
+        "tags": ["org-structure-controller"],
         "operationId": "deleteEmployeeInDepartment",
         "parameters": [
           {
@@ -1900,9 +1780,7 @@
     },
     "/api/groups/delete/{uuid}": {
       "delete": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Улдаление группы по UUID",
         "operationId": "delete_6",
         "parameters": [
@@ -1932,9 +1810,7 @@
     },
     "/api/groups/delete/user/{userId}/from/group/{groupId}": {
       "delete": {
-        "tags": [
-          "group-controller"
-        ],
+        "tags": ["group-controller"],
         "summary": "Удаление пользователя из группу",
         "operationId": "deleteUserFromGroup",
         "parameters": [
@@ -2001,11 +1877,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "DEPARTMENT",
-              "POSITION",
-              "GROUP"
-            ]
+            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
           },
           "organization": {
             "$ref": "#/components/schemas/OrganizationDto"
@@ -2179,11 +2051,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "BLOCKED",
-              "CLOSED"
-            ]
+            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
           },
           "note": {
             "type": "string"
@@ -2342,10 +2210,7 @@
           },
           "basis": {
             "type": "string",
-            "enum": [
-              "MEDICAL",
-              "VACATION"
-            ]
+            "enum": ["MEDICAL", "VACATION"]
           }
         }
       },
@@ -2358,11 +2223,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "BLOCKED",
-              "CLOSED"
-            ]
+            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
           },
           "numberPersonalAffair": {
             "type": "string"
@@ -2384,10 +2245,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "MALE",
-              "FEMALE"
-            ]
+            "enum": ["MALE", "FEMALE"]
           },
           "dateBirthdate": {
             "type": "string",
@@ -2564,9 +2422,7 @@
         }
       },
       "VacationRequest": {
-        "required": [
-          "userId"
-        ],
+        "required": ["userId"],
         "type": "object",
         "properties": {
           "vacationName": {
@@ -2587,9 +2443,7 @@
         }
       },
       "VacationApplicationRequest": {
-        "required": [
-          "userId"
-        ],
+        "required": ["userId"],
         "type": "object",
         "properties": {
           "vacationApplicationName": {
@@ -2625,9 +2479,7 @@
         }
       },
       "UserIdsRequest": {
-        "required": [
-          "userIds"
-        ],
+        "required": ["userIds"],
         "type": "object",
         "properties": {
           "userIds": {
@@ -2640,10 +2492,7 @@
         }
       },
       "SubstitutionRequest": {
-        "required": [
-          "substitutedId",
-          "vacationApplicationID"
-        ],
+        "required": ["substitutedId", "vacationApplicationID"],
         "type": "object",
         "properties": {
           "substitutionName": {
@@ -2659,10 +2508,7 @@
           },
           "basis": {
             "type": "string",
-            "enum": [
-              "MEDICAL",
-              "VACATION"
-            ]
+            "enum": ["MEDICAL", "VACATION"]
           }
         }
       },
@@ -2671,11 +2517,7 @@
         "properties": {
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "BLOCKED",
-              "CLOSED"
-            ]
+            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
           },
           "numberPersonalAffair": {
             "type": "string"
@@ -2697,10 +2539,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "MALE",
-              "FEMALE"
-            ]
+            "enum": ["MALE", "FEMALE"]
           },
           "dateBirthdate": {
             "type": "string",
@@ -2874,10 +2713,7 @@
         }
       },
       "OrganizationRequest": {
-        "required": [
-          "nameKk",
-          "nameRu"
-        ],
+        "required": ["nameKk", "nameRu"],
         "type": "object",
         "properties": {
           "nameKk": {
@@ -2905,12 +2741,7 @@
         }
       },
       "OrgStructureRequest": {
-        "required": [
-          "nameKk",
-          "nameRu",
-          "organizationId",
-          "type"
-        ],
+        "required": ["nameKk", "nameRu", "organizationId", "type"],
         "type": "object",
         "properties": {
           "nameKk": {
@@ -2921,11 +2752,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "DEPARTMENT",
-              "POSITION",
-              "GROUP"
-            ]
+            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
           },
           "organizationId": {
             "type": "string",
@@ -3016,11 +2843,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "DEPARTMENT",
-              "POSITION",
-              "GROUP"
-            ]
+            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
           },
           "organization": {
             "$ref": "#/components/schemas/Organization"
@@ -3068,10 +2891,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "INACTIVE"
-            ]
+            "enum": ["ACTIVE", "INACTIVE"]
           },
           "mappings": {
             "type": "array",
@@ -3239,10 +3059,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "INACTIVE"
-            ]
+            "enum": ["ACTIVE", "INACTIVE"]
           }
         }
       }

@@ -17,9 +17,7 @@
   "paths": {
     "/notifications/notification-mark-as-read": {
       "post": {
-        "tags": [
-          "notification-controller"
-        ],
+        "tags": ["notification-controller"],
         "operationId": "changeNotificationState",
         "parameters": [
           {
@@ -41,9 +39,7 @@
     },
     "/notifications/filter": {
       "post": {
-        "tags": [
-          "notification-controller"
-        ],
+        "tags": ["notification-controller"],
         "operationId": "getNotifications",
         "requestBody": {
           "content": {
@@ -79,9 +75,7 @@
     },
     "/notifications/get-all": {
       "get": {
-        "tags": [
-          "notification-controller"
-        ],
+        "tags": ["notification-controller"],
         "operationId": "getAllNotifications",
         "parameters": [
           {
@@ -98,10 +92,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "EMAIL",
-                "WEB_BROWSER"
-              ]
+              "enum": ["EMAIL", "WEB_BROWSER"]
             }
           },
           {
@@ -145,10 +136,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "NEW",
-                "READ"
-              ]
+              "enum": ["NEW", "READ"]
             }
           },
           {
@@ -222,18 +210,11 @@
           },
           "channel": {
             "type": "string",
-            "enum": [
-              "SMS",
-              "EMAIL",
-              "PUSH"
-            ]
+            "enum": ["SMS", "EMAIL", "PUSH"]
           },
           "status": {
             "type": "string",
-            "enum": [
-              "NEW",
-              "READ"
-            ]
+            "enum": ["NEW", "READ"]
           },
           "userId": {
             "type": "string"
@@ -247,19 +228,11 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "EMAIL",
-              "WEB_BROWSER"
-            ]
+            "enum": ["EMAIL", "WEB_BROWSER"]
           },
           "areasOfUse": {
             "type": "string",
-            "enum": [
-              "PROCESS_TASKS",
-              "DOCUMENTS",
-              "CALENDAR_EVENTS",
-              "CHATS"
-            ]
+            "enum": ["PROCESS_TASKS", "DOCUMENTS", "CALENDAR_EVENTS", "CHATS"]
           }
         }
       },

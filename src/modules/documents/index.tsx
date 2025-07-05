@@ -13,4 +13,10 @@ export const documentsNavbarItem: NavbarItem = {
   icon: <Topic />,
   label: "Документооборот",
   value: "/cabinet/documents",
+  children: [
+    {
+      label: "Персонализированный календарь",
+      value: "/cabinet/calendar",
+    },
+  ],
 };

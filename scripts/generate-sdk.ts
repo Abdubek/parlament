@@ -1,29 +1,31 @@
-import fs from 'fs/promises';
-import path from 'path';
-import axios from 'axios';
-import {execSync} from "node:child_process";
+import fs from "fs/promises";
+import path from "path";
+import axios from "axios";
+import { execSync } from "node:child_process";
 
-const DIR = './src/shared/api'
+const DIR = "./src/shared/api";
 
-const schemaDir = DIR + '/schemas';
-const generatedDir = DIR + '/generated';
+const schemaDir = DIR + "/schemas";
+const generatedDir = DIR + "/generated";
 
 const urls = {
-  "auth": "https://api-parlament.paspay.kz/auth/v3/api-docs",
-  "calendar": "https://api-parlament.paspay.kz/calendar/v3/api-docs",
-  "chat": "https://api-parlament.paspay.kz/chat/v3/api-docs",
-  "classifier": "https://api-parlament.paspay.kz/classifier/v3/api-docs",
-  "deputy-request": "https://api-parlament.paspay.kz/deputy-request/v3/api-docs",
+  auth: "https://api-parlament.paspay.kz/auth/v3/api-docs",
+  calendar: "https://api-parlament.paspay.kz/calendar/v3/api-docs",
+  chat: "https://api-parlament.paspay.kz/chat/v3/api-docs",
+  classifier: "https://api-parlament.paspay.kz/classifier/v3/api-docs",
+  "deputy-request":
+    "https://api-parlament.paspay.kz/deputy-request/v3/api-docs",
   "file-template": "https://api-parlament.paspay.kz/file-template/v3/api-docs",
-  "files": "https://api-parlament.paspay.kz/files/v3/api-docs",
-  "instances": "https://api-parlament.paspay.kz/instances/v3/api-docs",
-  "knowledge": "https://api-parlament.paspay.kz/knowledge/v3/api-docs",
-  "notification": "https://api-parlament.paspay.kz/notification/v3/api-docs",
-  "onlyoffice-client": "https://api-parlament.paspay.kz/onlyoffice-client/v3/api-docs",
+  files: "https://api-parlament.paspay.kz/files/v3/api-docs",
+  instances: "https://api-parlament.paspay.kz/instances/v3/api-docs",
+  knowledge: "https://api-parlament.paspay.kz/knowledge/v3/api-docs",
+  notification: "https://api-parlament.paspay.kz/notification/v3/api-docs",
+  "onlyoffice-client":
+    "https://api-parlament.paspay.kz/onlyoffice-client/v3/api-docs",
   "rule-making": "https://api-parlament.paspay.kz/rule-making/v3/api-docs",
-  "task": "https://api-parlament.paspay.kz/task/v3/api-docs",
-  "user": "https://api-parlament.paspay.kz/user/v3/api-docs",
-}
+  task: "https://api-parlament.paspay.kz/task/v3/api-docs",
+  user: "https://api-parlament.paspay.kz/user/v3/api-docs",
+};
 
 async function downloadSchemas() {
   await fs.mkdir(schemaDir, { recursive: true });
@@ -38,14 +40,18 @@ async function downloadSchemas() {
   }
 }
 
-function cleanSecuritySchemes(schema: {  [key: string]: { [key: string]: object } }) {
+function cleanSecuritySchemes(schema: {
+  [key: string]: { [key: string]: object };
+}) {
   if (
     schema.components &&
     schema.components.securitySchemes &&
-    typeof schema.components.securitySchemes === 'object'
+    typeof schema.components.securitySchemes === "object"
   ) {
-    for (const [, scheme] of Object.entries(schema.components.securitySchemes)) {
-      if (scheme && scheme.type === 'http') {
+    for (const [, scheme] of Object.entries(
+      schema.components.securitySchemes,
+    )) {
+      if (scheme && scheme.type === "http") {
         delete scheme.name;
         delete scheme.in;
       }
@@ -61,7 +67,7 @@ async function generateOrvalConfig() {
 
   const content = `import { defineConfig, OutputClient } from 'orval';
 
-export default defineConfig({${entries.join(',')}
+export default defineConfig({${entries.join(",")}
 });
 
 function getConfig(input) {
@@ -127,8 +133,8 @@ function kebabToCamel(str) {
 }
 
     `;
-  await fs.writeFile('orval.config.ts', content);
-  console.log('🛠️ orval.config.ts generated');
+  await fs.writeFile("orval.config.ts", content);
+  console.log("🛠️ orval.config.ts generated");
 }
 
 async function generateApiMutators() {
@@ -156,15 +162,14 @@ function getApiMutator(prefix: string) {
       .then((response: AxiosResponse<T>) => response.data);
   };
 }
-${entries.join('\n')}
-  `
-  await fs.writeFile(DIR + '/api-mutators.ts', content);
-
+${entries.join("\n")}
+  `;
+  await fs.writeFile(DIR + "/api-mutators.ts", content);
 }
 
 async function runOrval() {
-  console.log('🚀 Running orval...');
-  execSync('npx orval', { stdio: 'inherit' });
+  console.log("🚀 Running orval...");
+  execSync("npx orval", { stdio: "inherit" });
 }
 
 async function main() {
@@ -175,7 +180,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.log(err)
+  console.log(err);
 });
 
 function kebabToCamel(str: string) {

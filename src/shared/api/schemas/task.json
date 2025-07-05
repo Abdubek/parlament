@@ -17,9 +17,7 @@
   "paths": {
     "/api/task/comment/{commentId}": {
       "put": {
-        "tags": [
-          "task-comment-controller"
-        ],
+        "tags": ["task-comment-controller"],
         "summary": "Обновление комментария",
         "operationId": "updateComment",
         "parameters": [
@@ -57,9 +55,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "task-comment-controller"
-        ],
+        "tags": ["task-comment-controller"],
         "summary": "Удаление комментария",
         "operationId": "deleteComment",
         "parameters": [
@@ -89,9 +85,7 @@
     },
     "/api/tasks/{uuid}/update": {
       "post": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Редактирование задачи",
         "operationId": "updateTask",
         "parameters": [
@@ -134,18 +128,14 @@
     },
     "/api/tasks/create": {
       "post": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Создание задачи с загрузкой файлов",
         "operationId": "createTask",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "task"
-                ],
+                "required": ["task"],
                 "type": "object",
                 "properties": {
                   "task": {
@@ -179,9 +169,7 @@
     },
     "/api/tasks/attach-file/{taskId}": {
       "post": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Прикрепить файл",
         "operationId": "attachFileToTask",
         "parameters": [
@@ -226,9 +214,7 @@
     },
     "/api/task/comment": {
       "post": {
-        "tags": [
-          "task-comment-controller"
-        ],
+        "tags": ["task-comment-controller"],
         "summary": "Создание коммента к задаче",
         "operationId": "createComment",
         "requestBody": {
@@ -257,9 +243,7 @@
     },
     "/api/tasks": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получить все задачи",
         "operationId": "findAllTasks",
         "parameters": [
@@ -295,12 +279,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "TASK",
-                "PROCESS_TASK",
-                "CRM_TASK",
-                "DOCUMENT_FLOW_TASK"
-              ]
+              "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
             }
           },
           {
@@ -346,9 +325,7 @@
     },
     "/api/tasks/{uuid}": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получить задачу по UUID",
         "operationId": "getById",
         "parameters": [
@@ -378,9 +355,7 @@
     },
     "/api/tasks/{uuid}/child": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получение всех подзадач по UUID",
         "operationId": "getAllChildTasks",
         "parameters": [
@@ -413,9 +388,7 @@
     },
     "/api/tasks/{taskId}/attachments": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получение всех файлов в таске",
         "operationId": "getTaskAttachments",
         "parameters": [
@@ -448,9 +421,7 @@
     },
     "/api/tasks/my": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получение задач которых исполнителем или соучастником являюсь (Под кем авторизовался)",
         "operationId": "getAllTasksWhereAssigneeToMe",
         "parameters": [
@@ -486,12 +457,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "TASK",
-                "PROCESS_TASK",
-                "CRM_TASK",
-                "DOCUMENT_FLOW_TASK"
-              ]
+              "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
             }
           },
           {
@@ -563,9 +529,7 @@
     },
     "/api/tasks/control": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получение задач которые находятся под моим контролем (Под кем авторизовался)",
         "operationId": "getTasksAllInMyControl",
         "parameters": [
@@ -601,12 +565,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "TASK",
-                "PROCESS_TASK",
-                "CRM_TASK",
-                "DOCUMENT_FLOW_TASK"
-              ]
+              "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
             }
           },
           {
@@ -678,9 +637,7 @@
     },
     "/api/tasks/by-number/{taskNumber}": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получить задачу по taskNumber",
         "operationId": "getByTaskNumber",
         "parameters": [
@@ -710,9 +667,7 @@
     },
     "/api/tasks/by-chatId/{uuid}": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получить задачу по chatId",
         "operationId": "getByChatId",
         "parameters": [
@@ -745,9 +700,7 @@
     },
     "/api/tasks/author": {
       "get": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Получение задач которых автором являюсь (Под кем авторизовался)",
         "operationId": "getAllTasksWhereAuthorMe",
         "parameters": [
@@ -783,12 +736,7 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "TASK",
-                "PROCESS_TASK",
-                "CRM_TASK",
-                "DOCUMENT_FLOW_TASK"
-              ]
+              "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
             }
           },
           {
@@ -860,9 +808,7 @@
     },
     "/api/task/comment/{taskId}": {
       "get": {
-        "tags": [
-          "task-comment-controller"
-        ],
+        "tags": ["task-comment-controller"],
         "summary": "Список всех комментов по taskId",
         "operationId": "getAllByTaskId",
         "parameters": [
@@ -895,9 +841,7 @@
     },
     "/api/analytic/tasks": {
       "get": {
-        "tags": [
-          "task-analytic-controller"
-        ],
+        "tags": ["task-analytic-controller"],
         "summary": "Cтатистика для Исполнительская дисциплина (Под кем авторизовался)",
         "operationId": "getMyTasksAnalytics",
         "responses": {
@@ -916,9 +860,7 @@
     },
     "/api/analytic/department": {
       "get": {
-        "tags": [
-          "task-analytic-controller"
-        ],
+        "tags": ["task-analytic-controller"],
         "summary": "Получение всех задач в департаменте (Раздел Аналитика)",
         "operationId": "getAllTasksInDepartment",
         "parameters": [
@@ -973,9 +915,7 @@
     },
     "/api/analytic/department-tasks": {
       "get": {
-        "tags": [
-          "task-analytic-controller"
-        ],
+        "tags": ["task-analytic-controller"],
         "summary": "Cтатистика для Исполнительская дисциплина моего отдела",
         "operationId": "getDepartmentTaskStatistics",
         "responses": {
@@ -994,9 +934,7 @@
     },
     "/api/tasks/{uuid}/delete": {
       "delete": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Удаление задачи по UUID",
         "operationId": "delete",
         "parameters": [
@@ -1026,9 +964,7 @@
     },
     "/api/tasks/{taskId}/attachments/{attachmentId}": {
       "delete": {
-        "tags": [
-          "task-controller"
-        ],
+        "tags": ["task-controller"],
         "summary": "Удаление файла с задачи",
         "operationId": "deleteTaskAttachment",
         "parameters": [
@@ -1117,12 +1053,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "BLOCKED",
-              "CLOSED",
-              "ARCHIVE"
-            ]
+            "enum": ["ACTIVE", "BLOCKED", "CLOSED", "ARCHIVE"]
           },
           "workPhoneNumber": {
             "type": "string"
@@ -1256,11 +1187,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "ACTIVE",
-              "CLOSED",
-              "BLOCKED"
-            ]
+            "enum": ["ACTIVE", "CLOSED", "BLOCKED"]
           },
           "position": {
             "$ref": "#/components/schemas/OrgStructureDto"
@@ -1368,12 +1295,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "TASK",
-              "PROCESS_TASK",
-              "CRM_TASK",
-              "DOCUMENT_FLOW_TASK"
-            ]
+            "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
           },
           "status": {
             "type": "string",
@@ -1464,11 +1386,7 @@
           },
           "repeatFrequency": {
             "type": "string",
-            "enum": [
-              "EVERY_WORKDAY",
-              "WEEKLY",
-              "MONTHLY"
-            ]
+            "enum": ["EVERY_WORKDAY", "WEEKLY", "MONTHLY"]
           },
           "repeatStartDate": {
             "type": "string",
@@ -1490,12 +1408,7 @@
           },
           "type": {
             "type": "string",
-            "enum": [
-              "TASK",
-              "PROCESS_TASK",
-              "CRM_TASK",
-              "DOCUMENT_FLOW_TASK"
-            ]
+            "enum": ["TASK", "PROCESS_TASK", "CRM_TASK", "DOCUMENT_FLOW_TASK"]
           },
           "assigneeId": {
             "type": "string",
@@ -1568,11 +1481,7 @@
           },
           "repeatFrequency": {
             "type": "string",
-            "enum": [
-              "EVERY_WORKDAY",
-              "WEEKLY",
-              "MONTHLY"
-            ]
+            "enum": ["EVERY_WORKDAY", "WEEKLY", "MONTHLY"]
           },
           "repeatStartDate": {
             "type": "string",

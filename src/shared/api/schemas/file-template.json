@@ -17,9 +17,7 @@
   "paths": {
     "/template/upload-template": {
       "post": {
-        "tags": [
-          "doc-template-controller"
-        ],
+        "tags": ["doc-template-controller"],
         "summary": "Создать шаблон",
         "description": "Создать шаблон",
         "operationId": "uploadTemplate",
@@ -27,10 +25,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "file",
-                  "request"
-                ],
+                "required": ["file", "request"],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -71,9 +66,7 @@
     },
     "/api/v1/generate/event-plan": {
       "post": {
-        "tags": [
-          "document-creation-controller"
-        ],
+        "tags": ["document-creation-controller"],
         "summary": "Сгенерировать файл",
         "description": "Выполнить генерацию файла",
         "operationId": "processBatch",
@@ -120,9 +113,7 @@
     },
     "/api/v1/bill/parse": {
       "post": {
-        "tags": [
-          "bill-controller"
-        ],
+        "tags": ["bill-controller"],
         "summary": "Загрузить документ законопроекта для парсирования",
         "description": "Парсировать документ законопроекта",
         "operationId": "parseBill",
@@ -130,9 +121,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": [
-                  "file"
-                ],
+                "required": ["file"],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -170,9 +159,7 @@
     },
     "/api/v1/document/file-in-period": {
       "get": {
-        "tags": [
-          "document-extraction-controller"
-        ],
+        "tags": ["document-extraction-controller"],
         "summary": "Получить ссылку для скачивания сгенерированного файла",
         "description": "Получить ссылку для скачивания сгенерированного файла",
         "operationId": "isFileInDateRange",
@@ -257,10 +244,7 @@
           },
           "documentType": {
             "type": "string",
-            "enum": [
-              "TEMPLATE",
-              "FILE"
-            ]
+            "enum": ["TEMPLATE", "FILE"]
           },
           "version": {
             "type": "integer",
@@ -319,10 +303,7 @@
           "language": {
             "type": "string",
             "description": "Язык документа",
-            "enum": [
-              "RU",
-              "KK"
-            ]
+            "enum": ["RU", "KK"]
           },
           "documentId": {
             "type": "string",

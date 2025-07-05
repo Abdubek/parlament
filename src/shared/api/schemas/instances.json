@@ -17,9 +17,7 @@
   "paths": {
     "/api/v1/categories": {
       "post": {
-        "tags": [
-          "category-controller"
-        ],
+        "tags": ["category-controller"],
         "operationId": "create",
         "requestBody": {
           "content": {
@@ -47,9 +45,7 @@
     },
     "/api/v1/business-entity": {
       "get": {
-        "tags": [
-          "business-entity-controller"
-        ],
+        "tags": ["business-entity-controller"],
         "operationId": "getInstances",
         "parameters": [
           {
@@ -80,9 +76,7 @@
         }
       },
       "post": {
-        "tags": [
-          "business-entity-controller"
-        ],
+        "tags": ["business-entity-controller"],
         "operationId": "createBusinessEntity",
         "requestBody": {
           "content": {
@@ -110,9 +104,7 @@
     },
     "/api/v1/business-entity/{id}/attributes": {
       "post": {
-        "tags": [
-          "business-entity-controller"
-        ],
+        "tags": ["business-entity-controller"],
         "operationId": "updateAttributesOfEntity",
         "parameters": [
           {
@@ -151,9 +143,7 @@
     },
     "/api/v1/categories/{id}/subcategories": {
       "get": {
-        "tags": [
-          "category-controller"
-        ],
+        "tags": ["category-controller"],
         "operationId": "getSubCategories",
         "parameters": [
           {
@@ -185,9 +175,7 @@
     },
     "/api/v1/categories/root": {
       "get": {
-        "tags": [
-          "category-controller"
-        ],
+        "tags": ["category-controller"],
         "operationId": "getRoot",
         "responses": {
           "200": {
@@ -208,9 +196,7 @@
     },
     "/api/v1/business-entity/{id}": {
       "get": {
-        "tags": [
-          "business-entity-controller"
-        ],
+        "tags": ["business-entity-controller"],
         "operationId": "getBusinessEntity",
         "parameters": [
           {
@@ -367,11 +353,7 @@
           },
           "operation": {
             "type": "string",
-            "enum": [
-              "CREATE",
-              "UPDATE",
-              "DELETE"
-            ]
+            "enum": ["CREATE", "UPDATE", "DELETE"]
           }
         }
       },

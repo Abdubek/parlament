@@ -22,5 +22,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["scripts", "rsbuild.config.ts"],
+  "include": ["scripts", "rsbuild.config.ts"]
 }
