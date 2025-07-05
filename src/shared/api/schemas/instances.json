@@ -1,0 +1,398 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Business-Instance-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/instances"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/v1/categories": {
+      "post": {
+        "tags": [
+          "category-controller"
+        ],
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/business-entity": {
+      "get": {
+        "tags": [
+          "business-entity-controller"
+        ],
+        "operationId": "getInstances",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "description": "Идентификатор категории",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BusinessEntityResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "business-entity-controller"
+        ],
+        "operationId": "createBusinessEntity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BusinessEntityRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessEntityResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/business-entity/{id}/attributes": {
+      "post": {
+        "tags": [
+          "business-entity-controller"
+        ],
+        "operationId": "updateAttributesOfEntity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BusinessEntityAttributeRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessEntityResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/categories/{id}/subcategories": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "operationId": "getSubCategories",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/categories/root": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "operationId": "getRoot",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/business-entity/{id}": {
+      "get": {
+        "tags": [
+          "business-entity-controller"
+        ],
+        "operationId": "getBusinessEntity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessEntityResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CategoryRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Наименование категории"
+          },
+          "parentId": {
+            "type": "integer",
+            "description": "Родительская категория(необязательно)",
+            "format": "int64"
+          }
+        }
+      },
+      "CategoryResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор категории",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование категории"
+          },
+          "hasSubCategories": {
+            "type": "boolean",
+            "description": "Имеет ли подкатегории?"
+          }
+        }
+      },
+      "BusinessEntityRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Отображаемое имя"
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "Идентификатор категории",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание"
+          }
+        }
+      },
+      "BusinessEntityAttributeResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор атрибута",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string",
+            "description": "Название атрибута"
+          },
+          "type": {
+            "type": "string",
+            "description": "Тип атрибута",
+            "enum": [
+              "STRING",
+              "TEXT",
+              "INTEGER",
+              "DECIMAL",
+              "BOOLEAN",
+              "DATETIME",
+              "FILE",
+              "DROPDOWN"
+            ]
+          }
+        }
+      },
+      "BusinessEntityResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessEntityAttributeResponse"
+            }
+          }
+        }
+      },
+      "Attribute": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "defaultValue": {
+            "type": "string"
+          },
+          "attributeType": {
+            "type": "string",
+            "enum": [
+              "STRING",
+              "TEXT",
+              "INTEGER",
+              "DECIMAL",
+              "BOOLEAN",
+              "DATETIME",
+              "FILE",
+              "DROPDOWN"
+            ]
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "CREATE",
+              "UPDATE",
+              "DELETE"
+            ]
+          }
+        }
+      },
+      "BusinessEntityAttributeRequestDto": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Attribute"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

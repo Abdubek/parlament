@@ -1,0 +1,2994 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Classifier-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/classifier"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "ClassifierAttribute",
+      "description": "Контроллер для работы с атрибутами справочников"
+    },
+    {
+      "name": "ClassifierType",
+      "description": "Контроллер для работы с типами справочников"
+    },
+    {
+      "name": "ClassifierRow",
+      "description": "Контроллер для работы с записями справочников"
+    },
+    {
+      "name": "ClassifierRowImportExport",
+      "description": "Контроллер для работы с импортом и экспортом записей"
+    },
+    {
+      "name": "ClassifierReader",
+      "description": "Контроллер для плоского чтения справочников"
+    },
+    {
+      "name": "ClassifierCategory",
+      "description": "Контроллер для работы с видами справочников"
+    },
+    {
+      "name": "Classifier",
+      "description": "Контроллер для работы со справочниками"
+    }
+  ],
+  "paths": {
+    "/api/v1/classifier/mark-restore/{classifierId}": {
+      "put": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Восстановить удаленный Класс",
+        "operationId": "markRestore",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier/mark-delete/{classifierId}": {
+      "put": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Пометить классификатор удаленным",
+        "operationId": "markDelete",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier/mark-active/{classifierId}": {
+      "put": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Пометить классификатор актуальным или Не актуальным",
+        "operationId": "markActive",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "Признак активности",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/mark-restore/{classifierRowId}": {
+      "put": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Пометить активным",
+        "operationId": "markRestore_1",
+        "parameters": [
+          {
+            "name": "classifierRowId",
+            "in": "path",
+            "description": "ID записи",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/mark-end-date/{classifierRowId}/{endDate}": {
+      "put": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Проставить дату окончания записи",
+        "operationId": "markEndDate",
+        "parameters": [
+          {
+            "name": "classifierRowId",
+            "in": "path",
+            "description": "ID записи",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "path",
+            "description": "Дата окончания",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/mark-delete/{classifierRowId}": {
+      "put": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Пометить удаленным",
+        "operationId": "markDelete_1",
+        "parameters": [
+          {
+            "name": "classifierRowId",
+            "in": "path",
+            "description": "ID записи",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row-import/header/{classifierId}": {
+      "put": {
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
+        "description": "Импорт записей справочника",
+        "operationId": "getCsvHeader",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "delimiter",
+            "in": "query",
+            "description": "Разделитель",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ";"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "CSV файл",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClassifierAttributeDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/classifier": {
+      "get": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Постарничный запрос классификаторов",
+        "operationId": "classifiers",
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "classifierId:ASC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Создание и редактирование классификатора",
+        "operationId": "saveClassifier",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-type": {
+      "get": {
+        "tags": [
+          "ClassifierType"
+        ],
+        "description": "Постарничный запрос типов справочников",
+        "operationId": "classifierTypes",
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierTypeId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "classifierTypeId:ASC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierTypeDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ClassifierType"
+        ],
+        "description": "Сохранить тип справочника",
+        "operationId": "saveClassifierType",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierTypeRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row": {
+      "get": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Постарничный запрос записей справочников",
+        "operationId": "classifierRows",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "query",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classifierRowParentId",
+            "in": "query",
+            "description": "ID родительской записи",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierRowDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Сохранение и редактирование записи справочника",
+        "operationId": "saveClassifierRow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierRowRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row-import/upload/{classifierId}": {
+      "post": {
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
+        "description": "Импорт записей справочника",
+        "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "delimiter",
+            "in": "query",
+            "description": "Разделитель",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ";"
+            }
+          },
+          {
+            "name": "importType",
+            "in": "query",
+            "description": "Тип загрузки",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ADD",
+                "CLEAN_ADD",
+                "SYNC_ADD"
+              ]
+            }
+          },
+          {
+            "name": "encoding",
+            "in": "query",
+            "description": "Кодировка",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "US_ASCII",
+                "ISO_8859_1",
+                "UTF_8",
+                "UTF_16BE",
+                "UTF_16LE",
+                "UTF_16"
+              ]
+            }
+          },
+          {
+            "name": "primaryKey",
+            "in": "query",
+            "description": "Уникальный ключ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "foreignKey",
+            "in": "query",
+            "description": "Родительский ключ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "CSV файл",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/classifier-row-import/upload/xml/{classifierId}": {
+      "post": {
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
+        "description": "Импорт записей справочника из XML",
+        "operationId": "uploadFile_1",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "importType",
+            "in": "query",
+            "description": "Тип загрузки",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ADD",
+                "CLEAN_ADD",
+                "SYNC_ADD"
+              ]
+            }
+          },
+          {
+            "name": "primaryKey",
+            "in": "query",
+            "description": "Уникальный ключ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "foreignKey",
+            "in": "query",
+            "description": "Родительский ключ",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "XML файл",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/classifier-flatten/simple/rows/by-multiple-request-list": {
+      "post": {
+        "tags": [
+          "ClassifierReader"
+        ],
+        "description": "Запрос всех записей по кодам классификаторов",
+        "operationId": "simpleRowsByClassifierCodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierFlattenMultipleRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ClassifierFlattenRowDto"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-flatten/rows/by-multiple-request-list": {
+      "post": {
+        "tags": [
+          "ClassifierReader"
+        ],
+        "description": "Запрос всех записей по кодам классификаторов",
+        "operationId": "rowsByClassifierCodes",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierFlattenMultipleRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ClassifierFlattenRowDto"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-category": {
+      "get": {
+        "tags": [
+          "ClassifierCategory"
+        ],
+        "description": "Постарничный запрос видов справочников",
+        "operationId": "classifierCategories",
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierCategoryId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "classifierCategoryId:ASC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierCategoryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ClassifierCategory"
+        ],
+        "description": "Сохранить вид справочника",
+        "operationId": "saveClassifierCategory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierCategoryRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-attribute": {
+      "post": {
+        "tags": [
+          "ClassifierAttribute"
+        ],
+        "description": "Создание и редактирование атрибута",
+        "operationId": "saveClassifierAttribute",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassifierAttributesRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier/{classifierId}": {
+      "get": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Запрос одного классификатора",
+        "operationId": "getByClassifierId",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Физическое удаление классификатора",
+        "operationId": "deleteClassifier",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier/byCode/{code}": {
+      "get": {
+        "tags": [
+          "Classifier"
+        ],
+        "description": "Запрос одного классификатора по коду",
+        "operationId": "getByClassifierCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "description": "Код классификатора",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-type/{classifierTypeId}": {
+      "get": {
+        "tags": [
+          "ClassifierType"
+        ],
+        "description": "Получить один тип справочника",
+        "operationId": "getByClassifierTypeId",
+        "parameters": [
+          {
+            "name": "classifierTypeId",
+            "in": "path",
+            "description": "ID типа справочника",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierTypeDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ClassifierType"
+        ],
+        "description": "Физически удалить тип справочника",
+        "operationId": "deleteClassifierType",
+        "parameters": [
+          {
+            "name": "classifierTypeId",
+            "in": "path",
+            "description": "ID типа справочника",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/by-attribute-id-and-attribute-value": {
+      "get": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Постарничный запрос записей по атрибуту и значению",
+        "operationId": "classifierRowsByAttributeIdAndValue",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "query",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classifierAttributeId",
+            "in": "query",
+            "description": "ID атрибута",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "classifierAttributeValue",
+            "in": "query",
+            "description": "Значение атрибута",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierRowDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/all": {
+      "get": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Постарничный запрос записей справочников",
+        "operationId": "searchAllClassifierRows",
+        "parameters": [
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "sortRule",
+            "in": "query",
+            "description": "Правила сортировки (Пример: classifierId:ASC, nameRu:DESC)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomPageClassifierRowAttributeDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row-import/export/{classifierId}": {
+      "get": {
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
+        "operationId": "exportIntoCSV",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "delimiter",
+            "in": "query",
+            "description": "Разделитель",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ";"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "byte"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer Authentication": []
+          }
+        ]
+      }
+    },
+    "/api/v1/classifier-flatten/{classifierCode}": {
+      "get": {
+        "tags": [
+          "ClassifierReader"
+        ],
+        "description": "Запрос классификатора по коду",
+        "operationId": "classifier",
+        "parameters": [
+          {
+            "name": "classifierCode",
+            "in": "path",
+            "description": "Код классификатора",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isUsed",
+            "in": "query",
+            "description": "Признак использования сторонней системой",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-flatten/{classifierCode}/rows": {
+      "get": {
+        "tags": [
+          "ClassifierReader"
+        ],
+        "description": "Запрос всех записей по коду классификатора",
+        "operationId": "classifierByCode",
+        "parameters": [
+          {
+            "name": "classifierCode",
+            "in": "path",
+            "description": "Код классификатора",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "showFull",
+            "in": "query",
+            "description": "Показать все",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "searchText",
+            "in": "query",
+            "description": "Текст поиска",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер страницы",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Количество записей на странице",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 100
+            }
+          },
+          {
+            "name": "isUsed",
+            "in": "query",
+            "description": "Признак использования сторонней системой",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Фильтр",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClassifierFlattenRowDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-flatten/{classifierCode}/rows/{classifierRowCode}": {
+      "get": {
+        "tags": [
+          "ClassifierReader"
+        ],
+        "description": "Запрос одной записи по коду классификатора и коду записи",
+        "operationId": "classifierByCode_1",
+        "parameters": [
+          {
+            "name": "classifierCode",
+            "in": "path",
+            "description": "Код классификатора",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "classifierRowCode",
+            "in": "path",
+            "description": "Код записи",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isUsed",
+            "in": "query",
+            "description": "Признак использования сторонней системой",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierFlattenRowDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-category/{classifierCategoryId}": {
+      "get": {
+        "tags": [
+          "ClassifierCategory"
+        ],
+        "description": "Получить один вид справочника",
+        "operationId": "getClassifierCategoryDtoById",
+        "parameters": [
+          {
+            "name": "classifierCategoryId",
+            "in": "path",
+            "description": "ID вида справочника",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierCategoryDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ClassifierCategory"
+        ],
+        "description": "Физически удалить вид справочника",
+        "operationId": "deleteClassifierCategory",
+        "parameters": [
+          {
+            "name": "classifierCategoryId",
+            "in": "path",
+            "description": "ID вида справочника",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-attribute/{classifierAttributeId}": {
+      "get": {
+        "tags": [
+          "ClassifierAttribute"
+        ],
+        "description": "Получить атрибут",
+        "operationId": "getByClassifierAttributeId",
+        "parameters": [
+          {
+            "name": "classifierAttributeId",
+            "in": "path",
+            "description": "ID атрибута",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassifierAttributeDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ClassifierAttribute"
+        ],
+        "description": "Физическое удаление атрибута",
+        "operationId": "deleteClassifierAttribute",
+        "parameters": [
+          {
+            "name": "classifierAttributeId",
+            "in": "path",
+            "description": "ID атрибута",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-attribute/attributes/{classifierId}": {
+      "get": {
+        "tags": [
+          "ClassifierAttribute"
+        ],
+        "description": "Получить список атрибутов по ИД классификатора",
+        "operationId": "classifierAttributes",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID классификатора",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClassifierAttributeDto"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/deleteAll/{classifierId}": {
+      "delete": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Физическое удаление всех записей справочника",
+        "operationId": "deleteAllClassifierRows",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-row/delete/{classifierRowId}": {
+      "delete": {
+        "tags": [
+          "ClassifierRow"
+        ],
+        "description": "Физическое удаление записи",
+        "operationId": "deleteClassifierRows",
+        "parameters": [
+          {
+            "name": "classifierRowId",
+            "in": "path",
+            "description": "ID записи",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classifier-attribute/deleteAll/{classifierId}": {
+      "delete": {
+        "tags": [
+          "ClassifierAttribute"
+        ],
+        "description": "Физическое удаление всех атрибутов справочника",
+        "operationId": "deleteAllClassifierAttribute",
+        "parameters": [
+          {
+            "name": "classifierId",
+            "in": "path",
+            "description": "ID Класса",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      },
+      "ClassifierAttributeDto": {
+        "type": "object",
+        "properties": {
+          "classifierId": {
+            "type": "integer",
+            "description": "ID класса",
+            "format": "int64"
+          },
+          "classifierAttributeId": {
+            "type": "integer",
+            "description": "ИД атрибута",
+            "format": "int64"
+          },
+          "descriptionKz": {
+            "type": "string",
+            "description": "Описание на казахском"
+          },
+          "descriptionRu": {
+            "type": "string",
+            "description": "Описание на русском"
+          },
+          "descriptionEn": {
+            "type": "string",
+            "description": "Описание на английском"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Тип данных",
+            "enum": [
+              "INT",
+              "STRING",
+              "DATE"
+            ]
+          },
+          "isUnique": {
+            "type": "boolean",
+            "description": "Признак уникальности"
+          },
+          "contentMask": {
+            "type": "string",
+            "description": "Маска значения (регулярные выражения)"
+          },
+          "minContentLength": {
+            "type": "integer",
+            "description": "Минимальная длина значения",
+            "format": "int32"
+          },
+          "maxContentLength": {
+            "type": "integer",
+            "description": "Максимальная длина значения",
+            "format": "int32"
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Признак уникальности"
+          },
+          "wxfId": {
+            "type": "string",
+            "description": "Исторический ИД"
+          },
+          "wxfCreatedAt": {
+            "type": "string",
+            "description": "Исторический Дата создания",
+            "format": "date-time"
+          },
+          "wxfDictionaryId": {
+            "type": "string",
+            "description": "Исторический ИД Класса"
+          },
+          "wxfEaiasKey": {
+            "type": "string",
+            "description": "Исторический EaiasKey"
+          },
+          "wxfModifyDate": {
+            "type": "string",
+            "description": "Исторический Дата изменения",
+            "format": "date-time"
+          },
+          "wxfStatus": {
+            "type": "string",
+            "description": "Исторический Статус"
+          }
+        }
+      },
+      "ClassifierRequestDto": {
+        "required": [
+          "classifierCategoryId",
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
+        "type": "object",
+        "properties": {
+          "classifierId": {
+            "type": "integer",
+            "description": "ID",
+            "format": "int64"
+          },
+          "classifierCategoryId": {
+            "type": "integer",
+            "description": "Вид класса",
+            "format": "int64"
+          },
+          "classifierTypeId": {
+            "type": "integer",
+            "description": "Тип класса",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на каз"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на рус"
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Наименование на англ"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание"
+          },
+          "isHierarchy": {
+            "type": "boolean",
+            "description": "Признак иерархичности"
+          },
+          "withLinksAttributes": {
+            "type": "boolean",
+            "description": "Признак наличия ссылочных атрибутов"
+          }
+        }
+      },
+      "ClassifierDto": {
+        "type": "object",
+        "properties": {
+          "classifierId": {
+            "type": "integer",
+            "description": "ИД классификатора",
+            "format": "int64"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Признак удаления"
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "Признак активности"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time"
+          },
+          "finishedAt": {
+            "type": "string",
+            "description": "Дата завершения",
+            "format": "date-time"
+          },
+          "classifierCategoryId": {
+            "type": "integer",
+            "description": "Вид класса",
+            "format": "int64"
+          },
+          "classifierTypeId": {
+            "type": "integer",
+            "description": "Тип класса",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на каз"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на рус"
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Наименование на англ"
+          },
+          "description": {
+            "type": "string",
+            "description": "Описание"
+          },
+          "isHierarchy": {
+            "type": "boolean",
+            "description": "Признак иерархичности"
+          },
+          "withLinksAttributes": {
+            "type": "boolean",
+            "description": "Признак наличия ссылочных атрибутов"
+          },
+          "isUsed": {
+            "type": "boolean",
+            "description": "Признак использования"
+          },
+          "userName": {
+            "type": "string",
+            "description": "Пользователь"
+          },
+          "hisId": {
+            "type": "string",
+            "description": "Исторический ИД"
+          },
+          "hisCode": {
+            "type": "string",
+            "description": "Исторический код"
+          },
+          "hisCreatedAt": {
+            "type": "string",
+            "description": "Исторический Дата создания",
+            "format": "date-time"
+          },
+          "hisEnabled": {
+            "type": "boolean",
+            "description": "Исторический Статус активности"
+          },
+          "version": {
+            "type": "integer",
+            "description": "Версия",
+            "format": "int32"
+          }
+        }
+      },
+      "ClassifierTypeRequestDto": {
+        "required": [
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
+        "type": "object",
+        "properties": {
+          "classifierTypeId": {
+            "type": "integer",
+            "description": "ID",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском"
+          }
+        }
+      },
+      "ClassifierAttributeValueRequestDto": {
+        "type": "object",
+        "properties": {
+          "classifierAttributeId": {
+            "type": "integer",
+            "description": "ИД атрибута",
+            "format": "int64"
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение записи"
+          }
+        },
+        "description": "Список значений"
+      },
+      "ClassifierRowRequestDto": {
+        "required": [
+          "classifierId",
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "classifierId": {
+            "type": "integer",
+            "description": "ИД классификатора",
+            "format": "int64"
+          },
+          "classifierRowId": {
+            "type": "integer",
+            "description": "ИД записи классификатора",
+            "format": "int64"
+          },
+          "classifierRowParentId": {
+            "type": "integer",
+            "description": "ИД родительской записи",
+            "format": "int64"
+          },
+          "values": {
+            "type": "array",
+            "description": "Список значений",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierAttributeValueRequestDto"
+            }
+          }
+        }
+      },
+      "ClassifierFlattenFilterDto": {
+        "type": "object",
+        "properties": {
+          "filterField": {
+            "type": "string"
+          },
+          "filterValue": {
+            "type": "object"
+          },
+          "filterList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierFlattenFilterDto"
+            }
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "AND",
+              "OR",
+              "EQUALS",
+              "NOT_EQUALS",
+              "IN"
+            ]
+          }
+        }
+      },
+      "ClassifierFlattenMultipleRequestDto": {
+        "type": "object",
+        "properties": {
+          "requestList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierFlattenRequestDto"
+            }
+          }
+        }
+      },
+      "ClassifierFlattenRequestDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "showFull": {
+            "type": "boolean"
+          },
+          "filter": {
+            "$ref": "#/components/schemas/ClassifierFlattenFilterDto"
+          }
+        }
+      },
+      "ClassifierFlattenRowDto": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
+      "ClassifierCategoryRequestDto": {
+        "required": [
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
+        "type": "object",
+        "properties": {
+          "classifierCategoryId": {
+            "type": "integer",
+            "description": "ID",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском"
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Наименование на английском"
+          }
+        }
+      },
+      "ClassifierAttributeRequestDto": {
+        "required": [
+          "code",
+          "dataType",
+          "maxContentLength"
+        ],
+        "type": "object",
+        "properties": {
+          "classifierAttributeId": {
+            "type": "integer",
+            "description": "ИД атрибута",
+            "format": "int64"
+          },
+          "classifierId": {
+            "type": "integer",
+            "description": "ИД классификатора",
+            "format": "int64"
+          },
+          "descriptionKz": {
+            "type": "string",
+            "description": "Описание на казахском"
+          },
+          "descriptionRu": {
+            "type": "string",
+            "description": "Описание на русском"
+          },
+          "descriptionEn": {
+            "type": "string",
+            "description": "Описание на английском"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "dataType": {
+            "type": "string",
+            "description": "Тип данных",
+            "enum": [
+              "INT",
+              "STRING",
+              "DATE"
+            ]
+          },
+          "isUnique": {
+            "type": "boolean",
+            "description": "Признак уникальности"
+          },
+          "contentMask": {
+            "type": "string",
+            "description": "Маска значения (регулярные выражения)"
+          },
+          "maxContentLength": {
+            "type": "integer",
+            "description": "Максимальная длина значения",
+            "format": "int32"
+          },
+          "minContentLength": {
+            "type": "integer",
+            "description": "Минимальная длина значения",
+            "format": "int32"
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Признак уникальности"
+          }
+        },
+        "description": "Список атрибутов"
+      },
+      "ClassifierAttributesRequestDto": {
+        "type": "object",
+        "properties": {
+          "classifierId": {
+            "type": "integer",
+            "description": "ID Класса",
+            "format": "int64"
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Список атрибутов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierAttributeRequestDto"
+            }
+          }
+        }
+      },
+      "CustomPageClassifierDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "description": "Общее количество записей по запросу",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Количество страниц",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "description": "Список элементов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierDto"
+            }
+          }
+        }
+      },
+      "ClassifierTypeDto": {
+        "type": "object",
+        "properties": {
+          "classifierTypeId": {
+            "type": "integer",
+            "description": "ИД типа справочника",
+            "format": "int64"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "description": "Дата изменения",
+            "format": "date-time"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ИД пользователя",
+            "format": "uuid"
+          },
+          "userName": {
+            "type": "string",
+            "description": "Пользователь"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Признак удаления"
+          }
+        },
+        "description": "Список элементов"
+      },
+      "CustomPageClassifierTypeDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "description": "Общее количество записей по запросу",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Количество страниц",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "description": "Список элементов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierTypeDto"
+            }
+          }
+        }
+      },
+      "ClassifierAttributeValue": {
+        "type": "object",
+        "properties": {
+          "classifierAttributeValueId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "classifierId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "classifierRowId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "classifierAttributeId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "description": "Значения утрибутов"
+      },
+      "ClassifierRowDto": {
+        "type": "object",
+        "properties": {
+          "classifierRowId": {
+            "type": "integer",
+            "description": "ИД записи",
+            "format": "int64"
+          },
+          "classifierRowParentId": {
+            "type": "integer",
+            "description": "ИД родительской записи",
+            "format": "int64"
+          },
+          "classifierId": {
+            "type": "integer",
+            "description": "ИД классификатора",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time"
+          },
+          "finishedAt": {
+            "type": "string",
+            "description": "Дата завершения",
+            "format": "date-time"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Признак удаления"
+          },
+          "beginDate": {
+            "type": "string",
+            "description": "Дата начала действия",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "description": "Дата окончания действия",
+            "format": "date"
+          },
+          "values": {
+            "type": "array",
+            "description": "Значения утрибутов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierAttributeValue"
+            }
+          },
+          "userName": {
+            "type": "string",
+            "description": "Пользователь"
+          },
+          "isChildrenExist": {
+            "type": "boolean",
+            "description": "Наличие дочерних элементов"
+          },
+          "version": {
+            "type": "integer",
+            "description": "Версия",
+            "format": "int32"
+          },
+          "classifierRowParentVersionId": {
+            "type": "integer",
+            "description": "ИД родительской записи по версии",
+            "format": "int64"
+          }
+        },
+        "description": "Список элементов"
+      },
+      "CustomPageClassifierRowDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "description": "Общее количество записей по запросу",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Количество страниц",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "description": "Список элементов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierRowDto"
+            }
+          }
+        }
+      },
+      "ClassifierRowAttributeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ИД классификатора",
+            "format": "int64"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на каз"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на рус"
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Наименование на англ"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Атрибуты со значением",
+            "items": {
+              "$ref": "#/components/schemas/RowAttributeDto"
+            }
+          }
+        },
+        "description": "Список элементов"
+      },
+      "CustomPageClassifierRowAttributeDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "description": "Общее количество записей по запросу",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Количество страниц",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "description": "Список элементов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierRowAttributeDto"
+            }
+          }
+        }
+      },
+      "RowAttributeDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "ИД атрибута",
+            "format": "int64"
+          },
+          "descriptionKz": {
+            "type": "string",
+            "description": "Описание на казахском"
+          },
+          "descriptionRu": {
+            "type": "string",
+            "description": "Описание на русском"
+          },
+          "descriptionEn": {
+            "type": "string",
+            "description": "Описание на английском"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "value": {
+            "type": "string",
+            "description": "Значение атрибута"
+          }
+        },
+        "description": "Атрибуты со значением"
+      },
+      "ClassifierCategoryDto": {
+        "type": "object",
+        "properties": {
+          "classifierCategoryId": {
+            "type": "integer",
+            "description": "ИД вида справочника",
+            "format": "int64"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском"
+          },
+          "nameEn": {
+            "type": "string",
+            "description": "Наименование на английском"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "description": "Дата изменения",
+            "format": "date-time"
+          },
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "userId": {
+            "type": "string",
+            "description": "ИД пользователя",
+            "format": "uuid"
+          },
+          "userName": {
+            "type": "string",
+            "description": "Пользователь"
+          },
+          "isDeleted": {
+            "type": "boolean",
+            "description": "Признак удаления"
+          }
+        },
+        "description": "Список элементов"
+      },
+      "CustomPageClassifierCategoryDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "description": "Общее количество записей по запросу",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Количество страниц",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "description": "Список элементов",
+            "items": {
+              "$ref": "#/components/schemas/ClassifierCategoryDto"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

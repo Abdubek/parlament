@@ -1,0 +1,2316 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Chat-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/chat"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/messages/{messageId}/edit": {
+      "put": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Изменение сообщения по messageId",
+        "operationId": "editMessage",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "content",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/update": {
+      "put": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Обновление чата",
+        "operationId": "update",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "privacy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PUBLIC",
+                "PRIVATE"
+              ]
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PERSONAL",
+                "GROUP",
+                "GENERAL",
+                "CHANNEL"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "permission": {
+                    "$ref": "#/components/schemas/ChatPermissionRequest"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/{participantId}": {
+      "post": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Изменение роли участника чата",
+        "operationId": "changeParticipantRole",
+        "parameters": [
+          {
+            "name": "participantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "OWNER",
+                "ADMIN",
+                "PARTICIPANT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatParticipantDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/subscribe": {
+      "post": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Подписка на канал",
+        "operationId": "subscribeToChannel",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatParticipantDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/add/{chatId}/users": {
+      "post": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Добавление пользователей в чат",
+        "operationId": "addUsersToChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatParticipantDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/add/{chatId}/owners": {
+      "post": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Добавление владельцев в чат",
+        "operationId": "addOwnersToChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatParticipantDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/add/{chatId}/admins": {
+      "post": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Добавление администраторов в чат",
+        "operationId": "addAdminsToChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatParticipantDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/{messageId}/pin": {
+      "post": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Закрепление сообщения или открепление",
+        "operationId": "pinMessage",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pin",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/{messageId}/favorite": {
+      "post": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Добавление сообщения в избранное или удаление из избранного",
+        "operationId": "addToFavorite",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "favorite",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/message/status/{chatId}/read": {
+      "post": {
+        "tags": [
+          "message-read-status-controller"
+        ],
+        "summary": "Отметить сообщения в чате прочитанными для авторизованного пользователя по chatId",
+        "operationId": "readMessages",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/status": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Изменение статуса чата",
+        "operationId": "updateStatus",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "ARCHIVED",
+                "HIDDEN"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/hidden": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Скрытие чата для авторизованного пользователя",
+        "operationId": "hideChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/pin": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Изменение статуса закрепления чата",
+        "operationId": "updatePinStatus",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/create": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Создание общего чата",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "chat"
+                ],
+                "type": "object",
+                "properties": {
+                  "chat": {
+                    "$ref": "#/components/schemas/ChatRequest"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/create/single": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Создание персонального чата",
+        "operationId": "create_1",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/create/channel": {
+      "post": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Создание общего канала",
+        "operationId": "createChannel",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "chat"
+                ],
+                "type": "object",
+                "properties": {
+                  "chat": {
+                    "$ref": "#/components/schemas/ChatRequest"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachments": {
+      "post": {
+        "tags": [
+          "file-attachment-controller"
+        ],
+        "summary": "Загрузка файлов для отправки сообщения",
+        "operationId": "uploadFile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "files"
+                ],
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FileDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/{chatId}": {
+      "get": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Получение всех участников по chatId",
+        "operationId": "getAllParticipants",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatParticipantDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/{chatId}/exit": {
+      "get": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Выход из чата самостоятельно",
+        "operationId": "exitFromTheChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/messages/{chatId}/pinned": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение закрепленных сообщений чата",
+        "operationId": "getPinnedMessages",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageWrapper"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/{chatId}/favorite": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение избранных сообщений чата",
+        "operationId": "getFavoriteMessages",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageWrapper"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/search/{chatId}": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Расширенный поиск по ключевым словам, отправителям и дате",
+        "operationId": "getAllMessagesByAdvancedSearch",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "message",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatMessageShortDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/favorite": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение избранных сообщений пользователя",
+        "operationId": "getFavoriteMessagesByUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatMessageDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/draft": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение сообщения черновика, если оно есть",
+        "operationId": "getDraftMessage",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/chat": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение всех сообщений чата по chatId",
+        "operationId": "getAllMessages",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageWrapper"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/messages/chat/open": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Получение всех сообщений открытого чата по chatId",
+        "operationId": "getAllMessagesByOpenChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 100
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageWrapper"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/message/status/unread": {
+      "get": {
+        "tags": [
+          "message-read-status-controller"
+        ],
+        "summary": "Получение списка непрочитанных сообщений",
+        "operationId": "getUnreadMessageForUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UnreadMessagesPerChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/message/status/read/all": {
+      "get": {
+        "tags": [
+          "message-read-status-controller"
+        ],
+        "summary": "Отметить все сообщения в чатах прочитанными для авторизованного пользователя",
+        "operationId": "readAllMessages",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/links": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение всех ссылок чата",
+        "operationId": "getChatLinks",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatMessageLinkDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/search": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Поиск каналов по имени",
+        "operationId": "searchChatByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/get": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение всех чатов (Сортирован по закрепленным чатам)",
+        "operationId": "getAllChats",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "ARCHIVED",
+                "HIDDEN"
+              ],
+              "default": "ACTIVE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/get/{chatId}": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение чата по chatId",
+        "operationId": "getChatById",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/get/channels": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение всех каналов (Сортирован по закрепленным чатам)",
+        "operationId": "getAllChannels",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/get/business": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение всех чатов по бизнес процессу (Сортирован по закрепленным чатам)",
+        "operationId": "getAllBusinessProcessChats",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACTIVE",
+                "ARCHIVED",
+                "HIDDEN"
+              ],
+              "default": "ACTIVE"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/check": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Проверка есть ли чат с пользователем",
+        "operationId": "checkHasChatWithUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat/channels/available": {
+      "get": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Получение всех открытых каналов, в которых пользователь не состоит",
+        "operationId": "getAllChannelsWhereUserNotIn",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachments/{fileId}": {
+      "get": {
+        "tags": [
+          "file-attachment-controller"
+        ],
+        "operationId": "downloadFile",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachments/{chatId}/media": {
+      "get": {
+        "tags": [
+          "file-attachment-controller"
+        ],
+        "summary": "Получение всех медиафайлов чата по chatId",
+        "operationId": "getAllChatMedias",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChatFileAttachmentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/participants/delete/{chatId}/users": {
+      "delete": {
+        "tags": [
+          "chat-participant-controller"
+        ],
+        "summary": "Удаление пользователей из чата",
+        "operationId": "deleteUsersFromChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/messages/delete": {
+      "delete": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "Удаление сообщений",
+        "operationId": "deleteMessage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/delete": {
+      "delete": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Удаление чата",
+        "operationId": "deleteChat",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/chat/{chatId}/avatar/delete": {
+      "delete": {
+        "tags": [
+          "chat-controller"
+        ],
+        "summary": "Удаление аватарки чата",
+        "operationId": "deleteChatAvatar",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ChatDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "ARCHIVED",
+              "HIDDEN"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "PERSONAL",
+              "GROUP",
+              "GENERAL",
+              "CHANNEL"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          },
+          "chatPrivacy": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "PRIVATE"
+            ]
+          },
+          "lastMessageAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastMessage": {
+            "$ref": "#/components/schemas/ChatMessageDto"
+          },
+          "whoCanAddMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanRemoveMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanChangeAppearance": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanSendMessages": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
+          "isBusinessProcessChat": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChatFileAttachmentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "fileId": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ChatMessageDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "chat": {
+            "$ref": "#/components/schemas/ChatDto"
+          },
+          "sender": {
+            "$ref": "#/components/schemas/UserClientDto"
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SENT",
+              "DELIVERED",
+              "READ",
+              "DRAFT"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatFileAttachmentDto"
+            }
+          },
+          "repliedMessage": {
+            "$ref": "#/components/schemas/ChatMessageDto"
+          },
+          "forwardedMessage": {
+            "$ref": "#/components/schemas/ChatMessageDto"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
+          "isEdited": {
+            "type": "boolean"
+          },
+          "isPinned": {
+            "type": "boolean"
+          },
+          "isRepliedMessage": {
+            "type": "boolean"
+          },
+          "isForwardedMessage": {
+            "type": "boolean"
+          },
+          "isFavorite": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OrgStructureDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          }
+        }
+      },
+      "PersonalAffairClientDto": {
+        "type": "object",
+        "properties": {
+          "workEmail": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CLOSED",
+              "ARCHIVE"
+            ]
+          },
+          "workPhoneNumber": {
+            "type": "string"
+          },
+          "officeNumber": {
+            "type": "string"
+          },
+          "mobilePhoneNumber": {
+            "type": "string"
+          },
+          "homePhoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "UserClientDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "iin": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "personalAffair": {
+            "$ref": "#/components/schemas/PersonalAffairClientDto"
+          },
+          "ldapUsername": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "CLOSED",
+              "BLOCKED"
+            ]
+          },
+          "position": {
+            "$ref": "#/components/schemas/OrgStructureDto"
+          },
+          "department": {
+            "$ref": "#/components/schemas/OrgStructureDto"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "workEmail": {
+            "type": "string"
+          },
+          "workPhoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "ChatPermissionRequest": {
+        "type": "object",
+        "properties": {
+          "whoCanAddMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanRemoveMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanChangeAppearance": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanSendMessages": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          }
+        }
+      },
+      "ChatParticipantDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "chat": {
+            "$ref": "#/components/schemas/ChatDto"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserClientDto"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "ADMIN",
+              "PARTICIPANT"
+            ]
+          },
+          "pinned": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "online": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChatRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "PERSONAL",
+              "GROUP",
+              "GENERAL",
+              "CHANNEL"
+            ]
+          },
+          "privacy": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "PRIVATE"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "participantsIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "administratorsIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "whoCanAddMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanRemoveMembers": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanChangeAppearance": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "whoCanSendMessages": {
+            "type": "string",
+            "enum": [
+              "OWNER",
+              "OWNER_AND_ADMINS",
+              "EVERYONE"
+            ]
+          },
+          "isBusinessProcessChat": {
+            "type": "boolean"
+          }
+        }
+      },
+      "FileDto": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "ChatMessageWrapper": {
+        "type": "object",
+        "properties": {
+          "chat": {
+            "$ref": "#/components/schemas/ChatDto"
+          },
+          "messages": {
+            "$ref": "#/components/schemas/PageChatMessageDto"
+          }
+        }
+      },
+      "PageChatMessageDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChatMessageShortDto": {
+        "type": "object",
+        "properties": {
+          "messagesId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userName": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "rowIndex": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UnreadMessagesPerChatDto": {
+        "type": "object",
+        "properties": {
+          "chat": {
+            "$ref": "#/components/schemas/ChatDto"
+          },
+          "unreadCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ChatMessageLinkDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

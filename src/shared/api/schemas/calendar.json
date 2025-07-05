@@ -1,0 +1,2614 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Calendar-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/calendar"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Booking API",
+      "description": "API для работы с бронями"
+    },
+    {
+      "name": "Group API",
+      "description": "API для работы с группами"
+    },
+    {
+      "name": "Committee API",
+      "description": "API для работы с комитетами"
+    },
+    {
+      "name": "Booking API",
+      "description": "API для работы с файлами"
+    },
+    {
+      "name": "Event API",
+      "description": "API для работы с событиями"
+    },
+    {
+      "name": "Types API",
+      "description": "API для получения списков"
+    },
+    {
+      "name": "Meeting API",
+      "description": "API для залов заседания"
+    },
+    {
+      "name": "Event settings API",
+      "description": "API для работы с настройками событий"
+    }
+  ],
+  "paths": {
+    "/api/groups/delete-user": {
+      "post": {
+        "tags": [
+          "Group API"
+        ],
+        "summary": "Удалить пользователя из группы",
+        "description": "Удаляет указанного пользователя из группы.",
+        "operationId": "deleteFromGroup",
+        "requestBody": {
+          "description": "Данные для удаления участника",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupParticipantRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно удалён",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Группа или пользователь не найдены",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/groups/create": {
+      "post": {
+        "tags": [
+          "Group API"
+        ],
+        "summary": "Создать новую группу",
+        "description": "Создаёт новую группу на основе переданных данных.",
+        "operationId": "createGroup",
+        "requestBody": {
+          "description": "Данные для создания группы",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Группа успешно создана",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/groups/add-user": {
+      "post": {
+        "tags": [
+          "Group API"
+        ],
+        "summary": "Добавить пользователя в группу",
+        "description": "Добавляет пользователя в указанную группу.",
+        "operationId": "addToGroup",
+        "requestBody": {
+          "description": "Данные для добавления участника",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GroupParticipantRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Пользователь успешно добавлен",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Группа или пользователь не найдены",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/unsubscribe": {
+      "post": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Отписка от события",
+        "description": "Отписывает пользователя от события",
+        "operationId": "unsubscribe",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/{eventId}/subscribe": {
+      "post": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Подписка на событие",
+        "description": "Подписывает пользователя на событие",
+        "operationId": "subscribe",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешно",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/settings/set-notify-time-before": {
+      "post": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Установить время уведомления перед событием",
+        "description": "Устанавливает время в миллисекундах, за которое участник события будет уведомлен перед его началом.",
+        "operationId": "setNotifyTimeBefore",
+        "requestBody": {
+          "description": "Запрос с идентификатором пользователя и временем уведомления",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NotifyTimeBeforeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Уведомление успешно настроено",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные параметры запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/settings/set-access-for-calendar": {
+      "post": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Предоставить доступ к календарю",
+        "description": "Добавляет участника, которому будет предоставлен доступ к календарю основного пользователя.",
+        "operationId": "setAccessFor",
+        "requestBody": {
+          "description": "Запрос с идентификатором пользователя и идентификатором участника для предоставления доступа",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessForCalendarRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Доступ успешно предоставлен",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные параметры запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/settings/delete-access-for-calendar": {
+      "post": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Удалить доступ к календарю",
+        "description": "Удаляет ранее предоставленный доступ к календарю для указанного участника.",
+        "operationId": "deleteAccessFor",
+        "requestBody": {
+          "description": "Запрос с идентификатором пользователя и идентификатором участника для удаления доступа",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessForCalendarRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Доступ успешно удален",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные параметры запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/create": {
+      "post": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Создание события",
+        "description": "Создает новое событие на основе предоставленных данных.\nПоле \"calendarType\":\n    PERSONAL,\n    WORKING_GROUP,\n    EVENT_PLAN,\n    OCCUPANCY_MEETING_ROOM,\n    DEPARTMENT,\n    COMPANY;\nПоле \"repeatability\":\n    NOT_REPEATABLE,\n    EVERY_DAY,\n    EVERY_WEEK,\n    EVERY_MONTH,\n    EVERY_YEAR;\n",
+        "operationId": "createEvent",
+        "requestBody": {
+          "description": "DTO события для создания",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "event"
+                ],
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Событие успешно создано",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/by-participants": {
+      "post": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение всех cобытий по участникам",
+        "description": "Возвращает список событий участников.",
+        "operationId": "getByParticipants",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/accept-invitation": {
+      "post": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Подтверждение приглашения по событию",
+        "description": "Обработка согласия/отказа пользователя на приглашение по событию\nПоле \"busyness\":\n    BUSY (занят, отказ от приглашения),\n    IN_QUESTION (под вопросом, подумает еще, приглашение в силе),\n    FREE (свободен, приглашение принято);\n",
+        "operationId": "acceptInvitation",
+        "requestBody": {
+          "description": "DTO requestBody",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EventInvitationSettingsDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Подтверждение успешно сохранено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Событие не найдено",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/check-availability": {
+      "post": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Проверка доступности комнат для бронирования",
+        "operationId": "checkRoomAvailability",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/RoomBookingRequestDto"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachment/files/remove": {
+      "post": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Удаление файлов пачкой по fileUUID",
+        "operationId": "removeFiles",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/events/update/{id}": {
+      "patch": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Обновление события",
+        "description": "Обновляет существующее событие на основе предоставленных данных.",
+        "operationId": "updateEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "DTO события для обновления",
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "event"
+                ],
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Событие успешно обновлено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Событие не найдено",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/publish": {
+      "patch": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Опубликовать события",
+        "description": "Опубликовать события, после проверки",
+        "operationId": "publishUpcomingEvents",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAZHILIS_WORK_PLAN",
+                "SENATE_WEEK_PLAN",
+                "MAZHILIS_MAIN_PLAN",
+                "MEETINGS_WITH_CITIZENS"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "PLANNED",
+                "ACTIVE",
+                "COMPLETED",
+                "CANCELED",
+                "DELAYED",
+                "DRAFT",
+                "ARCHIVED",
+                "CONFIRMED"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "События были опубликованы",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет прав на опубликование событий"
+          },
+          "404": {
+            "description": "Опубликование событий не выполнено"
+          }
+        }
+      }
+    },
+    "/api/bookings/{bookingId}/cancel": {
+      "patch": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Отмена бронирования",
+        "description": "Отменяет бронирование, если запрос исходит от автора события",
+        "operationId": "cancelBooking",
+        "parameters": [
+          {
+            "name": "bookingId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Бронирование отменено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDTO"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет прав на отмену",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Бронирование не найдено",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/repeatability": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Получение типов повторяемости",
+        "description": "Возвращает список всех доступных типов повторяемости",
+        "operationId": "getEventRepeatability",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/range": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "operationId": "getRange",
+        "parameters": [
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UPCOMING_WEEK",
+                "WEEK",
+                "MONTH",
+                "SCHEDULE",
+                "DAY",
+                "SESSION"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DateRange"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/parliament": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Получение типов палат парламента",
+        "description": "Возвращает список всех доступных палат парламента с их названием",
+        "operationId": "getParliamentTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "MAZHILIS",
+                    "SENATE"
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/event": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Получение типов событий",
+        "description": "Возвращает список всех доступных типов событий с их названиями и цветами",
+        "operationId": "getEventTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventTypeDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/committee": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "operationId": "getCommitteeTypes",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAZHILIS",
+                "SENATE"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/calendar": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Получение типов календаря",
+        "description": "Возвращает список всех доступных типов календаря",
+        "operationId": "getCalendarTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meeting/rooms": {
+      "get": {
+        "tags": [
+          "Meeting API"
+        ],
+        "summary": "Получение списка залов заседания",
+        "description": "Возвращает список всех доступных залов заседаний с их местоположениями",
+        "operationId": "getAllMeetingRooms",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeetingRoomDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeetingRoomDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/meeting/rooms/available": {
+      "get": {
+        "tags": [
+          "Meeting API"
+        ],
+        "summary": "Получение доступных переговорных комнат по вместимости",
+        "description": "Возвращает список доступных переговорных комнат, подходящих по вместимости",
+        "operationId": "getAvailableRooms",
+        "parameters": [
+          {
+            "name": "peopleCount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeetingRoomDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректный запрос",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeetingRoomDTO"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeetingRoomDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/groups": {
+      "get": {
+        "tags": [
+          "Group API"
+        ],
+        "summary": "Получить все группы",
+        "description": "Возвращает список всех групп с их идентификаторами и названиями.",
+        "operationId": "getAllGroups",
+        "responses": {
+          "200": {
+            "description": "Успешно возвращен список групп",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GroupDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение всех событий",
+        "description": "Возвращает список всех созданных событий.",
+        "operationId": "getAllEvents",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "creatorName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "eventName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Обязательный параметр \"type\":\n    PERSONAL,\n    WORKING_GROUP,\n    EVENT_PLAN,\n    OCCUPANCY_MEETING_ROOM,\n    DEPARTMENT,\n    COMPANY.\nНеобязательный параметр \"userId\":\nв основных случаях он будет заполняться,\nно если будут использоваться поиск по имени то userId можно не заполнять.\nНеобязательный параметр \"role\":\n    CREATOR (создатель),\n    PARTICIPANT (участник, то есть принял приглашение),\n    INVITED (приглашения),\n    DECLINED (отказ).\nНеобязательные параметры \"creatorName\", \"groupName\", \"eventName\":\nпоиск по имени создателя, названию группы, названию события.\nВ случае отсутствия параметра, будет \"создатель\" и участник по умолчанию\nНеобязательные параметры \"startDate\", \"endDate\":\nпример \"2025-02-05T00:00:00\"\nПо умолчанию выбирается диапазон в год\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/{id}": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение события по ID",
+        "description": "Возвращает событие по его уникальному идентификатору.",
+        "operationId": "getEventById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "UUID события",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Событие не найдено",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/types": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение типов событий",
+        "description": "Возвращает список всех доступных типов событий с их названиями и цветами",
+        "operationId": "getEventTypes_1",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventTypeDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/events/settings/get-personal-calendar-users/{mainUserId}": {
+      "get": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Получение списка юзеров у которых есть доступ к личному календарю main юзера",
+        "description": "на вход нужно отправить id текущего юзера",
+        "operationId": "getPersonalCalendarUsers",
+        "parameters": [
+          {
+            "name": "mainUserId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/settings/get-participant-by-id/{id}": {
+      "get": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Получение данных по партисипанту ивента",
+        "operationId": "getParticipantById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParticipantDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/settings/get-group-calendar-users/{mainUserGroupId}": {
+      "get": {
+        "tags": [
+          "Event settings API"
+        ],
+        "summary": "Получение списка юзеров у которых есть доступ к гупповому календарю main юзера",
+        "description": "на вход нужно отправить групповой id текущего юзера",
+        "operationId": "getGroupCalendarUsers",
+        "parameters": [
+          {
+            "name": "mainUserGroupId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/invitations/{userId}": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение приглашений участники",
+        "description": "Возвращает список приглашения участника, которые он не принял и не отказался от них.",
+        "operationId": "getInvitations",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventInvitationSettingsDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventInvitationSettingsDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/group": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение всех групповых событий",
+        "description": "Возвращает список всех созданных групповых событий.",
+        "operationId": "getAllGroupEvents",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDTO"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/find-by-room/{roomId}": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Поиск событий по комнате",
+        "description": "Возвращает список всех событий, связанных с указанной комнатой за определённый период.",
+        "operationId": "findEventByRooms",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UPCOMING_WEEK",
+                "WEEK",
+                "MONTH",
+                "SCHEDULE",
+                "DAY",
+                "SESSION"
+              ],
+              "default": "SESSION"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDTO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос. Проверьте параметры.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Комната не найдена.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/events/files/{fileId}": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Скачивания файла по fileUUID",
+        "operationId": "downloadFile",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/api/events/by-chatId/{chatId}": {
+      "get": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Получение всех cобытий по chatId",
+        "operationId": "getListByChatId",
+        "parameters": [
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/committee/filter-list": {
+      "get": {
+        "tags": [
+          "Committee API"
+        ],
+        "operationId": "getFilterList",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAZHILIS_WORK_PLAN",
+                "SENATE_WEEK_PLAN",
+                "MAZHILIS_MAIN_PLAN",
+                "MEETINGS_WITH_CITIZENS"
+              ]
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UPCOMING_WEEK",
+                "WEEK",
+                "MONTH",
+                "SCHEDULE",
+                "DAY",
+                "SESSION"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionDatesDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/committee/events": {
+      "get": {
+        "tags": [
+          "Committee API"
+        ],
+        "operationId": "getEvents",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAZHILIS_WORK_PLAN",
+                "SENATE_WEEK_PLAN",
+                "MAZHILIS_MAIN_PLAN",
+                "MEETINGS_WITH_CITIZENS"
+              ]
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UPCOMING_WEEK",
+                "WEEK",
+                "MONTH",
+                "SCHEDULE",
+                "DAY",
+                "SESSION"
+              ]
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/bookings/{roomId}/slots": {
+      "get": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Получение занятых слотов по промежутку дат, по текщему дню, текущей неделе, текущему месяцу и расписания от сегоднешнего дня и на пол года вперед. Ключевые слова DAY, WEEK, MONTH, SCHEDULE",
+        "description": "Возвращает список занятых временных интервалов для указанной комнаты. Принимает диапазон дат или ключевое слово и отдает занятые интервалы по этим датам. Так же принимает вместо диапазона period DAY, WEEK, MONTH и отдает соответственно занятость по сегодняшнему дню, текущей неделе или месяцу",
+        "operationId": "getRoomBookings",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UPCOMING_WEEK",
+                "WEEK",
+                "MONTH",
+                "SCHEDULE",
+                "DAY",
+                "SESSION"
+              ],
+              "default": "DAY"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BookingSlotDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректный запрос",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingSlotDto"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BookingSlotDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachment/files/{fileId}": {
+      "get": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Скачивания файла по fileUUID",
+        "operationId": "downloadFile_1",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachment/files/remove/{fileId}": {
+      "get": {
+        "tags": [
+          "Booking API"
+        ],
+        "summary": "Удаление файла по fileUUID",
+        "operationId": "removeFile",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/events/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Event API"
+        ],
+        "summary": "Удаление события (Смена статуса на CANCELED)",
+        "description": "Удаляет событие по его уникальному идентификатору (UUID).",
+        "operationId": "deleteEvent",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Событие успешно удалено.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Событие не найдено.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GroupParticipantRequest": {
+        "type": "object",
+        "properties": {
+          "group_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "participant_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "BaseResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "GroupDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "GroupResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "group": {
+            "$ref": "#/components/schemas/GroupDTO"
+          }
+        }
+      },
+      "NotifyTimeBeforeRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "time": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "AccessForCalendarRequest": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "access_user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "EnumTypeDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке"
+          }
+        },
+        "description": "Тип (перечисление)"
+      },
+      "EventAttachmentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "file_name": {
+            "type": "string"
+          },
+          "file_url": {
+            "type": "string"
+          },
+          "file_uuid": {
+            "type": "string"
+          }
+        },
+        "readOnly": true
+      },
+      "EventDTO": {
+        "required": [
+          "creator_id",
+          "date_time",
+          "end_time",
+          "event_type_code",
+          "meeting_room_id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID события (генерируется сервером)",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "group_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "chat_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "creator_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "notify_creator": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "group_name": {
+            "type": "string",
+            "readOnly": true
+          },
+          "location": {
+            "type": "string",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "description": "Текущий статус события",
+            "enum": [
+              "PLANNED",
+              "ACTIVE",
+              "COMPLETED",
+              "CANCELED",
+              "DELAYED",
+              "DRAFT",
+              "ARCHIVED",
+              "CONFIRMED",
+              "PLANNED",
+              "ACTIVE",
+              "COMPLETED",
+              "CANCELED",
+              "DELAYED",
+              "DRAFT",
+              "ARCHIVED"
+            ],
+            "default": "DRAFT"
+          },
+          "meeting_room_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_type_code": {
+            "type": "string",
+            "description": "Тип события",
+            "enum": [
+              "MAZHILIS_WORK_PLAN",
+              "SENATE_WEEK_PLAN",
+              "MAZHILIS_MAIN_PLAN",
+              "MEETINGS_WITH_CITIZENS"
+            ],
+            "default": "MAZHILIS_WORK_PLAN"
+          },
+          "calendar_type": {
+            "type": "string",
+            "description": "Тип календаря",
+            "enum": [
+              "PERSONAL",
+              "WORKING_GROUP",
+              "EVENT_PLAN",
+              "OCCUPANCY_MEETING_ROOM",
+              "DEPARTMENT",
+              "COMPANY",
+              "PERSONAL",
+              "WORKING_GROUP",
+              "EVENT_PLAN",
+              "OCCUPANCY_MEETING_ROOM",
+              "DEPARTMENT",
+              "COMPANY"
+            ],
+            "default": "EVENT_PLAN"
+          },
+          "repeatability": {
+            "type": "string",
+            "readOnly": true,
+            "enum": [
+              "NOT_REPEATABLE",
+              "EVERY_DAY",
+              "EVERY_WEEK",
+              "EVERY_MONTH",
+              "EVERY_YEAR"
+            ]
+          },
+          "color": {
+            "type": "string",
+            "readOnly": true
+          },
+          "event_attachments": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/EventAttachmentDto"
+            }
+          },
+          "subscribers": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/SubscriberDTO"
+            }
+          },
+          "files_to_delete": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "type": "string",
+              "readOnly": true
+            }
+          },
+          "notify_date_times": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "type": "string",
+              "format": "date-time",
+              "readOnly": true
+            }
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ParticipantDTO"
+            }
+          },
+          "attachment_urls": {
+            "type": "array",
+            "readOnly": true,
+            "items": {
+              "type": "string",
+              "readOnly": true
+            }
+          },
+          "participant_count": {
+            "type": "integer",
+            "description": "Количество участников события",
+            "format": "int32"
+          },
+          "date_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "committee": {
+            "$ref": "#/components/schemas/EnumTypeDto"
+          }
+        }
+      },
+      "EventResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "event": {
+            "$ref": "#/components/schemas/EventDTO"
+          }
+        }
+      },
+      "ParticipantDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "busyness": {
+            "type": "string",
+            "enum": [
+              "NOT_SET",
+              "BUSY",
+              "IN_QUESTION",
+              "FREE"
+            ]
+          },
+          "invite_description": {
+            "type": "string"
+          },
+          "notify_time_before": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "SubscriberDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "readOnly": true
+      },
+      "EventInvitationSettingsDTO": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "busyness": {
+            "type": "string",
+            "enum": [
+              "NOT_SET",
+              "BUSY",
+              "IN_QUESTION",
+              "FREE"
+            ]
+          },
+          "event_name": {
+            "type": "string"
+          },
+          "invite_description": {
+            "type": "string"
+          }
+        }
+      },
+      "RoomBookingRequestDto": {
+        "type": "object",
+        "properties": {
+          "meetingRoomId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "BookingDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "event_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "meeting_room_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "DateRange": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "EventTypeDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "MeetingRoomDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "floor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "office_number": {
+            "type": "string"
+          },
+          "number_of_seats": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UserDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "full_name": {
+            "type": "string"
+          }
+        }
+      },
+      "SessionDatesDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "BookingSlotDto": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,0 +1,399 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "File-Template-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/file-template"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/template/upload-template": {
+      "post": {
+        "tags": [
+          "doc-template-controller"
+        ],
+        "summary": "Создать шаблон",
+        "description": "Создать шаблон",
+        "operationId": "uploadTemplate",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file",
+                  "request"
+                ],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/TemplateDto"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocTemplateDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/generate/event-plan": {
+      "post": {
+        "tags": [
+          "document-creation-controller"
+        ],
+        "summary": "Сгенерировать файл",
+        "description": "Выполнить генерацию файла",
+        "operationId": "processBatch",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAIN_PLAN",
+                "EVENT_PLAN",
+                "EVENT_PLAN_UPCOMING_WEEK",
+                "COMPARISON_TABLE",
+                "CONCLUSION"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/bill/parse": {
+      "post": {
+        "tags": [
+          "bill-controller"
+        ],
+        "summary": "Загрузить документ законопроекта для парсирования",
+        "description": "Парсировать документ законопроекта",
+        "operationId": "parseBill",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/document/file-in-period": {
+      "get": {
+        "tags": [
+          "document-extraction-controller"
+        ],
+        "summary": "Получить ссылку для скачивания сгенерированного файла",
+        "description": "Получить ссылку для скачивания сгенерированного файла",
+        "operationId": "isFileInDateRange",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MAIN_PLAN",
+                "EVENT_PLAN",
+                "EVENT_PLAN_UPCOMING_WEEK",
+                "COMPARISON_TABLE",
+                "CONCLUSION"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DocTemplateDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKz": {
+            "type": "string"
+          },
+          "parentFolderId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "documentType": {
+            "type": "string",
+            "enum": [
+              "TEMPLATE",
+              "FILE"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "PLANNED",
+              "SUBMITTED",
+              "IN_REVIEW",
+              "APPROVED",
+              "REJECTED",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileDto"
+          }
+        },
+        "description": "Документ"
+      },
+      "FileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "path": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bucket": {
+            "type": "string"
+          }
+        },
+        "description": "Bucket"
+      },
+      "TemplateDto": {
+        "type": "object",
+        "properties": {
+          "nameRu": {
+            "type": "string",
+            "description": "Название (на русском языке)"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название (на казахском языке)"
+          },
+          "language": {
+            "type": "string",
+            "description": "Язык документа",
+            "enum": [
+              "RU",
+              "KK"
+            ]
+          },
+          "documentId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          }
+        },
+        "description": "Документ"
+      },
+      "FileResponseDto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "BillDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "laws": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LawsDto"
+            }
+          }
+        }
+      },
+      "LawsDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "articleInfo": {
+            "type": "string"
+          },
+          "points": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Points"
+            }
+          }
+        }
+      },
+      "Points": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

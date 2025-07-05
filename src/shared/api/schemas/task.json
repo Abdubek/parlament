@@ -1,0 +1,1780 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Task-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/task"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/task/comment/{commentId}": {
+      "put": {
+        "tags": [
+          "task-comment-controller"
+        ],
+        "summary": "Обновление комментария",
+        "operationId": "updateComment",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCommentDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "task-comment-controller"
+        ],
+        "summary": "Удаление комментария",
+        "operationId": "deleteComment",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{uuid}/update": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Редактирование задачи",
+        "operationId": "updateTask",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/create": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Создание задачи с загрузкой файлов",
+        "operationId": "createTask",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "task"
+                ],
+                "type": "object",
+                "properties": {
+                  "task": {
+                    "$ref": "#/components/schemas/TaskRequest"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/attach-file/{taskId}": {
+      "post": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Прикрепить файл",
+        "operationId": "attachFileToTask",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskAttachmentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/task/comment": {
+      "post": {
+        "tags": [
+          "task-comment-controller"
+        ],
+        "summary": "Создание коммента к задаче",
+        "operationId": "createComment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskCommentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получить все задачи",
+        "operationId": "findAllTasks",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TASK",
+                "PROCESS_TASK",
+                "CRM_TASK",
+                "DOCUMENT_FLOW_TASK"
+              ]
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "assigneeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseTaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{uuid}": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получить задачу по UUID",
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{uuid}/child": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получение всех подзадач по UUID",
+        "operationId": "getAllChildTasks",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}/attachments": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получение всех файлов в таске",
+        "operationId": "getTaskAttachments",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskAttachmentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/my": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получение задач которых исполнителем или соучастником являюсь (Под кем авторизовался)",
+        "operationId": "getAllTasksWhereAssigneeToMe",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TASK",
+                "PROCESS_TASK",
+                "CRM_TASK",
+                "DOCUMENT_FLOW_TASK"
+              ]
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "assigneeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/control": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получение задач которые находятся под моим контролем (Под кем авторизовался)",
+        "operationId": "getTasksAllInMyControl",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TASK",
+                "PROCESS_TASK",
+                "CRM_TASK",
+                "DOCUMENT_FLOW_TASK"
+              ]
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "assigneeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/by-number/{taskNumber}": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получить задачу по taskNumber",
+        "operationId": "getByTaskNumber",
+        "parameters": [
+          {
+            "name": "taskNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/by-chatId/{uuid}": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получить задачу по chatId",
+        "operationId": "getByChatId",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/author": {
+      "get": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Получение задач которых автором являюсь (Под кем авторизовался)",
+        "operationId": "getAllTasksWhereAuthorMe",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "TASK",
+                "PROCESS_TASK",
+                "CRM_TASK",
+                "DOCUMENT_FLOW_TASK"
+              ]
+            }
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "assigneeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/task/comment/{taskId}": {
+      "get": {
+        "tags": [
+          "task-comment-controller"
+        ],
+        "summary": "Список всех комментов по taskId",
+        "operationId": "getAllByTaskId",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TaskCommentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/analytic/tasks": {
+      "get": {
+        "tags": [
+          "task-analytic-controller"
+        ],
+        "summary": "Cтатистика для Исполнительская дисциплина (Под кем авторизовался)",
+        "operationId": "getMyTasksAnalytics",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskAnalyticsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/analytic/department": {
+      "get": {
+        "tags": [
+          "task-analytic-controller"
+        ],
+        "summary": "Получение всех задач в департаменте (Раздел Аналитика)",
+        "operationId": "getAllTasksInDepartment",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageTaskDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/analytic/department-tasks": {
+      "get": {
+        "tags": [
+          "task-analytic-controller"
+        ],
+        "summary": "Cтатистика для Исполнительская дисциплина моего отдела",
+        "operationId": "getDepartmentTaskStatistics",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskAnalyticsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{uuid}/delete": {
+      "delete": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Удаление задачи по UUID",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}/attachments/{attachmentId}": {
+      "delete": {
+        "tags": [
+          "task-controller"
+        ],
+        "summary": "Удаление файла с задачи",
+        "operationId": "deleteTaskAttachment",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "attachmentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TaskCommentRequest": {
+        "type": "object",
+        "properties": {
+          "taskId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "OrgStructureDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          }
+        }
+      },
+      "PermitsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PersonalAffairClientDto": {
+        "type": "object",
+        "properties": {
+          "workEmail": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "BLOCKED",
+              "CLOSED",
+              "ARCHIVE"
+            ]
+          },
+          "workPhoneNumber": {
+            "type": "string"
+          },
+          "officeNumber": {
+            "type": "string"
+          },
+          "mobilePhoneNumber": {
+            "type": "string"
+          },
+          "homePhoneNumber": {
+            "type": "string"
+          }
+        }
+      },
+      "RealmsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RolesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "space": {
+            "$ref": "#/components/schemas/SpacesDto"
+          },
+          "realm": {
+            "$ref": "#/components/schemas/RealmsDto"
+          },
+          "permits": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermitsDto"
+            }
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SpacesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TaskCommentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "content": {
+            "type": "string"
+          },
+          "author": {
+            "$ref": "#/components/schemas/UserClientDto"
+          }
+        }
+      },
+      "UserClientDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "iin": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "personalAffair": {
+            "$ref": "#/components/schemas/PersonalAffairClientDto"
+          },
+          "ldapUsername": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ACTIVE",
+              "CLOSED",
+              "BLOCKED"
+            ]
+          },
+          "position": {
+            "$ref": "#/components/schemas/OrgStructureDto"
+          },
+          "department": {
+            "$ref": "#/components/schemas/OrgStructureDto"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "workEmail": {
+            "type": "string"
+          },
+          "workPhoneNumber": {
+            "type": "string"
+          },
+          "roles": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolesDto"
+            }
+          }
+        }
+      },
+      "BondedTaskDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "ObserverDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullName": {
+            "type": "string"
+          }
+        }
+      },
+      "TaskAttachmentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "taskId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "taskNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fileId": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          },
+          "uploadedById": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "TaskDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "taskNumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TASK",
+              "PROCESS_TASK",
+              "CRM_TASK",
+              "DOCUMENT_FLOW_TASK"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "IN_PROGRESS",
+              "WAITING_CONTROL",
+              "COMPLETED",
+              "EXPIRED",
+              "CLOSED"
+            ]
+          },
+          "assignee": {
+            "$ref": "#/components/schemas/UserClientDto"
+          },
+          "coAssignee": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserClientDto"
+            }
+          },
+          "parentTask": {
+            "$ref": "#/components/schemas/TaskDto"
+          },
+          "childTask": {
+            "$ref": "#/components/schemas/TaskDto"
+          },
+          "chatId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bondedTasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BondedTaskDto"
+            }
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskAttachmentDto"
+            }
+          },
+          "observers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObserverDto"
+            }
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "control": {
+            "type": "boolean"
+          },
+          "controlType": {
+            "type": "string",
+            "enum": [
+              "NOTIFY_ON_COMPLETION",
+              "EXECUTION_CONTROL",
+              "CURRENT_CONTROL"
+            ]
+          },
+          "controlResponsible": {
+            "$ref": "#/components/schemas/UserClientDto"
+          },
+          "repeatDays": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+              ]
+            }
+          },
+          "repeatCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "repeatFrequency": {
+            "type": "string",
+            "enum": [
+              "EVERY_WORKDAY",
+              "WEEKLY",
+              "MONTHLY"
+            ]
+          },
+          "repeatStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "author": {
+            "$ref": "#/components/schemas/UserClientDto"
+          }
+        }
+      },
+      "TaskRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TASK",
+              "PROCESS_TASK",
+              "CRM_TASK",
+              "DOCUMENT_FLOW_TASK"
+            ]
+          },
+          "assigneeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "coAssigneeId": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "observer": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "parentTaskId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "childTaskId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "chatId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "control": {
+            "type": "boolean"
+          },
+          "controlType": {
+            "type": "string",
+            "enum": [
+              "NOTIFY_ON_COMPLETION",
+              "EXECUTION_CONTROL",
+              "CURRENT_CONTROL"
+            ]
+          },
+          "controlResponsibleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "repeatDays": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY",
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY",
+                "SUNDAY"
+              ]
+            }
+          },
+          "repeatCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "repeatFrequency": {
+            "type": "string",
+            "enum": [
+              "EVERY_WORKDAY",
+              "WEEKLY",
+              "MONTHLY"
+            ]
+          },
+          "repeatStartDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "bondedTasks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "mergedFromTaskIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "merge": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PageResponseTaskDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            }
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PageTaskDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaskDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TaskAnalyticsDto": {
+        "type": "object",
+        "properties": {
+          "totalTasks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "inProgressTasks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "completedTasks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiredTasks": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "inProgressPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "completedPercentage": {
+            "type": "number",
+            "format": "double"
+          },
+          "expiredPercentage": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "GeneralResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,0 +1,1876 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "File-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/files"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Types API",
+      "description": "API для получения списков перечисления"
+    }
+  ],
+  "paths": {
+    "/process-folders/update/{folderId}": {
+      "post": {
+        "tags": [
+          "process-folder-controller"
+        ],
+        "operationId": "updateFolder",
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessFolderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessFolderDto"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/process-folders/create": {
+      "post": {
+        "tags": [
+          "process-folder-controller"
+        ],
+        "operationId": "createFolder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProcessFolderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessFolderDto"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/process-folders/assignee-process-to-user": {
+      "post": {
+        "tags": [
+          "process-folder-controller"
+        ],
+        "operationId": "assigneeProcessToUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssigneeProcessRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/process-files/upload": {
+      "post": {
+        "tags": [
+          "process-file-controller"
+        ],
+        "operationId": "uploadFileForProcessInstance",
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessFileDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process-files/delete/{processFileId}": {
+      "post": {
+        "tags": [
+          "process-file-controller"
+        ],
+        "operationId": "deleteFile",
+        "parameters": [
+          {
+            "name": "processFileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/GeneralResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onlyoffice/{id}/callback": {
+      "post": {
+        "tags": [
+          "only-office-controller"
+        ],
+        "operationId": "callback",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Callback"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/folder/create": {
+      "post": {
+        "tags": [
+          "folder-controller"
+        ],
+        "summary": "Создать каталог",
+        "description": "Создать каталог",
+        "operationId": "createFolder_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document/create": {
+      "post": {
+        "tags": [
+          "document-controller"
+        ],
+        "summary": "Создать документ",
+        "description": "Создать документ",
+        "operationId": "createDocument",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file",
+                  "request"
+                ],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/DocumentDto"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/access-rights/create": {
+      "post": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Назначить права группе пользователей",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessRightsDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccessRights"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/folder/update/{id}": {
+      "patch": {
+        "tags": [
+          "folder-controller"
+        ],
+        "summary": "Обновить каталог",
+        "description": "Обновить каталог",
+        "operationId": "updateFolder_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FolderDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/FolderDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document/update/{id}": {
+      "patch": {
+        "tags": [
+          "document-controller"
+        ],
+        "summary": "Обновить документ",
+        "description": "Обновить документ",
+        "operationId": "updateDocument",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocumentDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/section/search": {
+      "get": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Поиск секций",
+        "description": "Поиск секций",
+        "operationId": "findAll",
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageSectionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process-folders/{processInstanceId}/folder": {
+      "get": {
+        "tags": [
+          "process-folder-controller"
+        ],
+        "operationId": "getAllByProcessInstance",
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessFolderDto"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/process-folders/available-for-me": {
+      "get": {
+        "tags": [
+          "process-folder-controller"
+        ],
+        "operationId": "getAvailableForMe",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessFolderDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/process-files/download-file/{fileId}": {
+      "get": {
+        "tags": [
+          "process-file-controller"
+        ],
+        "operationId": "downloadFile",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/process-files/available-for-me": {
+      "get": {
+        "tags": [
+          "process-file-controller"
+        ],
+        "operationId": "getAvailableForMe_1",
+        "parameters": [
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "processFolderId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProcessFileDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onlyoffice/{id}": {
+      "get": {
+        "tags": [
+          "only-office-controller"
+        ],
+        "summary": "Открыть документ",
+        "description": "Открыть документ",
+        "operationId": "open",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "view",
+                "edit"
+              ],
+              "default": "view"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "desktop"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onlyoffice/{id}/history": {
+      "get": {
+        "tags": [
+          "only-office-controller"
+        ],
+        "operationId": "getDocumentHistory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/History"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onlyoffice/{id}/history/data": {
+      "get": {
+        "tags": [
+          "only-office-controller"
+        ],
+        "operationId": "getHistoryData",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onlyoffice/{id}/download": {
+      "get": {
+        "tags": [
+          "only-office-controller"
+        ],
+        "operationId": "download",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document/{documentId}": {
+      "get": {
+        "tags": [
+          "document-controller"
+        ],
+        "summary": "Получить документ по Id",
+        "description": "Получить документ по Id",
+        "operationId": "getDocumentById",
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/status": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Статусы в системе",
+        "description": "Возвращает список всех доступных статусов документов/каталогов",
+        "operationId": "getStatuses",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/section": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип сущности в системе",
+        "description": "Возвращает список всех типов",
+        "operationId": "getTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/document": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип документа",
+        "description": "Возвращает список всех типов документа",
+        "operationId": "getDocumentTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/access-rights": {
+      "get": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Получить все права доступа",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccessRights"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/access-rights/{id}": {
+      "get": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Получить право доступа по ID",
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessRights"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Удалить право доступа по ID",
+        "operationId": "delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/access-rights/get-for-object": {
+      "get": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Получить права доступа пользователя по userId для конкретного объекта objectId",
+        "operationId": "getRightsForObject",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "objectId",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AccessRights"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/folder/delete/{ids}": {
+      "delete": {
+        "tags": [
+          "folder-controller"
+        ],
+        "summary": "Удалить каталоги",
+        "description": "Удалить каталоги",
+        "operationId": "deleteFolders",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера"
+          }
+        }
+      }
+    },
+    "/document/delete/{ids}": {
+      "delete": {
+        "tags": [
+          "document-controller"
+        ],
+        "summary": "Удалить документы",
+        "description": "Удалить документы",
+        "operationId": "deleteDocuments",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера"
+          }
+        }
+      }
+    },
+    "/access-rights/remove-permission": {
+      "delete": {
+        "tags": [
+          "access-rights-controller"
+        ],
+        "summary": "Удалить конкретное право доступа у пользователя",
+        "operationId": "removePermission",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemovePermissionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessRights"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ProcessFolderRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "processInstanceId": {
+            "type": "string"
+          }
+        }
+      },
+      "ProcessFolderDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "processInstanceId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "AssigneeProcessRequest": {
+        "type": "object",
+        "properties": {
+          "processInstanceId": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ProcessFileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "folderId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "originalFileName": {
+            "type": "string"
+          },
+          "fileId": {
+            "type": "string"
+          },
+          "fileUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "GeneralResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Action": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
+          },
+          "userid": {
+            "type": "string"
+          }
+        }
+      },
+      "Callback": {
+        "type": "object",
+        "properties": {
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Action"
+            }
+          },
+          "changesurl": {
+            "type": "string"
+          },
+          "filetype": {
+            "type": "string"
+          },
+          "forcesavetype": {
+            "type": "string",
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
+          },
+          "formsdataurl": {
+            "type": "string"
+          },
+          "history": {
+            "$ref": "#/components/schemas/History"
+          },
+          "key": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "6",
+              "7"
+            ]
+          },
+          "url": {
+            "type": "string"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "History": {
+        "type": "object",
+        "properties": {
+          "serverVersion": {
+            "type": "string"
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "DocumentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор секции",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название секции на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название секции на казахском языке"
+          },
+          "status": {
+            "type": "string",
+            "description": "Статус секции",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "IN_REVIEW",
+              "APPROVED",
+              "REJECTED",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "sectionType": {
+            "type": "string",
+            "description": "Тип секции",
+            "readOnly": true,
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Идентификатор родительского каталога, к которому относится секция",
+            "format": "uuid"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Дата обновления",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "version": {
+            "type": "integer",
+            "description": "Последняя версия документа",
+            "format": "int32",
+            "readOnly": true
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/EnumTypeDto"
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileDto"
+          }
+        },
+        "description": "Документ"
+      },
+      "EnumTypeDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке",
+            "readOnly": true
+          }
+        },
+        "description": "Тип (перечисление)"
+      },
+      "FileDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор файла",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "path": {
+            "type": "string",
+            "description": "Путь файла",
+            "readOnly": true
+          },
+          "version": {
+            "type": "integer",
+            "description": "Версия файла",
+            "format": "int32",
+            "readOnly": true
+          },
+          "size": {
+            "type": "integer",
+            "description": "Размер файла в байтах",
+            "format": "int64",
+            "readOnly": true
+          },
+          "bucket": {
+            "type": "string",
+            "description": "Название корзины, в которой хранится файл"
+          },
+          "contentType": {
+            "type": "string",
+            "description": "Тип содержимого файла",
+            "readOnly": true
+          }
+        },
+        "description": "Файл"
+      },
+      "FolderDto": {
+        "type": "object",
+        "description": "Каталог",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SectionDto"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "description": "Описание каталога"
+              }
+            }
+          }
+        ]
+      },
+      "AccessRightsDTO": {
+        "type": "object",
+        "properties": {
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
+          },
+          "objectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userPermissions": {
+            "type": "object",
+            "additionalProperties": {
+              "uniqueItems": true,
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "READ",
+                  "CREATE",
+                  "UPDATE",
+                  "SHARE",
+                  "FULL_ACCESS"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "AccessRights": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
+          },
+          "objectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "permissions": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "READ",
+                "CREATE",
+                "UPDATE",
+                "SHARE",
+                "FULL_ACCESS"
+              ]
+            }
+          }
+        }
+      },
+      "PageSectionDto": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/SectionDto"
+                },
+                {
+                  "$ref": "#/components/schemas/DocumentDto"
+                },
+                {
+                  "$ref": "#/components/schemas/FolderDto"
+                }
+              ]
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SectionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор секции",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название секции на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название секции на казахском языке"
+          },
+          "status": {
+            "type": "string",
+            "description": "Статус секции",
+            "enum": [
+              "DRAFT",
+              "SUBMITTED",
+              "IN_REVIEW",
+              "APPROVED",
+              "REJECTED",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          },
+          "sectionType": {
+            "type": "string",
+            "description": "Тип секции",
+            "readOnly": true,
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
+          },
+          "parentFolderId": {
+            "type": "string",
+            "description": "Идентификатор родительского каталога, к которому относится секция",
+            "format": "uuid"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Дата обновления",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Дата создания",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "description": "Секция"
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "HistoryData": {
+        "type": "object",
+        "properties": {
+          "changesUrl": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "fileType": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "previous": {
+            "$ref": "#/components/schemas/Previous"
+          },
+          "token": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "Previous": {
+        "type": "object",
+        "properties": {
+          "fileType": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "RemovePermissionRequest": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "objectType": {
+            "type": "string",
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
+          },
+          "objectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "permission": {
+            "type": "string",
+            "enum": [
+              "READ",
+              "CREATE",
+              "UPDATE",
+              "SHARE",
+              "FULL_ACCESS"
+            ]
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

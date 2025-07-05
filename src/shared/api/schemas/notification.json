@@ -1,0 +1,312 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Notification-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/notification"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/notifications/notification-mark-as-read": {
+      "post": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "changeNotificationState",
+        "parameters": [
+          {
+            "name": "notificationId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/notifications/filter": {
+      "post": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "getNotifications",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "requestDto": {
+                    "$ref": "#/components/schemas/NotificationFilterRequestDto"
+                  },
+                  "pageable": {
+                    "$ref": "#/components/schemas/Pageable"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseNotificationDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/get-all": {
+      "get": {
+        "tags": [
+          "notification-controller"
+        ],
+        "operationId": "getAllNotifications",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "EMAIL",
+                "WEB_BROWSER"
+              ]
+            }
+          },
+          {
+            "name": "areasOfUse",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "PROCESS_TASKS",
+                  "DOCUMENTS",
+                  "CALENDAR_EVENTS",
+                  "CHATS"
+                ]
+              }
+            }
+          },
+          {
+            "name": "createdFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "createdTo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "NEW",
+                "READ"
+              ]
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationDtoWrapper"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotificationFilterRequestDto": {
+        "type": "object"
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "NotificationDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "SMS",
+              "EMAIL",
+              "PUSH"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "NEW",
+              "READ"
+            ]
+          },
+          "userId": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "EMAIL",
+              "WEB_BROWSER"
+            ]
+          },
+          "areasOfUse": {
+            "type": "string",
+            "enum": [
+              "PROCESS_TASKS",
+              "DOCUMENTS",
+              "CALENDAR_EVENTS",
+              "CHATS"
+            ]
+          }
+        }
+      },
+      "PageResponseNotificationDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationDto"
+            }
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "NotificationDtoWrapper": {
+        "type": "object",
+        "properties": {
+          "notifications": {
+            "$ref": "#/components/schemas/PageResponseNotificationDto"
+          },
+          "data": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

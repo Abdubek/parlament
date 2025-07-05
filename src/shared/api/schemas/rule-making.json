@@ -1,0 +1,1265 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Rule-Making-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/rule-making"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Department API",
+      "description": "API для работы с департаментами законопроекта"
+    },
+    {
+      "name": "Types API",
+      "description": "API для получения списков перечисления"
+    },
+    {
+      "name": "Document API",
+      "description": "API для работы с документами законопроекта"
+    },
+    {
+      "name": "Bill API",
+      "description": "API для работы с законопроектами"
+    },
+    {
+      "name": "Session API",
+      "description": "API для работы с сессиями"
+    }
+  ],
+  "paths": {
+    "/document/bill/{id}": {
+      "post": {
+        "tags": [
+          "Document API"
+        ],
+        "summary": "Обновить документы законопроекта",
+        "description": "Обновить документы законопроекта",
+        "operationId": "attachDocument",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file",
+                  "request"
+                ],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/BillDocumentDto"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDocumentDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDocumentDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bill/create": {
+      "post": {
+        "tags": [
+          "Bill API"
+        ],
+        "summary": "Создать законопроект",
+        "description": "Создать законопроект",
+        "operationId": "createBill",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "request"
+                ],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/BillDto"
+                  },
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bill/update/{id}": {
+      "patch": {
+        "tags": [
+          "Bill API"
+        ],
+        "summary": "Обновить законопроект",
+        "description": "Обновить законопроект",
+        "operationId": "updateBill",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BillDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/status": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Статус законодательного акта",
+        "description": "Возвращает список всех доступных статусов законодательного акта",
+        "operationId": "getBillStatus",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/revision": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Вид редакции проекта",
+        "description": "Возвращает список всех доступных видов редакции проекта",
+        "operationId": "getRevisionType",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/member": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип участников законодательного акта",
+        "description": "Возвращает список всех доступных типов участников законодательного акта",
+        "operationId": "getMemberType",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/history": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Список истории изменений",
+        "description": "Список событий для обновления статуса законопроекта",
+        "operationId": "getBillHistory",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/department": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип департаментов",
+        "description": "Возвращает список всех типов департамента",
+        "operationId": "getDepartmentTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/category": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Вид законодательно акта",
+        "description": "Возвращает список всех доступных видов законодательно акта",
+        "operationId": "getBillCategory",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/type/bill": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип законодательного акта",
+        "description": "Возвращает список всех доступных типов законодательного акта",
+        "operationId": "getBillType",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/session": {
+      "get": {
+        "tags": [
+          "Session API"
+        ],
+        "operationId": "getAllSessions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/document/types": {
+      "get": {
+        "tags": [
+          "Document API"
+        ],
+        "summary": "Тип документа",
+        "description": "Возвращает список всех типов документа",
+        "operationId": "getDocumentTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/department": {
+      "get": {
+        "tags": [
+          "Department API"
+        ],
+        "summary": "Департаменты",
+        "description": "Возвращает список всех департаментов",
+        "operationId": "getDepartments",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DepartmentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bill": {
+      "get": {
+        "tags": [
+          "Bill API"
+        ],
+        "summary": "Список законопроектов",
+        "description": "Возвращает список всех доступных законопроектов",
+        "operationId": "getAllBills",
+        "parameters": [
+          {
+            "name": "session",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "department",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "INCOMING",
+                "INITIATED",
+                "REJECTED",
+                "WITHDRAWN",
+                "ON_REVIEW",
+                "ADOPTED_BY_MAZHILIS",
+                "FOR_APPROVAL",
+                "RETURNED_BY_SENATE",
+                "ADOPTED_ON_JOINT_SESSION",
+                "ADOPTED_BY_SENATE",
+                "SENT_TO_SENATE",
+                "PRESIDENT_OBJECTIONS",
+                "SENT_TO_PRESIDENT",
+                "SIGNED_BY_PRESIDENT"
+              ]
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "GOVERNMENTAL",
+                "DEPUTY",
+                "PRESIDENTIAL"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageBillDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bill/{id}": {
+      "get": {
+        "tags": [
+          "Bill API"
+        ],
+        "summary": "Законопроект",
+        "description": "Возвращает информацию о законопроекте по указанному идентификатору",
+        "operationId": "getBillById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "processInstanceId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bill/history/group": {
+      "get": {
+        "tags": [
+          "Bill API"
+        ],
+        "summary": "Количество законопроектов",
+        "description": "Возвращает законопроекты сгруппированные по типам истории",
+        "operationId": "getBillHistoryCount",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BillGroupDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BillDocumentDto": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string",
+            "description": "Уникальный идентификатор документа",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "fileId": {
+            "type": "string",
+            "description": "Уникальный идентификатор файла",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "folderId": {
+            "type": "string",
+            "description": "Уникальный идентификатор каталога",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "language": {
+            "type": "string",
+            "description": "язык документа",
+            "enum": [
+              "RU",
+              "KZ",
+              "EN",
+              "OTHER"
+            ]
+          },
+          "pageCount": {
+            "type": "integer",
+            "description": "Количество листов",
+            "format": "int32"
+          },
+          "documentType": {
+            "$ref": "#/components/schemas/EnumTypeDto"
+          },
+          "questionType": {
+            "$ref": "#/components/schemas/EnumTypeDto"
+          }
+        },
+        "description": "Документ"
+      },
+      "EnumTypeDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке",
+            "readOnly": true
+          }
+        },
+        "description": "Тип (перечисление)"
+      },
+      "BillDepartmentDto": {
+        "type": "object",
+        "properties": {
+          "department": {
+            "$ref": "#/components/schemas/DepartmentDto"
+          },
+          "departmentType": {
+            "type": "string",
+            "description": "Тип департамента законопроекта",
+            "enum": [
+              "GOVERNMENT_AGENCY",
+              "RESPONSIBLE_DEPARTMENT"
+            ]
+          }
+        },
+        "description": "Департаменты законопроекта"
+      },
+      "BillDto": {
+        "required": [
+          "processInstanceId",
+          "taskId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "folderId": {
+            "type": "string",
+            "description": "Уникальный идентификатор каталога",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "taskId": {
+            "type": "string",
+            "description": "Идентификатор задачи, связанной с законопроектом.",
+            "example": "test-task-0000-0000-0000-000000000001"
+          },
+          "processInstanceId": {
+            "type": "string",
+            "description": "Идентификатор экземпляра процесса, связанного с законопроектом.",
+            "example": "test-proc-0000-0000-0000-000000000001"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование законопроекта на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование законопроекта на казахском языке"
+          },
+          "number": {
+            "type": "string",
+            "description": "Входящий номер"
+          },
+          "isMain": {
+            "type": "boolean",
+            "description": "Основной законопроект"
+          },
+          "relatedLegalActs": {
+            "type": "integer",
+            "description": "Связанные НПА",
+            "format": "int64"
+          },
+          "billType": {
+            "type": "string",
+            "description": "Тип законодательного акта",
+            "enum": [
+              "LAW",
+              "CODE",
+              "CONSTITUTIONAL",
+              "RESOLUTION"
+            ]
+          },
+          "billStatus": {
+            "type": "string",
+            "description": "Статус законодательного акта",
+            "enum": [
+              "NEW",
+              "IN_PROGRESS",
+              "CLOSED"
+            ]
+          },
+          "billCategory": {
+            "type": "string",
+            "description": "Вид законодательно акта",
+            "enum": [
+              "GOVERNMENTAL",
+              "DEPUTY",
+              "PRESIDENTIAL"
+            ]
+          },
+          "revisionType": {
+            "type": "string",
+            "description": "Вид редакции проекта",
+            "enum": [
+              "NEW_EDITION",
+              "AMENDMENTS"
+            ]
+          },
+          "session": {
+            "$ref": "#/components/schemas/SessionDto"
+          },
+          "histories": {
+            "type": "array",
+            "description": "История событий",
+            "items": {
+              "$ref": "#/components/schemas/BillHistoryDto"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "description": "Документы законопроекта",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/BillDocumentDto"
+            }
+          },
+          "members": {
+            "type": "array",
+            "description": "Участники законопроекта",
+            "items": {
+              "$ref": "#/components/schemas/BillMembersDto"
+            }
+          },
+          "departments": {
+            "type": "array",
+            "description": "Департаменты законопроекта",
+            "items": {
+              "$ref": "#/components/schemas/BillDepartmentDto"
+            }
+          }
+        },
+        "description": "Законопроект"
+      },
+      "BillHistoryDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "description": "Дата события законопроекта",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском",
+            "readOnly": true
+          },
+          "historyType": {
+            "type": "string",
+            "description": "Тип события законопроекта",
+            "enum": [
+              "INCOMING",
+              "INITIATED",
+              "REJECTED",
+              "WITHDRAWN",
+              "ON_REVIEW",
+              "ADOPTED_BY_MAZHILIS",
+              "FOR_APPROVAL",
+              "RETURNED_BY_SENATE",
+              "ADOPTED_ON_JOINT_SESSION",
+              "ADOPTED_BY_SENATE",
+              "SENT_TO_SENATE",
+              "PRESIDENT_OBJECTIONS",
+              "SENT_TO_PRESIDENT",
+              "SIGNED_BY_PRESIDENT"
+            ]
+          }
+        },
+        "description": "События законопроекта"
+      },
+      "BillMembersDto": {
+        "type": "object",
+        "properties": {
+          "member": {
+            "$ref": "#/components/schemas/MemberDto"
+          },
+          "memberType": {
+            "type": "string",
+            "description": "Тип участника",
+            "enum": [
+              "INITIATOR",
+              "EXECUTOR",
+              "SPEAKER",
+              "RESPONSIBLE"
+            ]
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Наименование на русском",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Наименование на казахском",
+            "readOnly": true
+          }
+        },
+        "description": "Участники законопроекта"
+      },
+      "DepartmentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор участника",
+            "format": "uuid"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке",
+            "readOnly": true
+          }
+        },
+        "description": "Департамент"
+      },
+      "MemberDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор участника",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя участника",
+            "readOnly": true
+          }
+        },
+        "description": "Участник"
+      },
+      "SessionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор сессии",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Название сессии",
+            "readOnly": true
+          },
+          "startTime": {
+            "type": "string",
+            "description": "Время начала сессии",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "endTime": {
+            "type": "string",
+            "description": "Время окончания сессии",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "isCurrent": {
+            "type": "boolean",
+            "description": "Текущая ли это сессия",
+            "readOnly": true
+          }
+        },
+        "description": "Сессия",
+        "readOnly": true
+      },
+      "PageBillDto": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillDto"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "BillGroupDto": {
+        "type": "object",
+        "properties": {
+          "nameRu": {
+            "type": "string",
+            "description": "Количество законопроектов",
+            "readOnly": true
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Количество законопроектов",
+            "readOnly": true
+          },
+          "historyType": {
+            "type": "string",
+            "description": "Количество законопроектов",
+            "readOnly": true,
+            "enum": [
+              "INCOMING",
+              "INITIATED",
+              "REJECTED",
+              "WITHDRAWN",
+              "ON_REVIEW",
+              "ADOPTED_BY_MAZHILIS",
+              "FOR_APPROVAL",
+              "RETURNED_BY_SENATE",
+              "ADOPTED_ON_JOINT_SESSION",
+              "ADOPTED_BY_SENATE",
+              "SENT_TO_SENATE",
+              "PRESIDENT_OBJECTIONS",
+              "SENT_TO_PRESIDENT",
+              "SIGNED_BY_PRESIDENT"
+            ]
+          },
+          "count": {
+            "type": "integer",
+            "description": "Количество законопроектов",
+            "format": "int64",
+            "readOnly": true
+          }
+        },
+        "description": "Количество законопроектов"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

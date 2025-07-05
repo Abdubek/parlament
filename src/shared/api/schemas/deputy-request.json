@@ -1,0 +1,1190 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "User-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/deputy-request"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/type/get/all": {
+      "post": {
+        "tags": [
+          "type-controller"
+        ],
+        "summary": "Получить список Типов депутатского запроса в системе.",
+        "operationId": "getAll",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/type/create": {
+      "post": {
+        "tags": [
+          "type-controller"
+        ],
+        "summary": "Создать Тип депутатского запроса в системе.",
+        "description": "По умолчанию в системе заведен тип с именем: 'Запрос к министерствам'.",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTypeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Type"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/status/create": {
+      "post": {
+        "tags": [
+          "status-controller"
+        ],
+        "summary": "Создать Статус депутатского запроса в системе.",
+        "description": "По умолчанию в системе заведены статусы с именами: 'NEW', 'EXPIRED', 'SOLVED'.",
+        "operationId": "create_1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStatusRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/session/create": {
+      "post": {
+        "tags": [
+          "session-controller"
+        ],
+        "summary": "Создать Сессию и прикрепить ее к существующему Созыву.",
+        "description": "При указании isActual=true и при условии того, что данный Созыв также является активным, все другие Сессии становятся\n неаквтивными. Но если Созыв не является активным, условие isActual игнорируется.",
+        "operationId": "createSession",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSessionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recipient/create": {
+      "post": {
+        "tags": [
+          "recipient-controller"
+        ],
+        "summary": "Создать Адресата в системе.",
+        "description": "На данный момент нет привязки к пользователю, зарегистрированного в системе.",
+        "operationId": "createRecipient",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRecipientRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/deputy-request/set-response": {
+      "post": {
+        "tags": [
+          "deputy-request-controller"
+        ],
+        "summary": "Установить ответ для депустаткого запроса",
+        "operationId": "setResponse",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "request_body",
+                  "response_document"
+                ],
+                "type": "object",
+                "properties": {
+                  "request_body": {
+                    "$ref": "#/components/schemas/ResolveDeputyRequest"
+                  },
+                  "response_document": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeputyRequestDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/deputy-request/create": {
+      "post": {
+        "tags": [
+          "deputy-request-controller"
+        ],
+        "summary": "Создать депутатский запрос",
+        "operationId": "create_2",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "request_body"
+                ],
+                "type": "object",
+                "properties": {
+                  "request_body": {
+                    "$ref": "#/components/schemas/CreateDeputyRequest"
+                  },
+                  "main_document": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "attachment": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeputyRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/convocation/save": {
+      "post": {
+        "tags": [
+          "convocation-controller"
+        ],
+        "summary": "Создать Созыв с возможностью создания первичной Сессии к ней и указанием его актуальности",
+        "description": "При указание параметра isActual=true при создании Созыва, последний активный Созыв становится неактивным.\nТакже при isActual=true и передачи названия первичной Сессии, последняя активная Сессия станет неактивной.",
+        "operationId": "saveConvocation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConvocationCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Convocation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/status/get/all": {
+      "get": {
+        "tags": [
+          "status-controller"
+        ],
+        "summary": "Получить список активных Статусов депутатского запроса в системе.",
+        "operationId": "getAll_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Status"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recipient/get/all": {
+      "get": {
+        "tags": [
+          "recipient-controller"
+        ],
+        "summary": "Получить список всех активных Адресатов в системе.",
+        "operationId": "getAllRecipients",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipient"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/deputy-request/get": {
+      "get": {
+        "tags": [
+          "deputy-request-controller"
+        ],
+        "summary": "Получить список депутатских запросов с применением фильтров",
+        "description": "Для применения сортировки по полю использовть queryParameter sort со значением по типу 'requestDate,asc'.\nПо умолчанию(без указания в queryParameter), сортировка работает по полю requestDate по убыванию и количество выводимых\nэлементов на странице ровняется 20.",
+        "operationId": "getAll_2",
+        "parameters": [
+          {
+            "name": "textContent",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "convocation",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "session",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeputyRequestFilteredDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/deputy-request/get/{uuid}": {
+      "get": {
+        "tags": [
+          "deputy-request-controller"
+        ],
+        "summary": "Получить данные депутатского запроса",
+        "operationId": "getByUUID",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeputyRequestDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/convocation/get/sessions/all": {
+      "get": {
+        "tags": [
+          "convocation-controller"
+        ],
+        "summary": "Получить список всех Созывов и связанных с каждым Сессий с указанием актуальности Созыва и Сессии",
+        "description": "Ответ будет представлен в виде списка Созывов с указанием их UUID, названия и актуальности на данный момент и прикрепленному\nк каждому Созыву списка Сессий с указанием уже их активности и названия. Активными Созывом и Сессиями считать ту комбинацию\nСозыва и Сессии, которые имеют параметр isActual = true.",
+        "operationId": "getConvocationsWithSessions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConvocationSessionsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/attachment/get/{uuid}": {
+      "get": {
+        "tags": [
+          "attachment-controller"
+        ],
+        "summary": "Получить поток байтов файла по его UUID",
+        "operationId": "getByUUID_1",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Type": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateTypeRequest": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateStatusRequest": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Status": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateSessionRequest": {
+        "required": [
+          "convocationId",
+          "isActual",
+          "sessionName"
+        ],
+        "type": "object",
+        "properties": {
+          "convocationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "sessionName": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Convocation": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Session"
+            }
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          },
+          "convocations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Convocation"
+            }
+          }
+        }
+      },
+      "CreateRecipientRequest": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Recipient": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ResolveDeputyRequest": {
+        "required": [
+          "deputyRequestUuid",
+          "performer",
+          "responseDate",
+          "responseNumber",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "responseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "deputyRequestUuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "responseNumber": {
+            "type": "string"
+          },
+          "performer": {
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          }
+        }
+      },
+      "DeputyRequestDocumentDto": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isCreateDocument": {
+            "type": "boolean"
+          },
+          "isResponseDocument": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DeputyRequestDto": {
+        "type": "object",
+        "properties": {
+          "registrationNumber": {
+            "type": "string"
+          },
+          "requestDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "initiatorFio": {
+            "type": "string"
+          },
+          "collaborators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "shortText": {
+            "type": "string"
+          },
+          "convocation": {
+            "type": "string"
+          },
+          "session": {
+            "type": "string"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeputyRequestDocumentDto"
+            }
+          },
+          "responseToDeputyRequestData": {
+            "$ref": "#/components/schemas/ResponseToDeputyDto"
+          }
+        }
+      },
+      "ResponseToDeputyDto": {
+        "type": "object",
+        "properties": {
+          "responseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "responseNumber": {
+            "type": "string"
+          },
+          "responsePerformer": {
+            "type": "string"
+          },
+          "responseText": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateDeputyRequest": {
+        "required": [
+          "collaboratorsMap",
+          "recipientId",
+          "registerNumber",
+          "requestDate",
+          "text",
+          "typeId"
+        ],
+        "type": "object",
+        "properties": {
+          "requestDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "registerNumber": {
+            "type": "string"
+          },
+          "typeId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "recipientId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "text": {
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "collaboratorsMap": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Attachment": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fileId": {
+            "type": "string"
+          },
+          "filePath": {
+            "type": "string"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "isCreateDocument": {
+            "type": "boolean"
+          },
+          "isResponseDocument": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Collaborator": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fio": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deputyRequests": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeputyRequest"
+            }
+          }
+        }
+      },
+      "DeputyRequest": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "requestDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "registerNumber": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "type": {
+            "$ref": "#/components/schemas/Type"
+          },
+          "initiatorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "initiatorFio": {
+            "type": "string"
+          },
+          "convocation": {
+            "$ref": "#/components/schemas/Convocation"
+          },
+          "session": {
+            "$ref": "#/components/schemas/Session"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/Recipient"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Attachment"
+            }
+          },
+          "responseToDeputyRequest": {
+            "$ref": "#/components/schemas/ResponseToDeputyRequest"
+          },
+          "collaborators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collaborator"
+            }
+          }
+        }
+      },
+      "ResponseToDeputyRequest": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "deputyRequest": {
+            "$ref": "#/components/schemas/DeputyRequest"
+          },
+          "responseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "responseNumber": {
+            "type": "string"
+          },
+          "responsePerformer": {
+            "type": "string"
+          },
+          "responseText": {
+            "type": "string"
+          }
+        }
+      },
+      "ConvocationCreateRequest": {
+        "required": [
+          "convocationName",
+          "isActual"
+        ],
+        "type": "object",
+        "properties": {
+          "convocationName": {
+            "type": "string"
+          },
+          "sessionName": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "AttachmentDto": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "fileId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DeputyRequestFilteredDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeputyRequestPageDto"
+            }
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "newDeputyRequestsCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiredDeputyRequestsCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "expiringDeputyRequestsCount": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "DeputyRequestPageDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "registrationNumber": {
+            "type": "string"
+          },
+          "requestDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "initiatorFio": {
+            "type": "string"
+          },
+          "collaborators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recipient": {
+            "type": "string"
+          },
+          "shortText": {
+            "type": "string"
+          },
+          "responseAttachment": {
+            "$ref": "#/components/schemas/AttachmentDto"
+          }
+        }
+      },
+      "ConvocationSessionsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionDto"
+            }
+          }
+        }
+      },
+      "SessionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "isActual": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

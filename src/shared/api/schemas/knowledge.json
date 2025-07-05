@@ -1,0 +1,823 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Knowledge-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/knowledge"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Types API",
+      "description": "API для получения списков перечисления"
+    }
+  ],
+  "paths": {
+    "/api/v1/section/upload-subsection-file": {
+      "post": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Загрузка файла для подраздела",
+        "description": "        Принимает в себя объект CreateSubSectionRequest, содержащий данные о подразделе, а также файл,\n        который будет ассоциирован с этим подразделом. Поля request включают: UUID секции (sectionId),\n        UUID родительской папки (folderId), а также наименования подраздела на русском и казахском языках.\n        Файл можно не передавать, если он не требуется.\n",
+        "operationId": "createSubSectionFile",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "request"
+                ],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/CreateSubSectionRequest"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/section/create-subsection-folder": {
+      "post": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Создание подраздела",
+        "description": "Принимает в себя UUID секции(parentSectionId), UUID parentFolderId(значение folderId из /section/get-all),\n даты проведения и\n наименований.",
+        "operationId": "createSubSectionFolder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubSectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/section/create-folder": {
+      "post": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Создание раздела.",
+        "description": "Принимает в себя название на русском и на казахском.",
+        "operationId": "createSection",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/question/{sectionId}/create": {
+      "post": {
+        "tags": [
+          "question-controller"
+        ],
+        "operationId": "createQuestion",
+        "parameters": [
+          {
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuestionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/prototype/create": {
+      "post": {
+        "tags": [
+          "prototype-controller"
+        ],
+        "summary": "Создание макета",
+        "description": "        Принимает объект CreatePrototypeRequest в теле запроса для создания нового макета.\n        Запрос должен содержать все обязательные поля, необходимые для корректного\n        создания и сохранения прототипа. После успешного выполнения операции\n        прототип будет создан и сохранен в системе.\n",
+        "operationId": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePrototypeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/section/update/{id}": {
+      "patch": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Обновление раздела.",
+        "description": "Принимает в себя UUID раздела, получаемого из /get-all.",
+        "operationId": "patchSection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatchSectionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/section/archive/{uuid}": {
+      "patch": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Архивация раздела",
+        "description": "        Принимает UUID раздела в качестве пути и объект ArchiveFolderRequest в теле запроса\n        для выполнения операции архивации. Операция изменяет статус указанного раздела\n        и связанных с ним данных согласно параметрам, переданным в запросе.\n        После успешного выполнения раздел переводится в архивное состояние.\n",
+        "operationId": "archiveSection",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArchiveFolderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/type/speakers-type": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип участника вопроса",
+        "description": "Возвращает список всех типов участника",
+        "operationId": "getDocumentTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/type/sections-type": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Тип сущности в системе",
+        "description": "Возвращает список всех типов",
+        "operationId": "getTypes",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/type/sections-status": {
+      "get": {
+        "tags": [
+          "Types API"
+        ],
+        "summary": "Статусы в системе",
+        "description": "Возвращает список всех доступных статусов документов/каталогов",
+        "operationId": "getStatuses",
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnumTypeDto"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EnumTypeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/get-all": {
+      "get": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Получение всех разделов(например: Отырыс).",
+        "description": "Возвращает список всех разделов, их имене на русском и на казахском, а также их UUID.",
+        "operationId": "getAll",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseSectionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/get-all/{sectionId}": {
+      "get": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Получение всех подразделов по разделу(Например: Расширенные заседания комитетов).",
+        "description": "Принимает в себя UUID секции. В ответе возвращается список подсекций, каждый из которых состоит из UUID записи,\n наименований на русском и казахском языках, а также дата проведения(гггг-ММ-дд).",
+        "operationId": "getAllNested",
+        "parameters": [
+          {
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseSectionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question/{sectionId}/all": {
+      "get": {
+        "tags": [
+          "question-controller"
+        ],
+        "operationId": "getAllQuestionsForSection",
+        "parameters": [
+          {
+            "name": "sectionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageResponseSectionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question/{questionId}": {
+      "get": {
+        "tags": [
+          "question-controller"
+        ],
+        "operationId": "getQuestionById",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/section/delete/{id}": {
+      "delete": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Удаление раздела.",
+        "description": "Принимает в себя UUID раздела, получаемого из /get-all.",
+        "operationId": "deleteSection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateSubSectionRequest": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "parent_folder_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "parent_section_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "meeting_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "CreateSectionRequest": {
+        "required": [
+          "name_kz",
+          "name_ru"
+        ],
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_kz": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateQuestionRequest": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "user_ids": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "enum": [
+                "MAIN_SPEAKER",
+                "CO_SPEAKER"
+              ]
+            }
+          },
+          "meeting_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "CreatePrototypeRequest": {
+        "required": [
+          "section_id"
+        ],
+        "type": "object",
+        "properties": {
+          "section_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            }
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_kz": {
+            "type": "string"
+          }
+        }
+      },
+      "PatchSectionRequest": {
+        "type": "object",
+        "properties": {
+          "name_ru": {
+            "type": "string"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "meeting_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ArchiveFolderRequest": {
+        "type": "object",
+        "properties": {
+          "uuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKz": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "CREATED",
+              "DRAFT",
+              "SUBMITTED",
+              "IN_REVIEW",
+              "APPROVED",
+              "REJECTED",
+              "ARCHIVED",
+              "DELETED"
+            ]
+          }
+        }
+      },
+      "EnumTypeDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Код"
+          },
+          "nameRu": {
+            "type": "string",
+            "description": "Название на русском языке"
+          },
+          "nameKz": {
+            "type": "string",
+            "description": "Название на казахском языке"
+          }
+        },
+        "description": "Тип (перечисление)"
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PageResponseSectionDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SectionDto"
+            }
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currentPage": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SectionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "name_ru": {
+            "type": "string"
+          },
+          "folder_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "type": {
+            "type": "string"
+          },
+          "file_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "file_name": {
+            "type": "string"
+          }
+        }
+      },
+      "QuestionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "name_ru": {
+            "type": "string"
+          },
+          "folder_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "type": {
+            "type": "string"
+          },
+          "file_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "file_name": {
+            "type": "string"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionMemberDto"
+            }
+          },
+          "folders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SectionDto"
+            }
+          }
+        }
+      },
+      "QuestionMemberDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

@@ -1,0 +1,811 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Onlyoffice-Client-Service-API",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/onlyoffice-client"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Templates controller",
+      "description": "Контроллер для работы с шаблонами"
+    }
+  ],
+  "paths": {
+    "/upload": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "upload",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "cookie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/track": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "track",
+        "parameters": [
+          {
+            "name": "fileUid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userAddress",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accessToken",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Track"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/saveas": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "saveAs",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "cookie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JSONObject"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/rename": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "rename",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JSONObject"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/delete": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Converter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/converter": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "convert",
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "cookie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ulang",
+            "in": "cookie",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Converter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config": {
+      "post": {
+        "tags": [
+          "index-controller"
+        ],
+        "operationId": "configParameters",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/templates/{type}/items/{fileUid}/generate": {
+      "post": {
+        "tags": [
+          "Templates controller"
+        ],
+        "description": "Сгенерировать документа по шаблону с параметрами, по типу корреспонденции",
+        "operationId": "generateFromTemplate",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "тип корреспонденции - outbox, innerbox",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fileUid",
+            "in": "path",
+            "description": "uid файла шаблона",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilestoreMetadataDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "swagger-oauth2": []
+          }
+        ]
+      }
+    },
+    "/files": {
+      "get": {
+        "tags": [
+          "file-controller"
+        ],
+        "operationId": "files",
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/test_token": {
+      "get": {
+        "tags": [
+          "Templates controller"
+        ],
+        "operationId": "testToken",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "swagger-oauth2": []
+          }
+        ]
+      }
+    },
+    "/api/v1/templates/{type}/items": {
+      "get": {
+        "tags": [
+          "Templates controller"
+        ],
+        "description": "Получить список шаблонов по типу корреспонденции",
+        "operationId": "listPath",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "path",
+            "description": "тип корреспонденции - outbox, innerbox",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json;charset=UTF-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilestoreContentResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "swagger-oauth2": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "details": {
+            "type": "string"
+          }
+        }
+      },
+      "Action": {
+        "type": "object",
+        "properties": {
+          "userid": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "edit",
+              "review",
+              "view",
+              "embedded",
+              "filter",
+              "comment",
+              "chat",
+              "fillForms",
+              "blockcontent"
+            ]
+          }
+        }
+      },
+      "ChangesHistory": {
+        "type": "object",
+        "properties": {
+          "documentSha256": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/ChangesUser"
+          }
+        }
+      },
+      "ChangesUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "History": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "changes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChangesHistory"
+            }
+          },
+          "serverVersion": {
+            "type": "string"
+          }
+        }
+      },
+      "Track": {
+        "type": "object",
+        "properties": {
+          "filetype": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "changesurl": {
+            "type": "string"
+          },
+          "history": {
+            "$ref": "#/components/schemas/History"
+          },
+          "token": {
+            "type": "string"
+          },
+          "forcesavetype": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Action"
+            }
+          },
+          "userdata": {
+            "type": "string"
+          },
+          "lastsave": {
+            "type": "string"
+          },
+          "notmodified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "group": {
+            "type": "string"
+          }
+        }
+      },
+      "JSONObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
+      "Converter": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "filePass": {
+            "type": "string"
+          },
+          "lang": {
+            "type": "string"
+          }
+        }
+      },
+      "FilestoreMetadataDto": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string"
+          },
+          "fileUid": {
+            "type": "string"
+          },
+          "bucketName": {
+            "type": "string"
+          },
+          "directoryName": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          },
+          "downloadLink": {
+            "type": "string"
+          },
+          "metadataLink": {
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "lastModified": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "FilestoreContentResponseDto": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FilestoreMetadataDto"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
