@@ -39,7 +39,7 @@ export function Layout({ items }: Props) {
       <AppShell.Aside bg="primary.9"></AppShell.Aside>
       <AppShell.Main>
         <Box
-          bg="grey2.2"
+          bg="grey1.0"
           style={{ borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }}
         >
           <ScrollArea h="calc(100vh - 80px)" type="scroll">
