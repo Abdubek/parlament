@@ -190,6 +190,7 @@ export const firstTheme = createTheme({
       "#6AB2FF",
       "#51A6FF",
       "#067FFF",
+      "#0F58A6",
     ],
   },
 });
@@ -364,6 +365,7 @@ export const secondTheme = createTheme({
       "#6AB2FF",
       "#51A6FF",
       "#067FFF",
+      "#0F58A6",
     ],
   },
 });

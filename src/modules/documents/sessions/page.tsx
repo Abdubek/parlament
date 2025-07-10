@@ -1,12 +1,13 @@
 import { Breadcrumbs } from "@/features/breadcrumbs";
+import { Stack, Title } from "@mantine/core";
 
 export function SessionsPage() {
   return (
-    <div>
-      <Breadcrumbs />
+    <Stack gap={8}>
+      <Breadcrumbs startIndex={2} />
       <div>
-        <h1>Отырыс (Заседания)</h1>
+        <Title order={1}>Отырыс (Заседания)</Title>
       </div>
-    </div>
+    </Stack>
   );
 }

@@ -40,7 +40,6 @@ export function useBreadcrumbs(
     const segments = pathname.split("/").filter(Boolean);
     const crumbs: { label: string; href: string }[] = [];
 
-    // Ensure startIndex is within bounds
     const start = Math.max(0, Math.min(startIndex, segments.length));
 
     for (let i = start; i < segments.length; i++) {

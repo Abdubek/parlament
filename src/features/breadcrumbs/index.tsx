@@ -26,7 +26,8 @@ export function Breadcrumbs({ startIndex = 0 }: Props) {
         component={Link}
         href={href}
         underline="hover"
-        c="blue.6"
+        c="link.10"
+        fz={14}
       >
         {label}
       </Anchor>
