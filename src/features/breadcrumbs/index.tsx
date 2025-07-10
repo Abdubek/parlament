@@ -12,10 +12,12 @@ export function Breadcrumbs({ startIndex = 0 }: Props) {
   const items = breadcrumbs.map(({ label, href }, index) => {
     const isLast = index === breadcrumbs.length - 1;
 
+    const capitalizedLabel = label.charAt(0).toUpperCase() + label.slice(1);
+
     if (isLast) {
       return (
         <Text key={href} fw={500} c="dimmed">
-          {label}
+          {capitalizedLabel}
         </Text>
       );
     }
@@ -29,7 +31,7 @@ export function Breadcrumbs({ startIndex = 0 }: Props) {
         c="link.10"
         fz={14}
       >
-        {label}
+        {capitalizedLabel}
       </Anchor>
     );
   });
