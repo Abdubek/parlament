@@ -1,13 +1,20 @@
 import { authedRoute } from "@/app/main";
-import { createRoute } from "@tanstack/react-router";
+import { createRoute, Outlet } from "@tanstack/react-router";
 import Topic from "@/shared/icons/topic.svg?react";
 import type { NavbarItem } from "@/features/navbar";
+import { sessionsRoute } from "./sessions";
 
 export const documentsRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: "/cabinet/documents",
-  component: () => <div>Документооборот</div>,
+  component: () => (
+    <div>
+      <Outlet />
+    </div>
+  ),
 });
+
+documentsRoute.addChildren([sessionsRoute]);
 
 export const documentsNavbarItem: NavbarItem = {
   icon: <Topic />,
@@ -15,8 +22,8 @@ export const documentsNavbarItem: NavbarItem = {
   value: "/cabinet/documents",
   children: [
     {
-      label: "Персонализированный календарь",
-      value: "/cabinet/calendar",
+      label: "Отырыс (Заседания)",
+      value: "/cabinet/documents/sessions",
     },
   ],
 };
