@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Breadcrumbs
+
+## Overview
+The `src/features/breadcrumbs` package provides:
+• `Breadcrumbs` – Mantine‐styled renderer  
+• `useBreadcrumbs(startIndex?: number)` – hook that generates an array of `{ label, href }` from the current pathname  
+• `setBreadcrumb(id, { label, href? })` / `setBreadcrumbs({...})` – helpers for registering human-readable labels (and optional custom links) for any pathname segment.
+
+## Usage Pattern
+1. **Register labels once per page (or layout)**
+   ```tsx
+   import { useEffect } from "react";
+   import { setBreadcrumb } from "@/features/breadcrumbs/use-breadcrumbs";
+
+   useEffect(() => {
+     setBreadcrumb("sessions", { label: "Отырыс (Заседания)" });
+   }, []);
+   ```
+
+2. **Render the trail**
+   ```tsx
+   import { Breadcrumbs } from "@/features/breadcrumbs";
+
+   // Skip the first N fixed segments (e.g. `/documents`)
+   <Breadcrumbs startIndex={2} />
+   ```
+
+3. **Styling**
+   – Follows Mantine theme automatically.  
+   – The last segment is displayed as dimmed text; intermediate segments are links (`@tanstack/react-router`’s `Link`).
+
+## Example – `SessionsPage`
+```tsx
+import { Breadcrumbs } from "@/features/breadcrumbs";
+import { setBreadcrumb } from "@/features/breadcrumbs/use-breadcrumbs";
+import { Stack, Title } from "@mantine/core";
+import { useEffect } from "react";
+import { MenuCard } from "./components/menu-card";
+
+export function SessionsPage() {
+  // 1. Register label for the “sessions” URL segment
+  useEffect(() => {
+    setBreadcrumb("sessions", { label: "Отырыс (Заседания)" });
+  }, []);
+  return (
+    <Stack gap={8}>
+      {/* 2. Render breadcrumbs; skip '/documents' and '/sessions' parent segment */}
+      <Breadcrumbs startIndex={2} />
+
+      {/* page content */}
+      <MenuCard />
+      <Title order={1}>Отырыс (Заседания)</Title>
+    </Stack>
+  );
+}
+```
+
+Adhering to this rule keeps breadcrumb generation consistent across every module while preserving the Mantine look & feel and TanStack Router compatibility.
