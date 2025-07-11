@@ -16,6 +16,11 @@ export function setBreadcrumb(id: string, data: BreadcrumbEntry) {
   emitChange();
 }
 
+export function setBreadcrumbs(data: Record<string, BreadcrumbEntry>) {
+  breadcrumbStore = { ...breadcrumbStore, ...data };
+  emitChange();
+}
+
 function subscribe(callback: () => void) {
   listeners.add(callback);
   return () => listeners.delete(callback);
@@ -27,10 +32,7 @@ function getSnapshot() {
 
 export function useBreadcrumbs(
   startIndex: number = 0,
-): [
-  { label: string; href: string }[],
-  (id: string, data: BreadcrumbEntry) => void,
-] {
+): { label: string; href: string }[] {
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -56,5 +58,5 @@ export function useBreadcrumbs(
     return crumbs;
   }, [pathname, store, startIndex]);
 
-  return [breadcrumbs, setBreadcrumb];
+  return breadcrumbs;
 }

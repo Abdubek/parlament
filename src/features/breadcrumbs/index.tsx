@@ -7,7 +7,7 @@ type Props = {
 };
 
 export function Breadcrumbs({ startIndex = 0 }: Props) {
-  const [breadcrumbs] = useBreadcrumbs(startIndex);
+  const breadcrumbs = useBreadcrumbs(startIndex);
 
   const items = breadcrumbs.map(({ label, href }, index) => {
     const isLast = index === breadcrumbs.length - 1;
@@ -16,7 +16,7 @@ export function Breadcrumbs({ startIndex = 0 }: Props) {
 
     if (isLast) {
       return (
-        <Text key={href} fw={500} c="dimmed">
+        <Text key={href} fw={500} fz={14} c="dimmed">
           {capitalizedLabel}
         </Text>
       );

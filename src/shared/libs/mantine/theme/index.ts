@@ -5,6 +5,7 @@ import { StyledAppShell } from "./app-shell";
 import { StyledAccordion } from "./accordion";
 import { StyledNavLink } from "./navlink";
 import { StyledTabs } from "./tabs";
+import { StyledButton } from "./button";
 
 const commonTheme = {
   fontFamily:
@@ -16,6 +17,7 @@ const commonTheme = {
     Accordion: StyledAccordion,
     NavLink: StyledNavLink,
     Tabs: StyledTabs,
+    Button: StyledButton,
   },
   primaryColor: "primary",
 };

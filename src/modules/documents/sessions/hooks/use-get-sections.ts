@@ -1,7 +1,7 @@
 import {
   useKnowledgeGetAll,
   useKnowledgeGetAllNested,
-} from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
+} from "@/shared/api/generated/knowledge/knowledgeServiceAPI.ts";
 
 const SESSION_NAME = "MEETINGS";
 
