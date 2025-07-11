@@ -6,5 +6,5 @@ export const useSectionParams = () => {
   const params = splat?.split("/");
   const lastSectionId = params?.[params.length - 1];
 
-  return { lastSectionId, params };
+  return { lastSectionId, params, level: params?.length ?? 0 };
 };

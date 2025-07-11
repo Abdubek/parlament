@@ -1,9 +1,10 @@
 import { Breadcrumbs } from "@/features/breadcrumbs";
-import { Stack, Title } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { setBreadcrumb } from "@/features/breadcrumbs/use-breadcrumbs";
 import { useEffect } from "react";
 import { MenuCard } from "./components/menu-card.tsx";
 import { FolderTable } from "./components/folder-table.tsx";
+import { SessionTitle } from "./components/session-title.tsx";
 
 export function SessionsPage() {
   useEffect(() => {
@@ -15,7 +16,7 @@ export function SessionsPage() {
       <Breadcrumbs startIndex={2} />
       <MenuCard />
       <Stack gap={24}>
-        <Title order={1}>Отырыс (Заседания)</Title>
+        <SessionTitle />
         <FolderTable />
       </Stack>
     </Stack>

@@ -9,7 +9,7 @@ import { useGetSubsections } from "../hooks/use-get-subsections";
 import { useSectionParams } from "../hooks/use-section-params";
 
 export const MenuCard = () => {
-  const { params } = useSectionParams();
+  const { params, level } = useSectionParams();
   const activeSectionId = params?.[0];
 
   const sections = useGetSections();
@@ -31,7 +31,7 @@ export const MenuCard = () => {
   }, [sections]);
 
   useEffect(() => {
-    if (!activeSectionId && sections?.content?.length) {
+    if (level === 1 && !activeSectionId && !!sections?.content?.length) {
       const firstId = sections.content[0].id;
       navigate({
         to: String(firstId),
@@ -69,6 +69,7 @@ const SectionMenu = ({
   const isActive = String(section.id) === activeSectionId;
   const navigate = sessionsRoute.useNavigate();
   const subsections = useGetSubsections(section.id ?? "");
+  const { level } = useSectionParams();
 
   useEffect(() => {
     setBreadcrumbs(
@@ -83,6 +84,19 @@ const SectionMenu = ({
       ) || {},
     );
   }, [subsections]);
+
+  useEffect(() => {
+    if (
+      level === 1 &&
+      section.id === activeSectionId &&
+      !!subsections?.content?.length
+    ) {
+      navigate({
+        to: `${sessionsRoute.fullPath.replace("/$", "")}/${section.id}/${subsections.content[0].id}`,
+        search: true,
+      });
+    }
+  }, [level, activeSectionId, subsections, navigate, section.id]);
 
   return (
     <Menu>

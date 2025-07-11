@@ -15,9 +15,13 @@ import { useGetSubsections } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
 
 export const FolderTable = () => {
-  const { lastSectionId } = useSectionParams();
+  const { lastSectionId, level } = useSectionParams();
 
   const subsections = useGetSubsections(lastSectionId ?? "");
+
+  if (level === 1) {
+    return null;
+  }
 
   if (!subsections?.content?.length) {
     return (
