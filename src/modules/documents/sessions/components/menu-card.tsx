@@ -5,6 +5,7 @@ import { sessionsRoute } from "@/modules/documents/sessions/index.tsx";
 import { useEffect } from "react";
 import { setBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
 import ChevronRightIcon from "@/shared/icons/chevron.svg";
+import { useGetSubsections } from "../hooks/use-get-subsections";
 
 export const MenuCard = () => {
   const { _splat } = sessionsRoute.useParams() as { _splat?: string };
@@ -34,9 +35,7 @@ export const MenuCard = () => {
       const firstId = sections.content[0].id;
       navigate({
         to: String(firstId),
-        params: true, // keep existing params (none besides splat)
-        search: true, // keep current search params if any
-        replace: true,
+        search: true,
       });
     }
   }, [activeSectionId, sections, navigate]);
@@ -68,6 +67,22 @@ const SectionMenu = ({
   activeSectionId?: string;
 }) => {
   const isActive = String(section.id) === activeSectionId;
+  const navigate = sessionsRoute.useNavigate();
+  const subsections = useGetSubsections(section.id ?? "");
+
+  useEffect(() => {
+    setBreadcrumbs(
+      subsections?.content?.reduce(
+        (acc, subsection) => {
+          if (subsection?.id) {
+            acc[subsection.id] = { label: subsection.name_ru ?? "" };
+          }
+          return acc;
+        },
+        {} as Record<string, { label: string }>,
+      ) || {},
+    );
+  }, [subsections]);
 
   return (
     <Menu>
@@ -87,7 +102,19 @@ const SectionMenu = ({
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Item>Settings</Menu.Item>
+        {subsections?.content?.map((subsection) => (
+          <Menu.Item
+            key={subsection.id}
+            onClick={() => {
+              navigate({
+                to: `${sessionsRoute.fullPath.replace("/$", "")}/${section.id}/${subsection.id}`,
+                search: true,
+              });
+            }}
+          >
+            {subsection.name_ru}
+          </Menu.Item>
+        ))}
       </Menu.Dropdown>
     </Menu>
   );
