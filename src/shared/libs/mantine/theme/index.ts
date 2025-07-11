@@ -6,6 +6,7 @@ import { StyledAccordion } from "./accordion";
 import { StyledNavLink } from "./navlink";
 import { StyledTabs } from "./tabs";
 import { StyledButton } from "./button";
+import { StyledTable } from "./table";
 
 const commonTheme = {
   fontFamily:
@@ -18,6 +19,7 @@ const commonTheme = {
     NavLink: StyledNavLink,
     Tabs: StyledTabs,
     Button: StyledButton,
+    Table: StyledTable,
   },
   primaryColor: "primary",
 };

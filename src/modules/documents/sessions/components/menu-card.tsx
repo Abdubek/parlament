@@ -6,11 +6,11 @@ import { useEffect } from "react";
 import { setBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
 import ChevronRightIcon from "@/shared/icons/chevron.svg";
 import { useGetSubsections } from "../hooks/use-get-subsections";
+import { useSectionParams } from "../hooks/use-section-params";
 
 export const MenuCard = () => {
-  const { _splat } = sessionsRoute.useParams() as { _splat?: string };
-  const splat: string | undefined = _splat;
-  const activeSectionId = splat?.split("/")[0];
+  const { params } = useSectionParams();
+  const activeSectionId = params?.[0];
 
   const sections = useGetSections();
 
