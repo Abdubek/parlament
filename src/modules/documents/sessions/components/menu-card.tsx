@@ -4,6 +4,7 @@ import type { SectionDto } from "@/shared/api/generated/knowledge/model";
 import { sessionsRoute } from "@/modules/documents/sessions/index.tsx";
 import { useEffect } from "react";
 import { setBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
+import ChevronRightIcon from "@/shared/icons/chevron.svg";
 
 export const MenuCard = () => {
   const { _splat } = sessionsRoute.useParams() as { _splat?: string };
@@ -71,7 +72,16 @@ const SectionMenu = ({
   return (
     <Menu>
       <Menu.Target>
-        <Button variant={isActive ? "filled" : "outline"}>
+        <Button
+          variant={isActive ? "filled" : "outline"}
+          rightSection={
+            <ChevronRightIcon
+              width={16}
+              height={16}
+              style={{ transform: "rotate(90deg)" }}
+            />
+          }
+        >
           {section.name_ru}
         </Button>
       </Menu.Target>
