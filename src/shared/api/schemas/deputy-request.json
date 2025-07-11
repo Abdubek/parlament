@@ -17,7 +17,9 @@
   "paths": {
     "/api/type/get/all": {
       "post": {
-        "tags": ["type-controller"],
+        "tags": [
+          "type-controller"
+        ],
         "summary": "Получить список Типов депутатского запроса в системе.",
         "operationId": "getAll",
         "responses": {
@@ -39,7 +41,9 @@
     },
     "/api/type/create": {
       "post": {
-        "tags": ["type-controller"],
+        "tags": [
+          "type-controller"
+        ],
         "summary": "Создать Тип депутатского запроса в системе.",
         "description": "По умолчанию в системе заведен тип с именем: 'Запрос к министерствам'.",
         "operationId": "create",
@@ -69,7 +73,9 @@
     },
     "/api/status/create": {
       "post": {
-        "tags": ["status-controller"],
+        "tags": [
+          "status-controller"
+        ],
         "summary": "Создать Статус депутатского запроса в системе.",
         "description": "По умолчанию в системе заведены статусы с именами: 'NEW', 'EXPIRED', 'SOLVED'.",
         "operationId": "create_1",
@@ -99,7 +105,9 @@
     },
     "/api/session/create": {
       "post": {
-        "tags": ["session-controller"],
+        "tags": [
+          "session-controller"
+        ],
         "summary": "Создать Сессию и прикрепить ее к существующему Созыву.",
         "description": "При указании isActual=true и при условии того, что данный Созыв также является активным, все другие Сессии становятся\n неаквтивными. Но если Созыв не является активным, условие isActual игнорируется.",
         "operationId": "createSession",
@@ -129,7 +137,9 @@
     },
     "/api/recipient/create": {
       "post": {
-        "tags": ["recipient-controller"],
+        "tags": [
+          "recipient-controller"
+        ],
         "summary": "Создать Адресата в системе.",
         "description": "На данный момент нет привязки к пользователю, зарегистрированного в системе.",
         "operationId": "createRecipient",
@@ -159,14 +169,19 @@
     },
     "/api/deputy-request/set-response": {
       "post": {
-        "tags": ["deputy-request-controller"],
+        "tags": [
+          "deputy-request-controller"
+        ],
         "summary": "Установить ответ для депустаткого запроса",
         "operationId": "setResponse",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["request_body", "response_document"],
+                "required": [
+                  "request_body",
+                  "response_document"
+                ],
                 "type": "object",
                 "properties": {
                   "request_body": {
@@ -197,14 +212,18 @@
     },
     "/api/deputy-request/create": {
       "post": {
-        "tags": ["deputy-request-controller"],
+        "tags": [
+          "deputy-request-controller"
+        ],
         "summary": "Создать депутатский запрос",
         "operationId": "create_2",
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["request_body"],
+                "required": [
+                  "request_body"
+                ],
                 "type": "object",
                 "properties": {
                   "request_body": {
@@ -242,7 +261,9 @@
     },
     "/api/convocation/save": {
       "post": {
-        "tags": ["convocation-controller"],
+        "tags": [
+          "convocation-controller"
+        ],
         "summary": "Создать Созыв с возможностью создания первичной Сессии к ней и указанием его актуальности",
         "description": "При указание параметра isActual=true при создании Созыва, последний активный Созыв становится неактивным.\nТакже при isActual=true и передачи названия первичной Сессии, последняя активная Сессия станет неактивной.",
         "operationId": "saveConvocation",
@@ -272,7 +293,9 @@
     },
     "/api/status/get/all": {
       "get": {
-        "tags": ["status-controller"],
+        "tags": [
+          "status-controller"
+        ],
         "summary": "Получить список активных Статусов депутатского запроса в системе.",
         "operationId": "getAll_1",
         "responses": {
@@ -294,7 +317,9 @@
     },
     "/api/recipient/get/all": {
       "get": {
-        "tags": ["recipient-controller"],
+        "tags": [
+          "recipient-controller"
+        ],
         "summary": "Получить список всех активных Адресатов в системе.",
         "operationId": "getAllRecipients",
         "responses": {
@@ -316,7 +341,9 @@
     },
     "/api/deputy-request/get": {
       "get": {
-        "tags": ["deputy-request-controller"],
+        "tags": [
+          "deputy-request-controller"
+        ],
         "summary": "Получить список депутатских запросов с применением фильтров",
         "description": "Для применения сортировки по полю использовть queryParameter sort со значением по типу 'requestDate,asc'.\nПо умолчанию(без указания в queryParameter), сортировка работает по полю requestDate по убыванию и количество выводимых\nэлементов на странице ровняется 20.",
         "operationId": "getAll_2",
@@ -397,7 +424,9 @@
     },
     "/api/deputy-request/get/{uuid}": {
       "get": {
-        "tags": ["deputy-request-controller"],
+        "tags": [
+          "deputy-request-controller"
+        ],
         "summary": "Получить данные депутатского запроса",
         "operationId": "getByUUID",
         "parameters": [
@@ -427,7 +456,9 @@
     },
     "/api/convocation/get/sessions/all": {
       "get": {
-        "tags": ["convocation-controller"],
+        "tags": [
+          "convocation-controller"
+        ],
         "summary": "Получить список всех Созывов и связанных с каждым Сессий с указанием актуальности Созыва и Сессии",
         "description": "Ответ будет представлен в виде списка Созывов с указанием их UUID, названия и актуальности на данный момент и прикрепленному\nк каждому Созыву списка Сессий с указанием уже их активности и названия. Активными Созывом и Сессиями считать ту комбинацию\nСозыва и Сессии, которые имеют параметр isActual = true.",
         "operationId": "getConvocationsWithSessions",
@@ -450,7 +481,9 @@
     },
     "/api/attachment/get/{uuid}": {
       "get": {
-        "tags": ["attachment-controller"],
+        "tags": [
+          "attachment-controller"
+        ],
         "summary": "Получить поток байтов файла по его UUID",
         "operationId": "getByUUID_1",
         "parameters": [
@@ -505,7 +538,9 @@
         }
       },
       "CreateTypeRequest": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -514,7 +549,9 @@
         }
       },
       "CreateStatusRequest": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -547,7 +584,11 @@
         }
       },
       "CreateSessionRequest": {
-        "required": ["convocationId", "isActual", "sessionName"],
+        "required": [
+          "convocationId",
+          "isActual",
+          "sessionName"
+        ],
         "type": "object",
         "properties": {
           "convocationId": {
@@ -629,7 +670,9 @@
         }
       },
       "CreateRecipientRequest": {
-        "required": ["name"],
+        "required": [
+          "name"
+        ],
         "type": "object",
         "properties": {
           "name": {
@@ -988,7 +1031,10 @@
         }
       },
       "ConvocationCreateRequest": {
-        "required": ["convocationName", "isActual"],
+        "required": [
+          "convocationName",
+          "isActual"
+        ],
         "type": "object",
         "properties": {
           "convocationName": {

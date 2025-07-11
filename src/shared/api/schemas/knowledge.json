@@ -23,7 +23,9 @@
   "paths": {
     "/api/v1/section/upload-subsection-file": {
       "post": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Загрузка файла для подраздела",
         "description": "        Принимает в себя объект CreateSubSectionRequest, содержащий данные о подразделе, а также файл,\n        который будет ассоциирован с этим подразделом. Поля request включают: UUID секции (sectionId),\n        UUID родительской папки (folderId), а также наименования подраздела на русском и казахском языках.\n        Файл можно не передавать, если он не требуется.\n",
         "operationId": "createSubSectionFile",
@@ -31,7 +33,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["request"],
+                "required": [
+                  "request"
+                ],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -55,7 +59,9 @@
     },
     "/api/v1/section/create-subsection-folder": {
       "post": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Создание подраздела",
         "description": "Принимает в себя UUID секции(parentSectionId), UUID parentFolderId(значение folderId из /section/get-all),\n даты проведения и\n наименований.",
         "operationId": "createSubSectionFolder",
@@ -78,7 +84,9 @@
     },
     "/api/v1/section/create-folder": {
       "post": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Создание раздела.",
         "description": "Принимает в себя название на русском и на казахском.",
         "operationId": "createSection",
@@ -101,7 +109,9 @@
     },
     "/api/v1/question/{sectionId}/create": {
       "post": {
-        "tags": ["question-controller"],
+        "tags": [
+          "question-controller"
+        ],
         "operationId": "createQuestion",
         "parameters": [
           {
@@ -133,7 +143,9 @@
     },
     "/api/v1/prototype/create": {
       "post": {
-        "tags": ["prototype-controller"],
+        "tags": [
+          "prototype-controller"
+        ],
         "summary": "Создание макета",
         "description": "        Принимает объект CreatePrototypeRequest в теле запроса для создания нового макета.\n        Запрос должен содержать все обязательные поля, необходимые для корректного\n        создания и сохранения прототипа. После успешного выполнения операции\n        прототип будет создан и сохранен в системе.\n",
         "operationId": "create",
@@ -156,7 +168,9 @@
     },
     "/api/v1/section/update/{id}": {
       "patch": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Обновление раздела.",
         "description": "Принимает в себя UUID раздела, получаемого из /get-all.",
         "operationId": "patchSection",
@@ -190,7 +204,9 @@
     },
     "/api/v1/section/archive/{uuid}": {
       "patch": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Архивация раздела",
         "description": "        Принимает UUID раздела в качестве пути и объект ArchiveFolderRequest в теле запроса\n        для выполнения операции архивации. Операция изменяет статус указанного раздела\n        и связанных с ним данных согласно параметрам, переданным в запросе.\n        После успешного выполнения раздел переводится в архивное состояние.\n",
         "operationId": "archiveSection",
@@ -224,7 +240,9 @@
     },
     "/api/v1/type/speakers-type": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип участника вопроса",
         "description": "Возвращает список всех типов участника",
         "operationId": "getDocumentTypes",
@@ -257,7 +275,9 @@
     },
     "/api/v1/type/sections-type": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип сущности в системе",
         "description": "Возвращает список всех типов",
         "operationId": "getTypes",
@@ -290,7 +310,9 @@
     },
     "/api/v1/type/sections-status": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Статусы в системе",
         "description": "Возвращает список всех доступных статусов документов/каталогов",
         "operationId": "getStatuses",
@@ -321,9 +343,43 @@
         }
       }
     },
+    "/api/v1/section/{id}": {
+      "get": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Получение раздела по его id.",
+        "operationId": "getSection",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/section/get-all": {
       "get": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Получение всех разделов(например: Отырыс).",
         "description": "Возвращает список всех разделов, их имене на русском и на казахском, а также их UUID.",
         "operationId": "getAll",
@@ -353,7 +409,9 @@
     },
     "/api/v1/section/get-all/{sectionId}": {
       "get": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Получение всех подразделов по разделу(Например: Расширенные заседания комитетов).",
         "description": "Принимает в себя UUID секции. В ответе возвращается список подсекций, каждый из которых состоит из UUID записи,\n наименований на русском и казахском языках, а также дата проведения(гггг-ММ-дд).",
         "operationId": "getAllNested",
@@ -392,7 +450,9 @@
     },
     "/api/v1/question/{sectionId}/all": {
       "get": {
-        "tags": ["question-controller"],
+        "tags": [
+          "question-controller"
+        ],
         "operationId": "getAllQuestionsForSection",
         "parameters": [
           {
@@ -429,7 +489,9 @@
     },
     "/api/v1/question/{questionId}": {
       "get": {
-        "tags": ["question-controller"],
+        "tags": [
+          "question-controller"
+        ],
         "operationId": "getQuestionById",
         "parameters": [
           {
@@ -458,7 +520,9 @@
     },
     "/api/v1/section/delete/{id}": {
       "delete": {
-        "tags": ["section-controller"],
+        "tags": [
+          "section-controller"
+        ],
         "summary": "Удаление раздела.",
         "description": "Принимает в себя UUID раздела, получаемого из /get-all.",
         "operationId": "deleteSection",
@@ -507,7 +571,10 @@
         }
       },
       "CreateSectionRequest": {
-        "required": ["name_kz", "name_ru"],
+        "required": [
+          "name_kz",
+          "name_ru"
+        ],
         "type": "object",
         "properties": {
           "name_ru": {
@@ -531,7 +598,10 @@
             "type": "object",
             "additionalProperties": {
               "type": "string",
-              "enum": ["MAIN_SPEAKER", "CO_SPEAKER"]
+              "enum": [
+                "MAIN_SPEAKER",
+                "CO_SPEAKER"
+              ]
             }
           },
           "meeting_date": {
@@ -541,7 +611,9 @@
         }
       },
       "CreatePrototypeRequest": {
-        "required": ["section_id"],
+        "required": [
+          "section_id"
+        ],
         "type": "object",
         "properties": {
           "section_id": {
@@ -628,6 +700,42 @@
         },
         "description": "Тип (перечисление)"
       },
+      "SectionDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name_kz": {
+            "type": "string"
+          },
+          "name_ru": {
+            "type": "string"
+          },
+          "folder_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "type": {
+            "type": "string"
+          },
+          "file_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "file_name": {
+            "type": "string"
+          }
+        }
+      },
       "Pageable": {
         "type": "object",
         "properties": {
@@ -669,42 +777,6 @@
           "totalPages": {
             "type": "integer",
             "format": "int64"
-          }
-        }
-      },
-      "SectionDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "name_kz": {
-            "type": "string"
-          },
-          "name_ru": {
-            "type": "string"
-          },
-          "folder_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "type": "string"
-          },
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "type": {
-            "type": "string"
-          },
-          "file_id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "file_name": {
-            "type": "string"
           }
         }
       },

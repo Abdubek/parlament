@@ -51,7 +51,9 @@
   "paths": {
     "/api/groups/delete-user": {
       "post": {
-        "tags": ["Group API"],
+        "tags": [
+          "Group API"
+        ],
         "summary": "Удалить пользователя из группы",
         "description": "Удаляет указанного пользователя из группы.",
         "operationId": "deleteFromGroup",
@@ -92,7 +94,9 @@
     },
     "/api/groups/create": {
       "post": {
-        "tags": ["Group API"],
+        "tags": [
+          "Group API"
+        ],
         "summary": "Создать новую группу",
         "description": "Создаёт новую группу на основе переданных данных.",
         "operationId": "createGroup",
@@ -133,7 +137,9 @@
     },
     "/api/groups/add-user": {
       "post": {
-        "tags": ["Group API"],
+        "tags": [
+          "Group API"
+        ],
         "summary": "Добавить пользователя в группу",
         "description": "Добавляет пользователя в указанную группу.",
         "operationId": "addToGroup",
@@ -174,7 +180,9 @@
     },
     "/api/events/{eventId}/unsubscribe": {
       "post": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Отписка от события",
         "description": "Отписывает пользователя от события",
         "operationId": "unsubscribe",
@@ -224,7 +232,9 @@
     },
     "/api/events/{eventId}/subscribe": {
       "post": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Подписка на событие",
         "description": "Подписывает пользователя на событие",
         "operationId": "subscribe",
@@ -274,7 +284,9 @@
     },
     "/api/events/settings/set-notify-time-before": {
       "post": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Установить время уведомления перед событием",
         "description": "Устанавливает время в миллисекундах, за которое участник события будет уведомлен перед его началом.",
         "operationId": "setNotifyTimeBefore",
@@ -315,7 +327,9 @@
     },
     "/api/events/settings/set-access-for-calendar": {
       "post": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Предоставить доступ к календарю",
         "description": "Добавляет участника, которому будет предоставлен доступ к календарю основного пользователя.",
         "operationId": "setAccessFor",
@@ -356,7 +370,9 @@
     },
     "/api/events/settings/delete-access-for-calendar": {
       "post": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Удалить доступ к календарю",
         "description": "Удаляет ранее предоставленный доступ к календарю для указанного участника.",
         "operationId": "deleteAccessFor",
@@ -397,7 +413,9 @@
     },
     "/api/events/create": {
       "post": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Создание события",
         "description": "Создает новое событие на основе предоставленных данных.\nПоле \"calendarType\":\n    PERSONAL,\n    WORKING_GROUP,\n    EVENT_PLAN,\n    OCCUPANCY_MEETING_ROOM,\n    DEPARTMENT,\n    COMPANY;\nПоле \"repeatability\":\n    NOT_REPEATABLE,\n    EVERY_DAY,\n    EVERY_WEEK,\n    EVERY_MONTH,\n    EVERY_YEAR;\n",
         "operationId": "createEvent",
@@ -406,7 +424,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["event"],
+                "required": [
+                  "event"
+                ],
                 "type": "object",
                 "properties": {
                   "event": {
@@ -460,7 +480,9 @@
     },
     "/api/events/by-participants": {
       "post": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение всех cобытий по участникам",
         "description": "Возвращает список событий участников.",
         "operationId": "getByParticipants",
@@ -507,7 +529,9 @@
     },
     "/api/events/accept-invitation": {
       "post": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Подтверждение приглашения по событию",
         "description": "Обработка согласия/отказа пользователя на приглашение по событию\nПоле \"busyness\":\n    BUSY (занят, отказ от приглашения),\n    IN_QUESTION (под вопросом, подумает еще, приглашение в силе),\n    FREE (свободен, приглашение принято);\n",
         "operationId": "acceptInvitation",
@@ -568,7 +592,9 @@
     },
     "/api/bookings/check-availability": {
       "post": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Проверка доступности комнат для бронирования",
         "operationId": "checkRoomAvailability",
         "requestBody": {
@@ -600,7 +626,9 @@
     },
     "/api/attachment/files/remove": {
       "post": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Удаление файлов пачкой по fileUUID",
         "operationId": "removeFiles",
         "requestBody": {
@@ -626,7 +654,9 @@
     },
     "/api/events/update/{id}": {
       "patch": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Обновление события",
         "description": "Обновляет существующее событие на основе предоставленных данных.",
         "operationId": "updateEvent",
@@ -646,7 +676,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["event"],
+                "required": [
+                  "event"
+                ],
                 "type": "object",
                 "properties": {
                   "event": {
@@ -710,7 +742,9 @@
     },
     "/api/events/publish": {
       "patch": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Опубликовать события",
         "description": "Опубликовать события, после проверки",
         "operationId": "publishUpcomingEvents",
@@ -770,7 +804,9 @@
     },
     "/api/bookings/{bookingId}/cancel": {
       "patch": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Отмена бронирования",
         "description": "Отменяет бронирование, если запрос исходит от автора события",
         "operationId": "cancelBooking",
@@ -830,7 +866,9 @@
     },
     "/api/type/repeatability": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Получение типов повторяемости",
         "description": "Возвращает список всех доступных типов повторяемости",
         "operationId": "getEventRepeatability",
@@ -863,7 +901,9 @@
     },
     "/api/type/range": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "operationId": "getRange",
         "parameters": [
           {
@@ -899,7 +939,9 @@
     },
     "/api/type/parliament": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Получение типов палат парламента",
         "description": "Возвращает список всех доступных палат парламента с их названием",
         "operationId": "getParliamentTypes",
@@ -910,7 +952,10 @@
               "application/json": {
                 "schema": {
                   "type": "string",
-                  "enum": ["MAZHILIS", "SENATE"]
+                  "enum": [
+                    "MAZHILIS",
+                    "SENATE"
+                  ]
                 }
               }
             }
@@ -933,7 +978,9 @@
     },
     "/api/type/event": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Получение типов событий",
         "description": "Возвращает список всех доступных типов событий с их названиями и цветами",
         "operationId": "getEventTypes",
@@ -966,7 +1013,9 @@
     },
     "/api/type/committee": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "operationId": "getCommitteeTypes",
         "parameters": [
           {
@@ -975,7 +1024,10 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["MAZHILIS", "SENATE"]
+              "enum": [
+                "MAZHILIS",
+                "SENATE"
+              ]
             }
           }
         ],
@@ -998,7 +1050,9 @@
     },
     "/api/type/calendar": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Получение типов календаря",
         "description": "Возвращает список всех доступных типов календаря",
         "operationId": "getCalendarTypes",
@@ -1031,7 +1085,9 @@
     },
     "/api/meeting/rooms": {
       "get": {
-        "tags": ["Meeting API"],
+        "tags": [
+          "Meeting API"
+        ],
         "summary": "Получение списка залов заседания",
         "description": "Возвращает список всех доступных залов заседаний с их местоположениями",
         "operationId": "getAllMeetingRooms",
@@ -1064,7 +1120,9 @@
     },
     "/api/meeting/rooms/available": {
       "get": {
-        "tags": ["Meeting API"],
+        "tags": [
+          "Meeting API"
+        ],
         "summary": "Получение доступных переговорных комнат по вместимости",
         "description": "Возвращает список доступных переговорных комнат, подходящих по вместимости",
         "operationId": "getAvailableRooms",
@@ -1121,7 +1179,9 @@
     },
     "/api/groups": {
       "get": {
-        "tags": ["Group API"],
+        "tags": [
+          "Group API"
+        ],
         "summary": "Получить все группы",
         "description": "Возвращает список всех групп с их идентификаторами и названиями.",
         "operationId": "getAllGroups",
@@ -1144,7 +1204,9 @@
     },
     "/api/events": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение всех событий",
         "description": "Возвращает список всех созданных событий.",
         "operationId": "getAllEvents",
@@ -1246,7 +1308,9 @@
     },
     "/api/events/{id}": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение события по ID",
         "description": "Возвращает событие по его уникальному идентификатору.",
         "operationId": "getEventById",
@@ -1299,7 +1363,9 @@
     },
     "/api/events/types": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение типов событий",
         "description": "Возвращает список всех доступных типов событий с их названиями и цветами",
         "operationId": "getEventTypes_1",
@@ -1333,7 +1399,9 @@
     },
     "/api/events/settings/get-personal-calendar-users/{mainUserId}": {
       "get": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Получение списка юзеров у которых есть доступ к личному календарю main юзера",
         "description": "на вход нужно отправить id текущего юзера",
         "operationId": "getPersonalCalendarUsers",
@@ -1366,7 +1434,9 @@
     },
     "/api/events/settings/get-participant-by-id/{id}": {
       "get": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Получение данных по партисипанту ивента",
         "operationId": "getParticipantById",
         "parameters": [
@@ -1396,7 +1466,9 @@
     },
     "/api/events/settings/get-group-calendar-users/{mainUserGroupId}": {
       "get": {
-        "tags": ["Event settings API"],
+        "tags": [
+          "Event settings API"
+        ],
         "summary": "Получение списка юзеров у которых есть доступ к гупповому календарю main юзера",
         "description": "на вход нужно отправить групповой id текущего юзера",
         "operationId": "getGroupCalendarUsers",
@@ -1429,7 +1501,9 @@
     },
     "/api/events/invitations/{userId}": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение приглашений участники",
         "description": "Возвращает список приглашения участника, которые он не принял и не отказался от них.",
         "operationId": "getInvitations",
@@ -1473,7 +1547,9 @@
     },
     "/api/events/group": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение всех групповых событий",
         "description": "Возвращает список всех созданных групповых событий.",
         "operationId": "getAllGroupEvents",
@@ -1506,7 +1582,9 @@
     },
     "/api/events/find-by-room/{roomId}": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Поиск событий по комнате",
         "description": "Возвращает список всех событий, связанных с указанной комнатой за определённый период.",
         "operationId": "findEventByRooms",
@@ -1593,7 +1671,9 @@
     },
     "/api/events/files/{fileId}": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Скачивания файла по fileUUID",
         "operationId": "downloadFile",
         "parameters": [
@@ -1624,7 +1704,9 @@
     },
     "/api/events/by-chatId/{chatId}": {
       "get": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Получение всех cобытий по chatId",
         "operationId": "getListByChatId",
         "parameters": [
@@ -1657,7 +1739,9 @@
     },
     "/api/committee/filter-list": {
       "get": {
-        "tags": ["Committee API"],
+        "tags": [
+          "Committee API"
+        ],
         "operationId": "getFilterList",
         "parameters": [
           {
@@ -1710,7 +1794,9 @@
     },
     "/api/committee/events": {
       "get": {
-        "tags": ["Committee API"],
+        "tags": [
+          "Committee API"
+        ],
         "operationId": "getEvents",
         "parameters": [
           {
@@ -1781,7 +1867,9 @@
     },
     "/api/bookings/{roomId}/slots": {
       "get": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Получение занятых слотов по промежутку дат, по текщему дню, текущей неделе, текущему месяцу и расписания от сегоднешнего дня и на пол года вперед. Ключевые слова DAY, WEEK, MONTH, SCHEDULE",
         "description": "Возвращает список занятых временных интервалов для указанной комнаты. Принимает диапазон дат или ключевое слово и отдает занятые интервалы по этим датам. Так же принимает вместо диапазона period DAY, WEEK, MONTH и отдает соответственно занятость по сегодняшнему дню, текущей неделе или месяцу",
         "operationId": "getRoomBookings",
@@ -1873,7 +1961,9 @@
     },
     "/api/attachment/files/{fileId}": {
       "get": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Скачивания файла по fileUUID",
         "operationId": "downloadFile_1",
         "parameters": [
@@ -1903,7 +1993,9 @@
     },
     "/api/attachment/files/remove/{fileId}": {
       "get": {
-        "tags": ["Booking API"],
+        "tags": [
+          "Booking API"
+        ],
         "summary": "Удаление файла по fileUUID",
         "operationId": "removeFile",
         "parameters": [
@@ -1925,7 +2017,9 @@
     },
     "/api/events/delete/{id}": {
       "delete": {
-        "tags": ["Event API"],
+        "tags": [
+          "Event API"
+        ],
         "summary": "Удаление события (Смена статуса на CANCELED)",
         "description": "Удаляет событие по его уникальному идентификатору (UUID).",
         "operationId": "deleteEvent",
@@ -2303,7 +2397,12 @@
           },
           "busyness": {
             "type": "string",
-            "enum": ["NOT_SET", "BUSY", "IN_QUESTION", "FREE"]
+            "enum": [
+              "NOT_SET",
+              "BUSY",
+              "IN_QUESTION",
+              "FREE"
+            ]
           },
           "invite_description": {
             "type": "string"
@@ -2349,7 +2448,12 @@
           },
           "busyness": {
             "type": "string",
-            "enum": ["NOT_SET", "BUSY", "IN_QUESTION", "FREE"]
+            "enum": [
+              "NOT_SET",
+              "BUSY",
+              "IN_QUESTION",
+              "FREE"
+            ]
           },
           "event_name": {
             "type": "string"

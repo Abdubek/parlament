@@ -16,14 +16,32 @@
   ],
   "tags": [
     {
+      "name": "Document API",
+      "description": "API для работы с документами"
+    },
+    {
+      "name": "Folder API",
+      "description": "API для работы с каталогами"
+    },
+    {
       "name": "Types API",
       "description": "API для получения списков перечисления"
+    },
+    {
+      "name": "OnlyOffice API",
+      "description": "API для межсервисного взаимодействия onlyoffice-server "
+    },
+    {
+      "name": "Section API",
+      "description": "API для работы с секциями"
     }
   ],
   "paths": {
     "/process-folders/update/{folderId}": {
       "post": {
-        "tags": ["process-folder-controller"],
+        "tags": [
+          "process-folder-controller"
+        ],
         "operationId": "updateFolder",
         "parameters": [
           {
@@ -63,7 +81,9 @@
     },
     "/process-folders/create": {
       "post": {
-        "tags": ["process-folder-controller"],
+        "tags": [
+          "process-folder-controller"
+        ],
         "operationId": "createFolder",
         "requestBody": {
           "content": {
@@ -92,7 +112,9 @@
     },
     "/process-folders/assignee-process-to-user": {
       "post": {
-        "tags": ["process-folder-controller"],
+        "tags": [
+          "process-folder-controller"
+        ],
         "operationId": "assigneeProcessToUser",
         "requestBody": {
           "content": {
@@ -114,7 +136,9 @@
     },
     "/process-files/upload": {
       "post": {
-        "tags": ["process-file-controller"],
+        "tags": [
+          "process-file-controller"
+        ],
         "operationId": "uploadFileForProcessInstance",
         "parameters": [
           {
@@ -130,7 +154,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -158,7 +184,9 @@
     },
     "/process-files/delete/{processFileId}": {
       "post": {
-        "tags": ["process-file-controller"],
+        "tags": [
+          "process-file-controller"
+        ],
         "operationId": "deleteFile",
         "parameters": [
           {
@@ -187,7 +215,9 @@
     },
     "/onlyoffice/{id}/callback": {
       "post": {
-        "tags": ["only-office-controller"],
+        "tags": [
+          "OnlyOffice API"
+        ],
         "operationId": "callback",
         "parameters": [
           {
@@ -225,7 +255,9 @@
     },
     "/folder/create": {
       "post": {
-        "tags": ["folder-controller"],
+        "tags": [
+          "Folder API"
+        ],
         "summary": "Создать каталог",
         "description": "Создать каталог",
         "operationId": "createFolder_1",
@@ -265,7 +297,9 @@
     },
     "/document/create": {
       "post": {
-        "tags": ["document-controller"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Создать документ",
         "description": "Создать документ",
         "operationId": "createDocument",
@@ -273,7 +307,10 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["file", "request"],
+                "required": [
+                  "file",
+                  "request"
+                ],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -314,7 +351,9 @@
     },
     "/access-rights/create": {
       "post": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Назначить права группе пользователей",
         "operationId": "create",
         "requestBody": {
@@ -346,7 +385,9 @@
     },
     "/folder/update/{id}": {
       "patch": {
-        "tags": ["folder-controller"],
+        "tags": [
+          "Folder API"
+        ],
         "summary": "Обновить каталог",
         "description": "Обновить каталог",
         "operationId": "updateFolder_1",
@@ -397,7 +438,9 @@
     },
     "/document/update/{id}": {
       "patch": {
-        "tags": ["document-controller"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Обновить документ",
         "description": "Обновить документ",
         "operationId": "updateDocument",
@@ -448,7 +491,9 @@
     },
     "/section/search": {
       "get": {
-        "tags": ["section-controller"],
+        "tags": [
+          "Section API"
+        ],
         "summary": "Поиск секций",
         "description": "Поиск секций",
         "operationId": "findAll",
@@ -456,19 +501,118 @@
           {
             "name": "folderId",
             "in": "query",
+            "description": "Идентификатор каталога",
             "required": false,
             "schema": {
               "type": "string",
+              "description": "Идентификатор каталога",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "departmentId",
+            "in": "query",
+            "description": "Идентификатор департамента",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Идентификатор департамента",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "updatedById",
+            "in": "query",
+            "description": "Идентификатор пользователя обновившего секцию",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Идентификатор пользователя обновившего секцию",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "createdById",
+            "in": "query",
+            "description": "Идентификатор пользователя создавшего секцию",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Идентификатор пользователя создавшего секцию",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "createDateRange.startDate",
+            "in": "query",
+            "description": "Дата старта",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Дата старта",
+              "format": "date"
+            }
+          },
+          {
+            "name": "createDateRange.endDate",
+            "in": "query",
+            "description": "Дата завершения",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Дата завершения",
+              "format": "date"
+            }
+          },
+          {
+            "name": "updateDateRange.startDate",
+            "in": "query",
+            "description": "Дата старта",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Дата старта",
+              "format": "date"
+            }
+          },
+          {
+            "name": "updateDateRange.endDate",
+            "in": "query",
+            "description": "Дата завершения",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Дата завершения",
+              "format": "date"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Статус",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Статус",
+              "enum": [
+                "DRAFT",
+                "SUBMITTED",
+                "IN_REVIEW",
+                "APPROVED",
+                "REJECTED",
+                "ARCHIVED",
+                "DELETED"
+              ]
             }
           },
           {
             "name": "search",
             "in": "query",
+            "description": "Наименование",
             "required": false,
             "schema": {
               "type": "string",
-              "default": ""
+              "description": "Наименование"
             }
           },
           {
@@ -532,7 +676,9 @@
     },
     "/process-folders/{processInstanceId}/folder": {
       "get": {
-        "tags": ["process-folder-controller"],
+        "tags": [
+          "process-folder-controller"
+        ],
         "operationId": "getAllByProcessInstance",
         "parameters": [
           {
@@ -561,7 +707,9 @@
     },
     "/process-folders/available-for-me": {
       "get": {
-        "tags": ["process-folder-controller"],
+        "tags": [
+          "process-folder-controller"
+        ],
         "operationId": "getAvailableForMe",
         "responses": {
           "200": {
@@ -583,7 +731,9 @@
     },
     "/process-files/download-file/{fileId}": {
       "get": {
-        "tags": ["process-file-controller"],
+        "tags": [
+          "process-file-controller"
+        ],
         "operationId": "downloadFile",
         "parameters": [
           {
@@ -612,7 +762,9 @@
     },
     "/process-files/available-for-me": {
       "get": {
-        "tags": ["process-file-controller"],
+        "tags": [
+          "process-file-controller"
+        ],
         "operationId": "getAvailableForMe_1",
         "parameters": [
           {
@@ -652,7 +804,9 @@
     },
     "/onlyoffice/{id}": {
       "get": {
-        "tags": ["only-office-controller"],
+        "tags": [
+          "OnlyOffice API"
+        ],
         "summary": "Открыть документ",
         "description": "Открыть документ",
         "operationId": "open",
@@ -672,7 +826,10 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["view", "edit"],
+              "enum": [
+                "view",
+                "edit"
+              ],
               "default": "view"
             }
           },
@@ -690,9 +847,9 @@
           "200": {
             "description": "Успешный ответ",
             "content": {
-              "application/json": {
+              "text/html": {
                 "schema": {
-                  "$ref": "#/components/schemas/DocumentDto"
+                  "type": "string"
                 }
               }
             }
@@ -712,7 +869,9 @@
     },
     "/onlyoffice/{id}/history": {
       "get": {
-        "tags": ["only-office-controller"],
+        "tags": [
+          "OnlyOffice API"
+        ],
         "operationId": "getDocumentHistory",
         "parameters": [
           {
@@ -741,7 +900,9 @@
     },
     "/onlyoffice/{id}/history/data": {
       "get": {
-        "tags": ["only-office-controller"],
+        "tags": [
+          "OnlyOffice API"
+        ],
         "operationId": "getHistoryData",
         "parameters": [
           {
@@ -779,7 +940,9 @@
     },
     "/onlyoffice/{id}/download": {
       "get": {
-        "tags": ["only-office-controller"],
+        "tags": [
+          "OnlyOffice API"
+        ],
         "operationId": "download",
         "parameters": [
           {
@@ -817,7 +980,9 @@
     },
     "/document/{documentId}": {
       "get": {
-        "tags": ["document-controller"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Получить документ по Id",
         "description": "Получить документ по Id",
         "operationId": "getDocumentById",
@@ -858,7 +1023,9 @@
     },
     "/api/type/status": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Статусы в системе",
         "description": "Возвращает список всех доступных статусов документов/каталогов",
         "operationId": "getStatuses",
@@ -891,7 +1058,9 @@
     },
     "/api/type/section": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип сущности в системе",
         "description": "Возвращает список всех типов",
         "operationId": "getTypes",
@@ -924,7 +1093,9 @@
     },
     "/api/type/document": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип документа",
         "description": "Возвращает список всех типов документа",
         "operationId": "getDocumentTypes",
@@ -957,7 +1128,9 @@
     },
     "/access-rights": {
       "get": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Получить все права доступа",
         "operationId": "getAll",
         "responses": {
@@ -979,7 +1152,9 @@
     },
     "/access-rights/{id}": {
       "get": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Получить право доступа по ID",
         "operationId": "getById",
         "parameters": [
@@ -1007,7 +1182,9 @@
         }
       },
       "delete": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Удалить право доступа по ID",
         "operationId": "delete",
         "parameters": [
@@ -1030,7 +1207,9 @@
     },
     "/access-rights/get-for-object": {
       "get": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Получить права доступа пользователя по userId для конкретного объекта objectId",
         "operationId": "getRightsForObject",
         "parameters": [
@@ -1072,7 +1251,9 @@
     },
     "/folder/delete/{ids}": {
       "delete": {
-        "tags": ["folder-controller"],
+        "tags": [
+          "Folder API"
+        ],
         "summary": "Удалить каталоги",
         "description": "Удалить каталоги",
         "operationId": "deleteFolders",
@@ -1109,7 +1290,9 @@
     },
     "/document/delete/{ids}": {
       "delete": {
-        "tags": ["document-controller"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Удалить документы",
         "description": "Удалить документы",
         "operationId": "deleteDocuments",
@@ -1146,7 +1329,9 @@
     },
     "/access-rights/remove-permission": {
       "delete": {
-        "tags": ["access-rights-controller"],
+        "tags": [
+          "access-rights-controller"
+        ],
         "summary": "Удалить конкретное право доступа у пользователя",
         "operationId": "removePermission",
         "requestBody": {
@@ -1253,7 +1438,11 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["0", "1", "2"]
+            "enum": [
+              "0",
+              "1",
+              "2"
+            ]
           },
           "userid": {
             "type": "string"
@@ -1277,7 +1466,12 @@
           },
           "forcesavetype": {
             "type": "string",
-            "enum": ["0", "1", "2", "3"]
+            "enum": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ]
           },
           "formsdataurl": {
             "type": "string"
@@ -1290,7 +1484,14 @@
           },
           "status": {
             "type": "string",
-            "enum": ["1", "2", "3", "4", "6", "7"]
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "6",
+              "7"
+            ]
           },
           "url": {
             "type": "string"
@@ -1354,12 +1555,27 @@
             "type": "string",
             "description": "Тип секции",
             "readOnly": true,
-            "enum": ["FOLDER", "FILE"]
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
           },
           "parentFolderId": {
             "type": "string",
             "description": "Идентификатор родительского каталога, к которому относится секция",
             "format": "uuid"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Создавший пользователь",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "Обновивший пользователь",
+            "format": "uuid",
+            "readOnly": true
           },
           "updatedAt": {
             "type": "string",
@@ -1372,6 +1588,9 @@
             "description": "Дата создания",
             "format": "date-time",
             "readOnly": true
+          },
+          "context": {
+            "$ref": "#/components/schemas/SectionContextDto"
           },
           "version": {
             "type": "integer",
@@ -1446,6 +1665,65 @@
         },
         "description": "Файл"
       },
+      "RealmDto": {
+        "type": "object",
+        "properties": {
+          "realmId": {
+            "type": "string",
+            "description": "Уникальный идентификатор модуля секции",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "realmCode": {
+            "type": "string",
+            "description": "Код модуля секкции",
+            "readOnly": true
+          }
+        },
+        "description": "Модули",
+        "readOnly": true
+      },
+      "SectionContextDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный идентификатор контекста секции",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "departmentId": {
+            "type": "string",
+            "description": "Уникальный идентификатор департамента",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "spaceId": {
+            "type": "string",
+            "description": "Уникальный идентификатор пространства",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "spaceCode": {
+            "type": "string",
+            "description": "Код пространства",
+            "readOnly": true
+          },
+          "realms": {
+            "type": "array",
+            "description": "Модули секции",
+            "readOnly": true,
+            "items": {
+              "$ref": "#/components/schemas/RealmDto"
+            }
+          },
+          "system": {
+            "type": "boolean"
+          }
+        },
+        "description": "Контекст секции",
+        "readOnly": true
+      },
       "FolderDto": {
         "type": "object",
         "description": "Каталог",
@@ -1469,7 +1747,10 @@
         "properties": {
           "objectType": {
             "type": "string",
-            "enum": ["FOLDER", "FILE"]
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
           },
           "objectId": {
             "type": "string",
@@ -1482,7 +1763,13 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
+                "enum": [
+                  "READ",
+                  "CREATE",
+                  "UPDATE",
+                  "SHARE",
+                  "FULL_ACCESS"
+                ]
               }
             }
           }
@@ -1513,7 +1800,10 @@
           },
           "objectType": {
             "type": "string",
-            "enum": ["FOLDER", "FILE"]
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
           },
           "objectId": {
             "type": "string",
@@ -1524,7 +1814,13 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
+              "enum": [
+                "READ",
+                "CREATE",
+                "UPDATE",
+                "SHARE",
+                "FULL_ACCESS"
+              ]
             }
           }
         }
@@ -1532,13 +1828,13 @@
       "PageSectionDto": {
         "type": "object",
         "properties": {
-          "totalElements": {
-            "type": "integer",
-            "format": "int64"
-          },
           "totalPages": {
             "type": "integer",
             "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1645,12 +1941,27 @@
             "type": "string",
             "description": "Тип секции",
             "readOnly": true,
-            "enum": ["FOLDER", "FILE"]
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
           },
           "parentFolderId": {
             "type": "string",
             "description": "Идентификатор родительского каталога, к которому относится секция",
             "format": "uuid"
+          },
+          "createdBy": {
+            "type": "string",
+            "description": "Создавший пользователь",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "updatedBy": {
+            "type": "string",
+            "description": "Обновивший пользователь",
+            "format": "uuid",
+            "readOnly": true
           },
           "updatedAt": {
             "type": "string",
@@ -1663,6 +1974,9 @@
             "description": "Дата создания",
             "format": "date-time",
             "readOnly": true
+          },
+          "context": {
+            "$ref": "#/components/schemas/SectionContextDto"
           }
         },
         "description": "Секция"
@@ -1733,7 +2047,10 @@
           },
           "objectType": {
             "type": "string",
-            "enum": ["FOLDER", "FILE"]
+            "enum": [
+              "FOLDER",
+              "FILE"
+            ]
           },
           "objectId": {
             "type": "string",
@@ -1741,7 +2058,13 @@
           },
           "permission": {
             "type": "string",
-            "enum": ["READ", "CREATE", "UPDATE", "SHARE", "FULL_ACCESS"]
+            "enum": [
+              "READ",
+              "CREATE",
+              "UPDATE",
+              "SHARE",
+              "FULL_ACCESS"
+            ]
           }
         }
       }

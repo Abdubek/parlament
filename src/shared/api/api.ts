@@ -1,5 +1,15 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL: import.meta.env.PUBLIC_API_BASE_URL,
+});
+
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem("accessToken");
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
 });

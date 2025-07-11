@@ -12,7 +12,7 @@ function emitChange() {
 }
 
 export function setBreadcrumb(id: string, data: BreadcrumbEntry) {
-  breadcrumbStore[id] = data;
+  breadcrumbStore = { ...breadcrumbStore, [id]: data };
   emitChange();
 }
 

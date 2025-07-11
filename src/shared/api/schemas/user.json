@@ -15,288 +15,11 @@
     }
   ],
   "paths": {
-    "/api/vacation/{uuid}/update": {
-      "put": {
-        "tags": ["vacation-controller"],
-        "summary": "Обновить информацию о отпуске",
-        "operationId": "update",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation-application/{uuid}/update": {
-      "put": {
-        "tags": ["vacation-application-controller"],
-        "summary": "Обновить заявление на отпуск",
-        "operationId": "update_1",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationApplicationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/users/{userId}/update": {
-      "put": {
-        "tags": ["user-controller"],
-        "summary": "Обновление пользователя по userId",
-        "operationId": "updateUser",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": ["user"],
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "$ref": "#/components/schemas/UserRequest"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/substitution/{uuid}/update": {
-      "put": {
-        "tags": ["substitution-controller"],
-        "summary": "Обновить информацию о отпуске",
-        "operationId": "update_2",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubstitutionDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/personal-affair/{uuid}/update": {
-      "put": {
-        "tags": ["personal-affair-controller"],
-        "summary": "Обновить личное дело по UUID",
-        "operationId": "update_3",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PersonalAffairDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation/create": {
-      "post": {
-        "tags": ["vacation-controller"],
-        "summary": "Создать отпуск",
-        "operationId": "create",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VacationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation-application/create": {
-      "post": {
-        "tags": ["vacation-application-controller"],
-        "summary": "Создать заявление на отпуск",
-        "operationId": "create_1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/VacationApplicationRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationApplicationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/users/{userId}/upload": {
       "post": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Изменение аватарки пользователя",
         "operationId": "uploadAvatarByUserId",
         "parameters": [
@@ -314,47 +37,11 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["image"],
+                "required": [
+                  "image"
+                ],
                 "type": "object",
                 "properties": {
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/users/create": {
-      "post": {
-        "tags": ["user-controller"],
-        "summary": "Создание пользователя",
-        "operationId": "create_2",
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": ["user"],
-                "type": "object",
-                "properties": {
-                  "user": {
-                    "$ref": "#/components/schemas/UserRequest"
-                  },
                   "image": {
                     "type": "string",
                     "format": "binary"
@@ -380,7 +67,9 @@
     },
     "/api/users/block": {
       "post": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Блокировка всех пользователей по userIds",
         "operationId": "blockUsersByIds",
         "requestBody": {
@@ -412,7 +101,9 @@
     },
     "/api/users/activate": {
       "post": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Разблокировка всех пользователей по userIds",
         "operationId": "activateUsersByIds",
         "requestBody": {
@@ -442,69 +133,13 @@
         }
       }
     },
-    "/api/substitution/create": {
-      "post": {
-        "tags": ["substitution-controller"],
-        "summary": "Создать замещание",
-        "operationId": "create_3",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubstitutionRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubstitutionDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/personal-affair/create": {
-      "post": {
-        "tags": ["personal-affair-controller"],
-        "summary": "Создать личное дело",
-        "operationId": "create_4",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PersonalAffairRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PersonalAffairDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/organizations/{uuid}/update": {
       "post": {
-        "tags": ["organization-controller"],
+        "tags": [
+          "organization-controller"
+        ],
         "summary": "Редактирование организаций",
-        "operationId": "update_4",
+        "operationId": "update",
         "parameters": [
           {
             "name": "uuid",
@@ -542,9 +177,11 @@
     },
     "/api/organizations/create": {
       "post": {
-        "tags": ["organization-controller"],
+        "tags": [
+          "organization-controller"
+        ],
         "summary": "Создание организаций",
-        "operationId": "create_5",
+        "operationId": "create",
         "requestBody": {
           "content": {
             "application/json": {
@@ -569,455 +206,13 @@
         }
       }
     },
-    "/api/org-structure/{uuid}/update": {
-      "post": {
-        "tags": ["org-structure-controller"],
-        "operationId": "update_5",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrgStructureRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrgStructureDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/versions/publish/{organizationId}": {
-      "post": {
-        "tags": ["org-structure-version-controller"],
-        "summary": "Публикации новый версии",
-        "operationId": "publishNewVersion",
-        "parameters": [
-          {
-            "name": "organizationId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrgStructureVersionRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrgStructureVersion"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/update-manager-position/{departmentId}/in-department/{positionId}": {
-      "post": {
-        "tags": ["org-structure-controller"],
-        "operationId": "updateManagerPosition",
-        "parameters": [
-          {
-            "name": "departmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "positionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateManagerPositionRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrgStructureDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/update-employee/{departmentId}/in-department/{positionId}": {
-      "post": {
-        "tags": ["org-structure-controller"],
-        "operationId": "updateEmployee",
-        "parameters": [
-          {
-            "name": "departmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "positionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DepartmentEmployeeRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/DepartmentEmployeeDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/create": {
-      "post": {
-        "tags": ["org-structure-controller"],
-        "operationId": "create_6",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrgStructureRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrgStructureDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/add-employee/{departmentId}": {
-      "post": {
-        "tags": ["org-structure-controller"],
-        "operationId": "addEmployeeToDepartment",
-        "parameters": [
-          {
-            "name": "departmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DepartmentEmployeeRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups/update/{uuid}": {
-      "post": {
-        "tags": ["group-controller"],
-        "summary": "Редактирование группы по UUID",
-        "operationId": "update_6",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups/create": {
-      "post": {
-        "tags": ["group-controller"],
-        "summary": "Создание группы",
-        "operationId": "create_7",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups/add/user/to/group": {
-      "post": {
-        "tags": ["group-controller"],
-        "summary": "Добавление пользователя в группу",
-        "operationId": "addUserToGroup",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupUserRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation": {
-      "get": {
-        "tags": ["vacation-controller"],
-        "summary": "Получить cписок отпусков",
-        "operationId": "getAll",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VacationDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation/{uuid}": {
-      "get": {
-        "tags": ["vacation-controller"],
-        "summary": "Получить информацию о отпуске по UUID",
-        "operationId": "getById",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation-application": {
-      "get": {
-        "tags": ["vacation-application-controller"],
-        "summary": "Получить cписок заявление на отпуск",
-        "operationId": "getAll_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/VacationApplicationDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation-application/{uuid}": {
-      "get": {
-        "tags": ["vacation-application-controller"],
-        "summary": "Получить информацию о заявление на отпуске по UUID",
-        "operationId": "getById_1",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/VacationApplicationDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/users": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Получение всех пользователей",
-        "operationId": "getAll_2",
+        "operationId": "getAll",
         "parameters": [
           {
             "name": "page",
@@ -1075,7 +270,12 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
+              "enum": [
+                "ACTIVE",
+                "CLOSED",
+                "BLOCKED",
+                "PENDING"
+              ]
             }
           }
         ],
@@ -1095,7 +295,9 @@
     },
     "/api/users/{userId}": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Получение данных пользователя по userId",
         "operationId": "getUserInfoById",
         "parameters": [
@@ -1125,7 +327,9 @@
     },
     "/api/users/me": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Получение данных пользователя под кем авторизовались",
         "operationId": "getUserInfoMe",
         "responses": {
@@ -1144,7 +348,9 @@
     },
     "/api/users/image/download/{imageUUID}": {
       "get": {
-        "tags": ["user-controller"],
+        "tags": [
+          "user-controller"
+        ],
         "summary": "Скачивание аватарки пользователя",
         "operationId": "downloadImage",
         "parameters": [
@@ -1172,115 +378,13 @@
         }
       }
     },
-    "/api/substitution": {
-      "get": {
-        "tags": ["substitution-controller"],
-        "summary": "Получить cписок замещании",
-        "operationId": "getAll_3",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SubstitutionDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/substitution/{uuid}": {
-      "get": {
-        "tags": ["substitution-controller"],
-        "summary": "Получить информацию о замещании по UUID",
-        "operationId": "getById_2",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubstitutionDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/personal-affair": {
-      "get": {
-        "tags": ["personal-affair-controller"],
-        "summary": "Получить cписок личное дело",
-        "operationId": "getAll_4",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PersonalAffairDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/personal-affair/{uuid}": {
-      "get": {
-        "tags": ["personal-affair-controller"],
-        "summary": "Получить личное дело по UUID",
-        "operationId": "getById_3",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/PersonalAffairDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/organizations": {
       "get": {
-        "tags": ["organization-controller"],
+        "tags": [
+          "organization-controller"
+        ],
         "summary": "Получить все организаций",
-        "operationId": "getAll_5",
+        "operationId": "getAll_1",
         "responses": {
           "200": {
             "description": "OK",
@@ -1300,9 +404,11 @@
     },
     "/api/organizations/{uuid}": {
       "get": {
-        "tags": ["organization-controller"],
+        "tags": [
+          "organization-controller"
+        ],
         "summary": "Получить организаций по UUID",
-        "operationId": "getById_4",
+        "operationId": "getById",
         "parameters": [
           {
             "name": "uuid",
@@ -1330,7 +436,9 @@
     },
     "/api/organizations/{uuid}/child": {
       "get": {
-        "tags": ["organization-controller"],
+        "tags": [
+          "organization-controller"
+        ],
         "summary": "Получить все подорганизаций по UUID(uuid главного организаций)",
         "operationId": "childOrganizations",
         "parameters": [
@@ -1363,9 +471,11 @@
     },
     "/api/org-structure": {
       "get": {
-        "tags": ["org-structure-controller"],
+        "tags": [
+          "org-structure-controller"
+        ],
         "summary": "Получить все данные по оргструктуре",
-        "operationId": "getAll_6",
+        "operationId": "getAll_2",
         "parameters": [
           {
             "name": "type",
@@ -1373,7 +483,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["DEPARTMENT", "POSITION", "GROUP"]
+              "enum": [
+                "DEPARTMENT",
+                "POSITION",
+                "GROUP"
+              ]
             }
           }
         ],
@@ -1396,7 +510,9 @@
     },
     "/api/org-structure/{uuid}": {
       "get": {
-        "tags": ["org-structure-controller"],
+        "tags": [
+          "org-structure-controller"
+        ],
         "operationId": "get",
         "parameters": [
           {
@@ -1425,7 +541,9 @@
     },
     "/api/org-structure/{uuid}/child": {
       "get": {
-        "tags": ["org-structure-controller"],
+        "tags": [
+          "org-structure-controller"
+        ],
         "operationId": "childOrgStructures",
         "parameters": [
           {
@@ -1455,87 +573,12 @@
         }
       }
     },
-    "/api/org-structure/versions": {
-      "get": {
-        "tags": ["org-structure-version-controller"],
-        "summary": "Получение всех версий",
-        "operationId": "getAllVersions",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrgStructureVersionDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/versions/{versionId}/org-structures": {
-      "get": {
-        "tags": ["org-structure-version-controller"],
-        "summary": "Получение версии по ID",
-        "operationId": "getOrgStructuresByVersionId",
-        "parameters": [
-          {
-            "name": "versionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OrgStructureDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups": {
-      "get": {
-        "tags": ["group-controller"],
-        "summary": "Список группы",
-        "operationId": "getAll_7",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/GroupDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/vacation/{uuid}/delete": {
+    "/api/organizations/{uuid}/delete": {
       "delete": {
-        "tags": ["vacation-controller"],
-        "summary": "Удалить информацию о отпуске по UUID",
+        "tags": [
+          "organization-controller"
+        ],
+        "summary": "Удаление организаций по UUID",
         "operationId": "delete",
         "parameters": [
           {
@@ -1561,307 +604,10 @@
           }
         }
       }
-    },
-    "/api/vacation-application/{uuid}/delete": {
-      "delete": {
-        "tags": ["vacation-application-controller"],
-        "summary": "Удалить заявление на отпуск по UUID",
-        "operationId": "delete_1",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/users/delete": {
-      "delete": {
-        "tags": ["user-controller"],
-        "summary": "Удаление пользователей по userIds",
-        "operationId": "deleteUsersByIds",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserIdsRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/substitution/{uuid}/delete": {
-      "delete": {
-        "tags": ["substitution-controller"],
-        "summary": "Удалить информацию о отпуске по UUID",
-        "operationId": "delete_2",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/personal-affair/{uuid}/delete": {
-      "delete": {
-        "tags": ["personal-affair-controller"],
-        "summary": "Удалить личное дело по UUID",
-        "operationId": "delete_3",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/organizations/{uuid}/delete": {
-      "delete": {
-        "tags": ["organization-controller"],
-        "summary": "Удаление организаций по UUID",
-        "operationId": "delete_4",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/{uuid}/delete": {
-      "delete": {
-        "tags": ["org-structure-controller"],
-        "operationId": "delete_5",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/org-structure/delete-employee/{departmentId}/in-department/{positionId}": {
-      "delete": {
-        "tags": ["org-structure-controller"],
-        "operationId": "deleteEmployeeInDepartment",
-        "parameters": [
-          {
-            "name": "departmentId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "positionId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups/delete/{uuid}": {
-      "delete": {
-        "tags": ["group-controller"],
-        "summary": "Улдаление группы по UUID",
-        "operationId": "delete_6",
-        "parameters": [
-          {
-            "name": "uuid",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/groups/delete/user/{userId}/from/group/{groupId}": {
-      "delete": {
-        "tags": ["group-controller"],
-        "summary": "Удаление пользователя из группу",
-        "operationId": "deleteUserFromGroup",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "groupId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/GeneralResponse"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
-      "DepartmentEmployeeDto": {
-        "type": "object",
-        "properties": {
-          "position": {
-            "$ref": "#/components/schemas/OrgStructureDto"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
       "OrgStructureDto": {
         "type": "object",
         "properties": {
@@ -1877,7 +623,11 @@
           },
           "type": {
             "type": "string",
-            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
+            "enum": [
+              "DEPARTMENT",
+              "POSITION",
+              "GROUP"
+            ]
           },
           "organization": {
             "$ref": "#/components/schemas/OrganizationDto"
@@ -1888,11 +638,9 @@
           "managerPosition": {
             "$ref": "#/components/schemas/OrgStructureDto"
           },
-          "employees": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DepartmentEmployeeDto"
-            }
+          "spaceId": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -1972,9 +720,6 @@
           "nameKk": {
             "type": "string"
           },
-          "space": {
-            "$ref": "#/components/schemas/SpacesDto"
-          },
           "realm": {
             "$ref": "#/components/schemas/RealmsDto"
           },
@@ -2051,7 +796,12 @@
           },
           "status": {
             "type": "string",
-            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
+            "enum": [
+              "ACTIVE",
+              "CLOSED",
+              "BLOCKED",
+              "PENDING"
+            ]
           },
           "note": {
             "type": "string"
@@ -2059,6 +809,9 @@
           "blockDate": {
             "type": "string",
             "format": "date"
+          },
+          "space": {
+            "$ref": "#/components/schemas/SpacesDto"
           },
           "roles": {
             "uniqueItems": true,
@@ -2069,417 +822,10 @@
           }
         }
       },
-      "VacationApplicationDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "vacationApplicationName": {
-            "type": "string"
-          },
-          "startPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "endPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "file": {
-            "type": "string"
-          },
-          "medicalAid": {
-            "type": "string"
-          },
-          "order": {
-            "type": "string"
-          },
-          "status": {
-            "type": "string"
-          },
-          "user": {
-            "$ref": "#/components/schemas/UserDto"
-          }
-        }
-      },
-      "VacationDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "vacationName": {
-            "type": "string"
-          },
-          "startPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "endPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "unusedDays": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "additionalDays": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "usedDays": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "user": {
-            "$ref": "#/components/schemas/UserDto"
-          },
-          "vacationApplication": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/VacationApplicationDto"
-            }
-          }
-        }
-      },
-      "UserRequest": {
-        "required": [
-          "departmentId",
-          "email",
-          "ldapUsername",
-          "personalAffairId",
-          "positionId"
-        ],
-        "type": "object",
-        "properties": {
-          "personalAffairId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "positionId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "ldapUsername": {
-            "type": "string"
-          },
-          "note": {
-            "type": "string"
-          },
-          "departmentId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "email": {
-            "type": "string"
-          }
-        }
-      },
-      "SubstitutionDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "substitutionName": {
-            "type": "string"
-          },
-          "substituteId": {
-            "$ref": "#/components/schemas/UserDto"
-          },
-          "substitutedId": {
-            "$ref": "#/components/schemas/UserDto"
-          },
-          "startDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "basis": {
-            "type": "string",
-            "enum": ["MEDICAL", "VACATION"]
-          }
-        }
-      },
-      "PersonalAffairDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
-          },
-          "numberPersonalAffair": {
-            "type": "string"
-          },
-          "fio": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "middleName": {
-            "type": "string"
-          },
-          "iin": {
-            "type": "string"
-          },
-          "gender": {
-            "type": "string",
-            "enum": ["MALE", "FEMALE"]
-          },
-          "dateBirthdate": {
-            "type": "string",
-            "format": "date"
-          },
-          "photo": {
-            "type": "string"
-          },
-          "placeBirth": {
-            "type": "string"
-          },
-          "residenceAddress": {
-            "type": "string"
-          },
-          "residentialAddress": {
-            "type": "string"
-          },
-          "nationalityId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "maritalStatus": {
-            "type": "string"
-          },
-          "militaryService": {
-            "type": "boolean"
-          },
-          "militaryBranch": {
-            "type": "string"
-          },
-          "militaryUnit": {
-            "type": "string"
-          },
-          "rank": {
-            "type": "string"
-          },
-          "mobilePhoneNumber": {
-            "type": "string"
-          },
-          "homePhoneNumber": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "conscription": {
-            "type": "string"
-          },
-          "subdivision": {
-            "type": "string"
-          },
-          "position": {
-            "type": "string"
-          },
-          "educationalInstitution": {
-            "type": "string"
-          },
-          "speciality": {
-            "type": "string"
-          },
-          "academicDegree": {
-            "type": "string"
-          },
-          "languageSkills": {
-            "type": "string"
-          },
-          "awardType": {
-            "type": "string"
-          },
-          "awardName": {
-            "type": "string"
-          },
-          "awardDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "isGovernment": {
-            "type": "boolean"
-          },
-          "isSenate": {
-            "type": "boolean"
-          },
-          "isMajilis": {
-            "type": "boolean"
-          },
-          "isSalaryDetermination": {
-            "type": "boolean"
-          },
-          "lastPositionExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "region": {
-            "type": "string"
-          },
-          "specialCheckResults": {
-            "type": "string"
-          },
-          "diplomaticRank": {
-            "type": "string"
-          },
-          "qualification": {
-            "type": "string"
-          },
-          "hiringDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "dismissalDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "employmentDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "isOath": {
-            "type": "boolean"
-          },
-          "officeNumber": {
-            "type": "string"
-          },
-          "workEmail": {
-            "type": "string"
-          },
-          "workPhoneNumber": {
-            "type": "string"
-          },
-          "serviceIdCardNumber": {
-            "type": "string"
-          },
-          "issueDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "expirationDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "totalExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "governmentExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "senateExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "majilisExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "salaryDeterminationExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "governmentAgenciesExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "otherOrganizationsExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "vacations": {
-            "type": "string"
-          },
-          "substitution": {
-            "type": "string"
-          }
-        }
-      },
-      "VacationRequest": {
-        "required": ["userId"],
-        "type": "object",
-        "properties": {
-          "vacationName": {
-            "type": "string"
-          },
-          "startPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "endPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
-      "VacationApplicationRequest": {
-        "required": ["userId"],
-        "type": "object",
-        "properties": {
-          "vacationApplicationName": {
-            "type": "string"
-          },
-          "startPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "endPeriod": {
-            "type": "string",
-            "format": "date"
-          },
-          "reason": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string"
-          },
-          "file": {
-            "type": "string"
-          },
-          "medicalAid": {
-            "type": "string"
-          },
-          "order": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
       "UserIdsRequest": {
-        "required": ["userIds"],
+        "required": [
+          "userIds"
+        ],
         "type": "object",
         "properties": {
           "userIds": {
@@ -2491,229 +837,11 @@
           }
         }
       },
-      "SubstitutionRequest": {
-        "required": ["substitutedId", "vacationApplicationID"],
-        "type": "object",
-        "properties": {
-          "substitutionName": {
-            "type": "string"
-          },
-          "vacationApplicationID": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "substitutedId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "basis": {
-            "type": "string",
-            "enum": ["MEDICAL", "VACATION"]
-          }
-        }
-      },
-      "PersonalAffairRequest": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "enum": ["ACTIVE", "BLOCKED", "CLOSED"]
-          },
-          "numberPersonalAffair": {
-            "type": "string"
-          },
-          "fio": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "middleName": {
-            "type": "string"
-          },
-          "iin": {
-            "type": "string"
-          },
-          "gender": {
-            "type": "string",
-            "enum": ["MALE", "FEMALE"]
-          },
-          "dateBirthdate": {
-            "type": "string",
-            "format": "date"
-          },
-          "photo": {
-            "type": "string"
-          },
-          "placeBirth": {
-            "type": "string"
-          },
-          "residenceAddress": {
-            "type": "string"
-          },
-          "residentialAddress": {
-            "type": "string"
-          },
-          "nationalityId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "maritalStatus": {
-            "type": "string"
-          },
-          "militaryService": {
-            "type": "boolean"
-          },
-          "militaryBranch": {
-            "type": "string"
-          },
-          "militaryUnit": {
-            "type": "string"
-          },
-          "rank": {
-            "type": "string"
-          },
-          "mobilePhoneNumber": {
-            "type": "string"
-          },
-          "homePhoneNumber": {
-            "type": "string"
-          },
-          "category": {
-            "type": "string"
-          },
-          "conscription": {
-            "type": "string"
-          },
-          "subdivision": {
-            "type": "string"
-          },
-          "position": {
-            "type": "string"
-          },
-          "educationalInstitution": {
-            "type": "string"
-          },
-          "speciality": {
-            "type": "string"
-          },
-          "academicDegree": {
-            "type": "string"
-          },
-          "languageSkills": {
-            "type": "string"
-          },
-          "awardType": {
-            "type": "string"
-          },
-          "awardName": {
-            "type": "string"
-          },
-          "awardDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "isGovernment": {
-            "type": "boolean"
-          },
-          "isSenate": {
-            "type": "boolean"
-          },
-          "isMajilis": {
-            "type": "boolean"
-          },
-          "isSalaryDetermination": {
-            "type": "boolean"
-          },
-          "lastPositionExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "region": {
-            "type": "string"
-          },
-          "specialCheckResults": {
-            "type": "string"
-          },
-          "diplomaticRank": {
-            "type": "string"
-          },
-          "qualification": {
-            "type": "string"
-          },
-          "hiringDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "dismissalDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "employmentDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "isOath": {
-            "type": "boolean"
-          },
-          "officeNumber": {
-            "type": "string"
-          },
-          "workEmail": {
-            "type": "string"
-          },
-          "workPhoneNumber": {
-            "type": "string"
-          },
-          "serviceIdCardNumber": {
-            "type": "string"
-          },
-          "issueDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "expirationDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "totalExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "governmentExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "senateExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "majilisExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "salaryDeterminationExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "governmentAgenciesExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "otherOrganizationsExperience": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "substitution": {
-            "type": "string"
-          }
-        }
-      },
       "OrganizationRequest": {
-        "required": ["nameKk", "nameRu"],
+        "required": [
+          "nameKk",
+          "nameRu"
+        ],
         "type": "object",
         "properties": {
           "nameKk": {
@@ -2723,297 +851,6 @@
             "type": "string"
           },
           "parentOrganizationId": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
-      "DepartmentEmployeeRequest": {
-        "type": "object",
-        "properties": {
-          "positionName": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "OrgStructureRequest": {
-        "required": ["nameKk", "nameRu", "organizationId", "type"],
-        "type": "object",
-        "properties": {
-          "nameKk": {
-            "type": "string"
-          },
-          "nameRu": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
-          },
-          "organizationId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "parentOrgStructureId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "employees": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DepartmentEmployeeRequest"
-            }
-          },
-          "managerPositionName": {
-            "type": "string"
-          }
-        }
-      },
-      "OrgStructureVersionRequest": {
-        "type": "object",
-        "properties": {
-          "orgStructureIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        }
-      },
-      "DepartmentEmployee": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "$ref": "#/components/schemas/DepartmentPositionId"
-          },
-          "department": {
-            "$ref": "#/components/schemas/OrgStructure"
-          },
-          "position": {
-            "$ref": "#/components/schemas/OrgStructure"
-          },
-          "count": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "DepartmentPositionId": {
-        "type": "object",
-        "properties": {
-          "departmentId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "positionId": {
-            "type": "string",
-            "format": "uuid"
-          }
-        }
-      },
-      "OrgStructure": {
-        "type": "object",
-        "properties": {
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "nameKk": {
-            "type": "string"
-          },
-          "nameRu": {
-            "type": "string"
-          },
-          "type": {
-            "type": "string",
-            "enum": ["DEPARTMENT", "POSITION", "GROUP"]
-          },
-          "organization": {
-            "$ref": "#/components/schemas/Organization"
-          },
-          "managerPosition": {
-            "$ref": "#/components/schemas/OrgStructure"
-          },
-          "parentOrgStructure": {
-            "$ref": "#/components/schemas/OrgStructure"
-          },
-          "employees": {
-            "uniqueItems": true,
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DepartmentEmployee"
-            }
-          }
-        }
-      },
-      "OrgStructureVersion": {
-        "type": "object",
-        "properties": {
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "organization": {
-            "$ref": "#/components/schemas/Organization"
-          },
-          "versionNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["ACTIVE", "INACTIVE"]
-          },
-          "mappings": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/OrgStructureVersionMapping"
-            }
-          }
-        }
-      },
-      "OrgStructureVersionMapping": {
-        "type": "object",
-        "properties": {
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "version": {
-            "$ref": "#/components/schemas/OrgStructureVersion"
-          },
-          "orgStructure": {
-            "$ref": "#/components/schemas/OrgStructure"
-          }
-        }
-      },
-      "Organization": {
-        "type": "object",
-        "properties": {
-          "createdAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "deletedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "nameKk": {
-            "type": "string"
-          },
-          "nameRu": {
-            "type": "string"
-          },
-          "parentOrganization": {
-            "$ref": "#/components/schemas/Organization"
-          }
-        }
-      },
-      "UpdateManagerPositionRequest": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          }
-        }
-      },
-      "GeneralResponse": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "type": "string"
-          }
-        }
-      },
-      "GroupRequest": {
-        "type": "object",
-        "properties": {
-          "nameKk": {
-            "type": "string"
-          },
-          "nameRu": {
-            "type": "string"
-          },
-          "isDefault": {
-            "type": "boolean"
-          }
-        }
-      },
-      "GroupDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "nameKk": {
-            "type": "string"
-          },
-          "nameRu": {
-            "type": "string"
-          },
-          "isDefault": {
-            "type": "boolean"
-          }
-        }
-      },
-      "GroupUserRequest": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "groupId": {
             "type": "string",
             "format": "uuid"
           }
@@ -3042,24 +879,11 @@
           }
         }
       },
-      "OrgStructureVersionDto": {
+      "GeneralResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "organizationId": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "versionNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["ACTIVE", "INACTIVE"]
+          "message": {
+            "type": "string"
           }
         }
       }

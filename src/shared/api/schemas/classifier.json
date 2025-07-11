@@ -47,7 +47,9 @@
   "paths": {
     "/api/v1/classifier/mark-restore/{classifierId}": {
       "put": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Восстановить удаленный Класс",
         "operationId": "markRestore",
         "parameters": [
@@ -81,7 +83,9 @@
     },
     "/api/v1/classifier/mark-delete/{classifierId}": {
       "put": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Пометить классификатор удаленным",
         "operationId": "markDelete",
         "parameters": [
@@ -115,7 +119,9 @@
     },
     "/api/v1/classifier/mark-active/{classifierId}": {
       "put": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Пометить классификатор актуальным или Не актуальным",
         "operationId": "markActive",
         "parameters": [
@@ -158,7 +164,9 @@
     },
     "/api/v1/classifier-row/mark-restore/{classifierRowId}": {
       "put": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Пометить активным",
         "operationId": "markRestore_1",
         "parameters": [
@@ -192,7 +200,9 @@
     },
     "/api/v1/classifier-row/mark-end-date/{classifierRowId}/{endDate}": {
       "put": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Проставить дату окончания записи",
         "operationId": "markEndDate",
         "parameters": [
@@ -236,7 +246,9 @@
     },
     "/api/v1/classifier-row/mark-delete/{classifierRowId}": {
       "put": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Пометить удаленным",
         "operationId": "markDelete_1",
         "parameters": [
@@ -270,7 +282,9 @@
     },
     "/api/v1/classifier-row-import/header/{classifierId}": {
       "put": {
-        "tags": ["ClassifierRowImportExport"],
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
         "description": "Импорт записей справочника",
         "operationId": "getCsvHeader",
         "parameters": [
@@ -299,7 +313,9 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -346,7 +362,9 @@
     },
     "/api/v1/classifier": {
       "get": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Постарничный запрос классификаторов",
         "operationId": "classifiers",
         "parameters": [
@@ -416,7 +434,9 @@
         }
       },
       "post": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Создание и редактирование классификатора",
         "operationId": "saveClassifier",
         "requestBody": {
@@ -455,7 +475,9 @@
     },
     "/api/v1/classifier-type": {
       "get": {
-        "tags": ["ClassifierType"],
+        "tags": [
+          "ClassifierType"
+        ],
         "description": "Постарничный запрос типов справочников",
         "operationId": "classifierTypes",
         "parameters": [
@@ -525,7 +547,9 @@
         }
       },
       "post": {
-        "tags": ["ClassifierType"],
+        "tags": [
+          "ClassifierType"
+        ],
         "description": "Сохранить тип справочника",
         "operationId": "saveClassifierType",
         "requestBody": {
@@ -557,7 +581,9 @@
     },
     "/api/v1/classifier-row": {
       "get": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Постарничный запрос записей справочников",
         "operationId": "classifierRows",
         "parameters": [
@@ -646,7 +672,9 @@
         }
       },
       "post": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Сохранение и редактирование записи справочника",
         "operationId": "saveClassifierRow",
         "requestBody": {
@@ -678,7 +706,9 @@
     },
     "/api/v1/classifier-row-import/upload/{classifierId}": {
       "post": {
-        "tags": ["ClassifierRowImportExport"],
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
         "description": "Импорт записей справочника",
         "operationId": "uploadFile",
         "parameters": [
@@ -709,7 +739,11 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["ADD", "CLEAN_ADD", "SYNC_ADD"]
+              "enum": [
+                "ADD",
+                "CLEAN_ADD",
+                "SYNC_ADD"
+              ]
             }
           },
           {
@@ -754,7 +788,9 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -791,7 +827,9 @@
     },
     "/api/v1/classifier-row-import/upload/xml/{classifierId}": {
       "post": {
-        "tags": ["ClassifierRowImportExport"],
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
         "description": "Импорт записей справочника из XML",
         "operationId": "uploadFile_1",
         "parameters": [
@@ -812,7 +850,11 @@
             "required": true,
             "schema": {
               "type": "string",
-              "enum": ["ADD", "CLEAN_ADD", "SYNC_ADD"]
+              "enum": [
+                "ADD",
+                "CLEAN_ADD",
+                "SYNC_ADD"
+              ]
             }
           },
           {
@@ -840,7 +882,9 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": ["file"],
+                "required": [
+                  "file"
+                ],
                 "type": "object",
                 "properties": {
                   "file": {
@@ -877,7 +921,9 @@
     },
     "/api/v1/classifier-flatten/simple/rows/by-multiple-request-list": {
       "post": {
-        "tags": ["ClassifierReader"],
+        "tags": [
+          "ClassifierReader"
+        ],
         "description": "Запрос всех записей по кодам классификаторов",
         "operationId": "simpleRowsByClassifierCodes",
         "requestBody": {
@@ -922,7 +968,9 @@
     },
     "/api/v1/classifier-flatten/rows/by-multiple-request-list": {
       "post": {
-        "tags": ["ClassifierReader"],
+        "tags": [
+          "ClassifierReader"
+        ],
         "description": "Запрос всех записей по кодам классификаторов",
         "operationId": "rowsByClassifierCodes",
         "requestBody": {
@@ -967,7 +1015,9 @@
     },
     "/api/v1/classifier-category": {
       "get": {
-        "tags": ["ClassifierCategory"],
+        "tags": [
+          "ClassifierCategory"
+        ],
         "description": "Постарничный запрос видов справочников",
         "operationId": "classifierCategories",
         "parameters": [
@@ -1037,7 +1087,9 @@
         }
       },
       "post": {
-        "tags": ["ClassifierCategory"],
+        "tags": [
+          "ClassifierCategory"
+        ],
         "description": "Сохранить вид справочника",
         "operationId": "saveClassifierCategory",
         "requestBody": {
@@ -1069,7 +1121,9 @@
     },
     "/api/v1/classifier-attribute": {
       "post": {
-        "tags": ["ClassifierAttribute"],
+        "tags": [
+          "ClassifierAttribute"
+        ],
         "description": "Создание и редактирование атрибута",
         "operationId": "saveClassifierAttribute",
         "requestBody": {
@@ -1101,7 +1155,9 @@
     },
     "/api/v1/classifier/{classifierId}": {
       "get": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Запрос одного классификатора",
         "operationId": "getByClassifierId",
         "parameters": [
@@ -1140,7 +1196,9 @@
         }
       },
       "delete": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Физическое удаление классификатора",
         "operationId": "deleteClassifier",
         "parameters": [
@@ -1174,7 +1232,9 @@
     },
     "/api/v1/classifier/byCode/{code}": {
       "get": {
-        "tags": ["Classifier"],
+        "tags": [
+          "Classifier"
+        ],
         "description": "Запрос одного классификатора по коду",
         "operationId": "getByClassifierCode",
         "parameters": [
@@ -1214,7 +1274,9 @@
     },
     "/api/v1/classifier-type/{classifierTypeId}": {
       "get": {
-        "tags": ["ClassifierType"],
+        "tags": [
+          "ClassifierType"
+        ],
         "description": "Получить один тип справочника",
         "operationId": "getByClassifierTypeId",
         "parameters": [
@@ -1253,7 +1315,9 @@
         }
       },
       "delete": {
-        "tags": ["ClassifierType"],
+        "tags": [
+          "ClassifierType"
+        ],
         "description": "Физически удалить тип справочника",
         "operationId": "deleteClassifierType",
         "parameters": [
@@ -1287,7 +1351,9 @@
     },
     "/api/v1/classifier-row/by-attribute-id-and-attribute-value": {
       "get": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Постарничный запрос записей по атрибуту и значению",
         "operationId": "classifierRowsByAttributeIdAndValue",
         "parameters": [
@@ -1378,7 +1444,9 @@
     },
     "/api/v1/classifier-row/all": {
       "get": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Постарничный запрос записей справочников",
         "operationId": "searchAllClassifierRows",
         "parameters": [
@@ -1449,7 +1517,9 @@
     },
     "/api/v1/classifier-row-import/export/{classifierId}": {
       "get": {
-        "tags": ["ClassifierRowImportExport"],
+        "tags": [
+          "ClassifierRowImportExport"
+        ],
         "operationId": "exportIntoCSV",
         "parameters": [
           {
@@ -1508,7 +1578,9 @@
     },
     "/api/v1/classifier-flatten/{classifierCode}": {
       "get": {
-        "tags": ["ClassifierReader"],
+        "tags": [
+          "ClassifierReader"
+        ],
         "description": "Запрос классификатора по коду",
         "operationId": "classifier",
         "parameters": [
@@ -1558,7 +1630,9 @@
     },
     "/api/v1/classifier-flatten/{classifierCode}/rows": {
       "get": {
-        "tags": ["ClassifierReader"],
+        "tags": [
+          "ClassifierReader"
+        ],
         "description": "Запрос всех записей по коду классификатора",
         "operationId": "classifierByCode",
         "parameters": [
@@ -1661,7 +1735,9 @@
     },
     "/api/v1/classifier-flatten/{classifierCode}/rows/{classifierRowCode}": {
       "get": {
-        "tags": ["ClassifierReader"],
+        "tags": [
+          "ClassifierReader"
+        ],
         "description": "Запрос одной записи по коду классификатора и коду записи",
         "operationId": "classifierByCode_1",
         "parameters": [
@@ -1720,7 +1796,9 @@
     },
     "/api/v1/classifier-category/{classifierCategoryId}": {
       "get": {
-        "tags": ["ClassifierCategory"],
+        "tags": [
+          "ClassifierCategory"
+        ],
         "description": "Получить один вид справочника",
         "operationId": "getClassifierCategoryDtoById",
         "parameters": [
@@ -1759,7 +1837,9 @@
         }
       },
       "delete": {
-        "tags": ["ClassifierCategory"],
+        "tags": [
+          "ClassifierCategory"
+        ],
         "description": "Физически удалить вид справочника",
         "operationId": "deleteClassifierCategory",
         "parameters": [
@@ -1793,7 +1873,9 @@
     },
     "/api/v1/classifier-attribute/{classifierAttributeId}": {
       "get": {
-        "tags": ["ClassifierAttribute"],
+        "tags": [
+          "ClassifierAttribute"
+        ],
         "description": "Получить атрибут",
         "operationId": "getByClassifierAttributeId",
         "parameters": [
@@ -1832,7 +1914,9 @@
         }
       },
       "delete": {
-        "tags": ["ClassifierAttribute"],
+        "tags": [
+          "ClassifierAttribute"
+        ],
         "description": "Физическое удаление атрибута",
         "operationId": "deleteClassifierAttribute",
         "parameters": [
@@ -1866,7 +1950,9 @@
     },
     "/api/v1/classifier-attribute/attributes/{classifierId}": {
       "get": {
-        "tags": ["ClassifierAttribute"],
+        "tags": [
+          "ClassifierAttribute"
+        ],
         "description": "Получить список атрибутов по ИД классификатора",
         "operationId": "classifierAttributes",
         "parameters": [
@@ -1910,7 +1996,9 @@
     },
     "/api/v1/classifier-row/deleteAll/{classifierId}": {
       "delete": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Физическое удаление всех записей справочника",
         "operationId": "deleteAllClassifierRows",
         "parameters": [
@@ -1944,7 +2032,9 @@
     },
     "/api/v1/classifier-row/delete/{classifierRowId}": {
       "delete": {
-        "tags": ["ClassifierRow"],
+        "tags": [
+          "ClassifierRow"
+        ],
         "description": "Физическое удаление записи",
         "operationId": "deleteClassifierRows",
         "parameters": [
@@ -1978,7 +2068,9 @@
     },
     "/api/v1/classifier-attribute/deleteAll/{classifierId}": {
       "delete": {
-        "tags": ["ClassifierAttribute"],
+        "tags": [
+          "ClassifierAttribute"
+        ],
         "description": "Физическое удаление всех атрибутов справочника",
         "operationId": "deleteAllClassifierAttribute",
         "parameters": [
@@ -2066,7 +2158,11 @@
           "dataType": {
             "type": "string",
             "description": "Тип данных",
-            "enum": ["INT", "STRING", "DATE"]
+            "enum": [
+              "INT",
+              "STRING",
+              "DATE"
+            ]
           },
           "isUnique": {
             "type": "boolean",
@@ -2119,7 +2215,12 @@
         }
       },
       "ClassifierRequestDto": {
-        "required": ["classifierCategoryId", "code", "nameKz", "nameRu"],
+        "required": [
+          "classifierCategoryId",
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
         "type": "object",
         "properties": {
           "classifierId": {
@@ -2264,7 +2365,11 @@
         }
       },
       "ClassifierTypeRequestDto": {
-        "required": ["code", "nameKz", "nameRu"],
+        "required": [
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
         "type": "object",
         "properties": {
           "classifierTypeId": {
@@ -2302,7 +2407,10 @@
         "description": "Список значений"
       },
       "ClassifierRowRequestDto": {
-        "required": ["classifierId", "values"],
+        "required": [
+          "classifierId",
+          "values"
+        ],
         "type": "object",
         "properties": {
           "classifierId": {
@@ -2346,7 +2454,13 @@
           },
           "operator": {
             "type": "string",
-            "enum": ["AND", "OR", "EQUALS", "NOT_EQUALS", "IN"]
+            "enum": [
+              "AND",
+              "OR",
+              "EQUALS",
+              "NOT_EQUALS",
+              "IN"
+            ]
           }
         }
       },
@@ -2387,7 +2501,11 @@
         }
       },
       "ClassifierCategoryRequestDto": {
-        "required": ["code", "nameKz", "nameRu"],
+        "required": [
+          "code",
+          "nameKz",
+          "nameRu"
+        ],
         "type": "object",
         "properties": {
           "classifierCategoryId": {
@@ -2414,7 +2532,11 @@
         }
       },
       "ClassifierAttributeRequestDto": {
-        "required": ["code", "dataType", "maxContentLength"],
+        "required": [
+          "code",
+          "dataType",
+          "maxContentLength"
+        ],
         "type": "object",
         "properties": {
           "classifierAttributeId": {
@@ -2446,7 +2568,11 @@
           "dataType": {
             "type": "string",
             "description": "Тип данных",
-            "enum": ["INT", "STRING", "DATE"]
+            "enum": [
+              "INT",
+              "STRING",
+              "DATE"
+            ]
           },
           "isUnique": {
             "type": "boolean",

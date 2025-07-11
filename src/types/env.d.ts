@@ -1,7 +1,7 @@
 /// <reference types="rsbuild/client" />
 
 interface ImportMetaEnv {
-  readonly API_BASE_URL: string;
+  readonly PUBLIC_API_BASE_URL: string;
 }
 
 interface ImportMeta {

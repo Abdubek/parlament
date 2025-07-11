@@ -39,7 +39,9 @@
   "paths": {
     "/document/bill/{id}": {
       "post": {
-        "tags": ["Document API"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Обновить документы законопроекта",
         "description": "Обновить документы законопроекта",
         "operationId": "attachDocument",
@@ -58,7 +60,10 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["file", "request"],
+                "required": [
+                  "file",
+                  "request"
+                ],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -99,7 +104,9 @@
     },
     "/bill/create": {
       "post": {
-        "tags": ["Bill API"],
+        "tags": [
+          "Bill API"
+        ],
         "summary": "Создать законопроект",
         "description": "Создать законопроект",
         "operationId": "createBill",
@@ -107,7 +114,9 @@
           "content": {
             "multipart/form-data": {
               "schema": {
-                "required": ["request"],
+                "required": [
+                  "request"
+                ],
                 "type": "object",
                 "properties": {
                   "request": {
@@ -151,7 +160,9 @@
     },
     "/bill/update/{id}": {
       "patch": {
-        "tags": ["Bill API"],
+        "tags": [
+          "Bill API"
+        ],
         "summary": "Обновить законопроект",
         "description": "Обновить законопроект",
         "operationId": "updateBill",
@@ -202,7 +213,9 @@
     },
     "/type/status": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Статус законодательного акта",
         "description": "Возвращает список всех доступных статусов законодательного акта",
         "operationId": "getBillStatus",
@@ -235,7 +248,9 @@
     },
     "/type/revision": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Вид редакции проекта",
         "description": "Возвращает список всех доступных видов редакции проекта",
         "operationId": "getRevisionType",
@@ -268,7 +283,9 @@
     },
     "/type/member": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип участников законодательного акта",
         "description": "Возвращает список всех доступных типов участников законодательного акта",
         "operationId": "getMemberType",
@@ -301,7 +318,9 @@
     },
     "/type/history": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Список истории изменений",
         "description": "Список событий для обновления статуса законопроекта",
         "operationId": "getBillHistory",
@@ -334,7 +353,9 @@
     },
     "/type/department": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип департаментов",
         "description": "Возвращает список всех типов департамента",
         "operationId": "getDepartmentTypes",
@@ -367,7 +388,9 @@
     },
     "/type/category": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Вид законодательно акта",
         "description": "Возвращает список всех доступных видов законодательно акта",
         "operationId": "getBillCategory",
@@ -400,7 +423,9 @@
     },
     "/type/bill": {
       "get": {
-        "tags": ["Types API"],
+        "tags": [
+          "Types API"
+        ],
         "summary": "Тип законодательного акта",
         "description": "Возвращает список всех доступных типов законодательного акта",
         "operationId": "getBillType",
@@ -433,7 +458,9 @@
     },
     "/session": {
       "get": {
-        "tags": ["Session API"],
+        "tags": [
+          "Session API"
+        ],
         "operationId": "getAllSessions",
         "responses": {
           "200": {
@@ -454,7 +481,9 @@
     },
     "/document/types": {
       "get": {
-        "tags": ["Document API"],
+        "tags": [
+          "Document API"
+        ],
         "summary": "Тип документа",
         "description": "Возвращает список всех типов документа",
         "operationId": "getDocumentTypes",
@@ -487,7 +516,9 @@
     },
     "/department": {
       "get": {
-        "tags": ["Department API"],
+        "tags": [
+          "Department API"
+        ],
         "summary": "Департаменты",
         "description": "Возвращает список всех департаментов",
         "operationId": "getDepartments",
@@ -520,7 +551,9 @@
     },
     "/bill": {
       "get": {
-        "tags": ["Bill API"],
+        "tags": [
+          "Bill API"
+        ],
         "summary": "Список законопроектов",
         "description": "Возвращает список всех доступных законопроектов",
         "operationId": "getAllBills",
@@ -582,7 +615,11 @@
             "required": false,
             "schema": {
               "type": "string",
-              "enum": ["GOVERNMENTAL", "DEPUTY", "PRESIDENTIAL"]
+              "enum": [
+                "GOVERNMENTAL",
+                "DEPUTY",
+                "PRESIDENTIAL"
+              ]
             }
           },
           {
@@ -646,7 +683,9 @@
     },
     "/bill/{id}": {
       "get": {
-        "tags": ["Bill API"],
+        "tags": [
+          "Bill API"
+        ],
         "summary": "Законопроект",
         "description": "Возвращает информацию о законопроекте по указанному идентификатору",
         "operationId": "getBillById",
@@ -703,7 +742,9 @@
     },
     "/bill/history/group": {
       "get": {
-        "tags": ["Bill API"],
+        "tags": [
+          "Bill API"
+        ],
         "summary": "Количество законопроектов",
         "description": "Возвращает законопроекты сгруппированные по типам истории",
         "operationId": "getBillHistoryCount",
@@ -761,7 +802,12 @@
           "language": {
             "type": "string",
             "description": "язык документа",
-            "enum": ["RU", "KZ", "EN", "OTHER"]
+            "enum": [
+              "RU",
+              "KZ",
+              "EN",
+              "OTHER"
+            ]
           },
           "pageCount": {
             "type": "integer",
@@ -806,13 +852,19 @@
           "departmentType": {
             "type": "string",
             "description": "Тип департамента законопроекта",
-            "enum": ["GOVERNMENT_AGENCY", "RESPONSIBLE_DEPARTMENT"]
+            "enum": [
+              "GOVERNMENT_AGENCY",
+              "RESPONSIBLE_DEPARTMENT"
+            ]
           }
         },
         "description": "Департаменты законопроекта"
       },
       "BillDto": {
-        "required": ["processInstanceId", "taskId"],
+        "required": [
+          "processInstanceId",
+          "taskId"
+        ],
         "type": "object",
         "properties": {
           "id": {
@@ -861,22 +913,38 @@
           "billType": {
             "type": "string",
             "description": "Тип законодательного акта",
-            "enum": ["LAW", "CODE", "CONSTITUTIONAL", "RESOLUTION"]
+            "enum": [
+              "LAW",
+              "CODE",
+              "CONSTITUTIONAL",
+              "RESOLUTION"
+            ]
           },
           "billStatus": {
             "type": "string",
             "description": "Статус законодательного акта",
-            "enum": ["NEW", "IN_PROGRESS", "CLOSED"]
+            "enum": [
+              "NEW",
+              "IN_PROGRESS",
+              "CLOSED"
+            ]
           },
           "billCategory": {
             "type": "string",
             "description": "Вид законодательно акта",
-            "enum": ["GOVERNMENTAL", "DEPUTY", "PRESIDENTIAL"]
+            "enum": [
+              "GOVERNMENTAL",
+              "DEPUTY",
+              "PRESIDENTIAL"
+            ]
           },
           "revisionType": {
             "type": "string",
             "description": "Вид редакции проекта",
-            "enum": ["NEW_EDITION", "AMENDMENTS"]
+            "enum": [
+              "NEW_EDITION",
+              "AMENDMENTS"
+            ]
           },
           "session": {
             "$ref": "#/components/schemas/SessionDto"
@@ -964,7 +1032,12 @@
           "memberType": {
             "type": "string",
             "description": "Тип участника",
-            "enum": ["INITIATOR", "EXECUTOR", "SPEAKER", "RESPONSIBLE"]
+            "enum": [
+              "INITIATOR",
+              "EXECUTOR",
+              "SPEAKER",
+              "RESPONSIBLE"
+            ]
           },
           "nameRu": {
             "type": "string",
@@ -1100,9 +1173,6 @@
       "PageableObject": {
         "type": "object",
         "properties": {
-          "paged": {
-            "type": "boolean"
-          },
           "pageNumber": {
             "type": "integer",
             "format": "int32"
@@ -1110,6 +1180,9 @@
           "pageSize": {
             "type": "integer",
             "format": "int32"
+          },
+          "paged": {
+            "type": "boolean"
           },
           "unpaged": {
             "type": "boolean"
