@@ -6,8 +6,12 @@ import { useSectionParams } from "../hooks/use-section-params";
 import { useGetSubsections } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
 import { CreateFolderModal } from "@/modules/documents/sessions/components/create-folder.tsx";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 export const FolderTable = () => {
+  const navigate = useNavigate();
+  const location = useRouterState({ select: (s) => s.location });
+
   const { lastSectionId, level } = useSectionParams();
 
   const subsections = useGetSubsections(lastSectionId ?? "");
@@ -55,7 +59,15 @@ export const FolderTable = () => {
 
         <Table.Tbody>
           {subsections?.content?.map((row) => (
-            <Table.Tr key={row.id}>
+            <Table.Tr
+              key={row.id}
+              onClick={() => {
+                navigate({
+                  to: `${location.pathname.replace(/\/$/, "")}/${row.id}`,
+                  search: true,
+                });
+              }}
+            >
               <Table.Td>
                 <Flex align="center" gap={32}>
                   <DocumentIcon />
