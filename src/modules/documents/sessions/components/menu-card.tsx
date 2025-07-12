@@ -54,7 +54,10 @@ const SectionMenu = ({
 }) => {
   const isActive = String(section.id) === activeSectionId;
   const navigate = sessionsRoute.useNavigate();
-  const subsections = useGetSubsections(section.id ?? "");
+  const subsections = useGetSubsections(section.id ?? "", {
+    page: 0,
+    size: 1000,
+  });
   const { level } = useSectionParams();
 
   useEffect(() => {

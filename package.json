@@ -22,7 +22,9 @@
     "@tanstack/react-router": "^1.121.34",
     "@tanstack/react-router-devtools": "^1.121.34",
     "axios": "^1.10.0",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
+    "mantine-datatable": "^8.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "recharts": "^2.15.4"
