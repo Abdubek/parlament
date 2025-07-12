@@ -29,10 +29,9 @@ export const StyledButton = Button.extend({
       return {
         root: {
           ...common,
-          "--button-height": "56px",
-          "--button-radius": "16px",
-          "--button-fz": "14px",
-          "--button-padding-x": "16px",
+          "--button-height": "48px",
+          "--button-fz": "16px",
+          "--button-padding-x": "32px",
         },
       };
     }

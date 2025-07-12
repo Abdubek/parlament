@@ -17,20 +17,6 @@ export const MenuCard = () => {
   const navigate = sessionsRoute.useNavigate();
 
   useEffect(() => {
-    setBreadcrumbs(
-      sections?.content?.reduce(
-        (acc, section) => {
-          if (section?.id) {
-            acc[section.id] = { label: section.name_ru ?? "" };
-          }
-          return acc;
-        },
-        {} as Record<string, { label: string }>,
-      ) || {},
-    );
-  }, [sections]);
-
-  useEffect(() => {
     if (level === 1 && !activeSectionId && !!sections?.content?.length) {
       const firstId = sections.content[0].id;
       navigate({
@@ -70,20 +56,6 @@ const SectionMenu = ({
   const navigate = sessionsRoute.useNavigate();
   const subsections = useGetSubsections(section.id ?? "");
   const { level } = useSectionParams();
-
-  useEffect(() => {
-    setBreadcrumbs(
-      subsections?.content?.reduce(
-        (acc, subsection) => {
-          if (subsection?.id) {
-            acc[subsection.id] = { label: subsection.name_ru ?? "" };
-          }
-          return acc;
-        },
-        {} as Record<string, { label: string }>,
-      ) || {},
-    );
-  }, [subsections]);
 
   useEffect(() => {
     if (

@@ -1,7 +1,11 @@
 import { useLocation } from "@tanstack/react-router";
 import { useMemo, useSyncExternalStore } from "react";
 
-type BreadcrumbEntry = { label: string; href?: string };
+export type BreadcrumbEntry = {
+  label: string;
+  href?: string;
+  meta?: Record<string, string>;
+};
 type Store = Record<string, BreadcrumbEntry>;
 
 let breadcrumbStore: Store = {};
@@ -30,17 +34,15 @@ function getSnapshot() {
   return breadcrumbStore;
 }
 
-export function useBreadcrumbs(
-  startIndex: number = 0,
-): { label: string; href: string }[] {
+export function useBreadcrumbs(startIndex: number = 0): BreadcrumbEntry[] {
   const location = useLocation();
   const pathname = location.pathname;
 
   const store = useSyncExternalStore(subscribe, getSnapshot);
 
-  const breadcrumbs = useMemo(() => {
+  return useMemo(() => {
     const segments = pathname.split("/").filter(Boolean);
-    const crumbs: { label: string; href: string }[] = [];
+    const crumbs: BreadcrumbEntry[] = [];
 
     const start = Math.max(0, Math.min(startIndex, segments.length));
 
@@ -52,11 +54,10 @@ export function useBreadcrumbs(
       crumbs.push({
         label: entry?.label ?? segment,
         href: entry?.href ?? href,
+        meta: entry?.meta ?? {},
       });
     }
 
     return crumbs;
   }, [pathname, store, startIndex]);
-
-  return breadcrumbs;
 }

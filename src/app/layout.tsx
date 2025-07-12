@@ -42,8 +42,10 @@ export function Layout({ items }: Props) {
           bg="grey1.0"
           style={{ borderTopLeftRadius: "16px", borderTopRightRadius: "16px" }}
         >
-          <ScrollArea h="calc(100vh - 80px)" type="scroll" px={24} py={32}>
-            <Outlet />
+          <ScrollArea h="calc(100vh - 80px)" type="scroll">
+            <Box px={24} py={32}>
+              <Outlet />
+            </Box>
           </ScrollArea>
         </Box>
       </AppShell.Main>

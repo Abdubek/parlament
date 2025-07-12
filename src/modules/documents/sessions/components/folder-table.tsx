@@ -1,18 +1,11 @@
-import {
-  Table,
-  Flex,
-  ActionIcon,
-  Center,
-  Stack,
-  Title,
-  Button,
-} from "@mantine/core";
+import { Table, Flex, ActionIcon, Center, Stack, Title } from "@mantine/core";
 import dayjs from "dayjs";
 import DocumentIcon from "@/shared/icons/document.svg";
 import DotsIcon from "@/shared/icons/dots.svg";
 import { useSectionParams } from "../hooks/use-section-params";
 import { useGetSubsections } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
+import { CreateFolderModal } from "@/modules/documents/sessions/components/create-folder.tsx";
 
 export const FolderTable = () => {
   const { lastSectionId, level } = useSectionParams();
@@ -43,42 +36,44 @@ export const FolderTable = () => {
             В данной папке нет файлов или папок
           </Title>
 
-          <Button variant="filled" size="md">
-            Создать
-          </Button>
+          <CreateFolderModal />
         </Stack>
       </Center>
     );
   }
 
   return (
-    <Table highlightOnHover>
-      <Table.Thead>
-        <Table.Tr>
-          <Table.Th>Наименование</Table.Th>
-          <Table.Th>Дата</Table.Th>
-          <Table.Th style={{ width: 120 }}>Действие</Table.Th>
-        </Table.Tr>
-      </Table.Thead>
-
-      <Table.Tbody>
-        {subsections?.content?.map((row) => (
-          <Table.Tr key={row.id}>
-            <Table.Td>
-              <Flex align="center" gap={32}>
-                <DocumentIcon />
-                {row.name_ru}
-              </Flex>
-            </Table.Td>
-            <Table.Td>{dayjs(row.date).format("DD.MM.YYYY")}</Table.Td>
-            <Table.Td align="right">
-              <ActionIcon variant="transparent" color="black">
-                <DotsIcon />
-              </ActionIcon>
-            </Table.Td>
+    <>
+      <Table highlightOnHover>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Наименование</Table.Th>
+            <Table.Th>Дата</Table.Th>
+            <Table.Th style={{ width: 120 }}>Действие</Table.Th>
           </Table.Tr>
-        ))}
-      </Table.Tbody>
-    </Table>
+        </Table.Thead>
+
+        <Table.Tbody>
+          {subsections?.content?.map((row) => (
+            <Table.Tr key={row.id}>
+              <Table.Td>
+                <Flex align="center" gap={32}>
+                  <DocumentIcon />
+                  {row.name_ru}
+                </Flex>
+              </Table.Td>
+              <Table.Td>{dayjs(row.date).format("DD.MM.YYYY")}</Table.Td>
+              <Table.Td align="right">
+                <ActionIcon variant="transparent" color="black">
+                  <DotsIcon />
+                </ActionIcon>
+              </Table.Td>
+            </Table.Tr>
+          ))}
+        </Table.Tbody>
+      </Table>
+
+      <CreateFolderModal />
+    </>
   );
 };
