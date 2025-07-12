@@ -1,0 +1,11 @@
+.title {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+.header {
+  padding: 24px 24px 16px 24px;
+}
+.body {
+  padding: 0 24px 24px;
+}

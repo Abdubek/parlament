@@ -5,7 +5,7 @@ import {
   Modal,
   Stack,
   TextInput,
-  Title,
+  Text,
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
@@ -77,8 +77,13 @@ export const CreateFolderModal = () => {
       <Modal
         opened={opened}
         onClose={close}
-        title={<Title order={4}>Добавить папку</Title>}
-        size="md"
+        title={
+          <Text variant="title" fw={600}>
+            Добавить папку
+          </Text>
+        }
+        size="lg"
+        centered
       >
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack gap="md">
@@ -104,16 +109,17 @@ export const CreateFolderModal = () => {
               onChange={(value) =>
                 form.setFieldValue("meetingDate", value ? dayjs(value) : null)
               }
+              size="lg"
               placeholder="дд.мм.гггг"
               valueFormat="DD.MM.YYYY"
               rightSectionWidth={0}
             />
 
             <Group justify="flex-end" gap="sm">
-              <Button variant="outline" onClick={close} type="button">
+              <Button variant="outline" size="md" onClick={close} type="button">
                 Отмена
               </Button>
-              <Button variant="filled" type="submit">
+              <Button variant="filled" size="md" type="submit">
                 Сохранить
               </Button>
             </Group>

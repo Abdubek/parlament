@@ -2,14 +2,18 @@ import { Button } from "@mantine/core";
 
 export const StyledButton = Button.extend({
   vars: (_, props) => {
-    const common = {
-      "--button-radius": "8px",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let vars: any = {
+      root: {
+        "--button-radius": "8px",
+      },
     };
 
     if (props.variant === "filled") {
-      return {
+      vars = {
+        ...vars,
         root: {
-          ...common,
+          ...vars.root,
           "--button-bg": "var(--mantine-color-primary-9)",
           "--button-hover": "var(--mantine-color-primary-10)",
         },
@@ -17,25 +21,41 @@ export const StyledButton = Button.extend({
     }
 
     if (props.variant === "outline") {
-      return {
+      vars = {
+        ...vars,
         root: {
-          ...common,
+          ...vars.root,
           "--button-bd": "1px solid var(--mantine-color-primary-9)",
           "--button-color": "var(--mantine-color-primary-9)",
         },
       };
     }
     if (props.size === "lg") {
-      return {
+      vars = {
+        ...vars,
         root: {
-          ...common,
+          ...vars.root,
           "--button-height": "48px",
           "--button-fz": "16px",
           "--button-padding-x": "32px",
         },
       };
     }
+    if (props.size === "md") {
+      vars = {
+        ...vars,
+        root: {
+          ...vars.root,
+          "--button-height": "40px",
+          "--button-fz": "14px",
+          "--button-padding-x": "16px",
+        },
+      };
+    }
 
-    return { root: common };
+    return vars;
+  },
+  defaultProps: {
+    size: "md",
   },
 });

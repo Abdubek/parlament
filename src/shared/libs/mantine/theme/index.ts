@@ -7,6 +7,9 @@ import { StyledNavLink } from "./navlink";
 import { StyledTabs } from "./tabs";
 import { StyledButton } from "./button";
 import { StyledTable } from "./table";
+import { StyledModal } from "./modal";
+import { StyledTextInput } from "./text-input";
+import { StyledDateInput } from "./date-input";
 
 const commonTheme = {
   fontFamily:
@@ -20,6 +23,9 @@ const commonTheme = {
     Tabs: StyledTabs,
     Button: StyledButton,
     Table: StyledTable,
+    Modal: StyledModal,
+    TextInput: StyledTextInput,
+    DateInput: StyledDateInput,
   },
   primaryColor: "primary",
 };
