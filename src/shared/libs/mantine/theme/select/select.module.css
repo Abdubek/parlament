@@ -1,0 +1,8 @@
+.label {
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 22px;
+}
+.input {
+    color: var(--mantine-color-text-5);
+}

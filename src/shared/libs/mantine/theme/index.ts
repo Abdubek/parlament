@@ -11,6 +11,7 @@ import { StyledModal } from "./modal";
 import { StyledTextInput } from "./text-input";
 import { StyledDateInput } from "./date-input";
 import { StyledPagination } from "./pagination";
+import { StyledSelect } from "./select";
 
 const commonTheme = {
   fontFamily:
@@ -28,6 +29,7 @@ const commonTheme = {
     TextInput: StyledTextInput,
     DateInput: StyledDateInput,
     Pagination: StyledPagination,
+    Select: StyledSelect,
   },
   primaryColor: "primary",
 };

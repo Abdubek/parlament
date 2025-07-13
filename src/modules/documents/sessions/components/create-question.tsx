@@ -9,7 +9,6 @@ import {
   Stack,
   Text,
   TextInput,
-  Title,
   Select,
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
@@ -58,25 +57,6 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
     },
   });
 
-  const [search, setSearch] = useState("");
-  const [debouncedSearch] = useDebouncedValue(search, 300);
-
-  const { data: usersPage } = useUserGetAll({ fio: debouncedSearch });
-
-  const userOptions: UserOption[] = useMemo(() => {
-    const content = usersPage?.content ?? [];
-    return content.map(
-      (u: {
-        id?: string;
-        firstName?: string;
-        lastName?: string;
-      }): UserOption => ({
-        value: u.id ?? "",
-        label: `${u.lastName ?? ""} ${u.firstName ?? ""}`.trim(),
-      }),
-    );
-  }, [usersPage]);
-
   const addSpeaker = () => form.insertListItem("speakers", { user: null });
   const removeSpeaker = (index: number) =>
     form.removeListItem("speakers", index);
@@ -124,7 +104,11 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
     <Modal
       opened={open}
       onClose={onClose}
-      title={<Title order={4}>Добавить вопрос</Title>}
+      title={
+        <Text variant="title" fw={600}>
+          Добавить вопрос
+        </Text>
+      }
       size="xl"
       radius="bdrs"
     >
@@ -160,19 +144,11 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
             <Stack>
               {form.values.speakers.map((_, index) => (
                 <Group key={`speaker-${index}`} align="center" wrap="nowrap">
-                  <Select
-                    data={userOptions}
-                    value={form.values.speakers[index].user?.value ?? null}
-                    onChange={(val) => {
-                      const option =
-                        userOptions.find((o) => o.value === val) || null;
-                      form.setFieldValue(`speakers.${index}.user`, option);
-                    }}
-                    onSearchChange={setSearch}
-                    searchable
-                    nothingFoundMessage="Не найдено"
-                    placeholder="ФИО"
-                    style={{ flex: 1 }}
+                  <UserSelect
+                    value={form.values.speakers[index].user}
+                    onChange={(opt) =>
+                      form.setFieldValue(`speakers.${index}.user`, opt)
+                    }
                   />
                   {form.values.speakers.length > 1 && (
                     <ActionIcon
@@ -195,7 +171,6 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
             </Stack>
           </Box>
 
-          {/* Co-speakers */}
           <Box>
             <Text fw={500} mb="xs">
               Содокладчик
@@ -203,19 +178,11 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
             <Stack>
               {form.values.coSpeakers.map((_, index) => (
                 <Group key={`co-speaker-${index}`} align="center" wrap="nowrap">
-                  <Select
-                    data={userOptions}
-                    value={form.values.coSpeakers[index].user?.value ?? null}
-                    onChange={(val) => {
-                      const option =
-                        userOptions.find((o) => o.value === val) || null;
-                      form.setFieldValue(`coSpeakers.${index}.user`, option);
-                    }}
-                    onSearchChange={setSearch}
-                    searchable
-                    nothingFoundMessage="Не найдено"
-                    placeholder="ФИО"
-                    style={{ flex: 1 }}
+                  <UserSelect
+                    value={form.values.coSpeakers[index].user}
+                    onChange={(opt) =>
+                      form.setFieldValue(`coSpeakers.${index}.user`, opt)
+                    }
                   />
                   {form.values.coSpeakers.length > 1 && (
                     <ActionIcon
@@ -242,13 +209,60 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
             <Button variant="outline" onClick={onClose} radius="bdrs">
               Отмена
             </Button>
-            <Button type="submit" loading={saving} radius="bdrs">
+            <Button
+              type="submit"
+              variant="filled"
+              loading={saving}
+              radius="bdrs"
+            >
               Сохранить
             </Button>
           </Group>
         </Stack>
       </form>
     </Modal>
+  );
+};
+
+interface UserSelectProps {
+  value: UserOption | null;
+  onChange: (val: UserOption | null) => void;
+}
+
+const UserSelect = ({ value, onChange }: UserSelectProps) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debounced] = useDebouncedValue(searchTerm, 100);
+  const { data } = useUserGetAll({ fio: debounced });
+
+  const options: UserOption[] = useMemo(() => {
+    const content = data?.content ?? [];
+    return content.map(
+      (u: {
+        id?: string;
+        firstName?: string;
+        lastName?: string;
+      }): UserOption => ({
+        value: u.id ?? "",
+        label: `${u.lastName ?? ""} ${u.firstName ?? ""}`.trim(),
+      }),
+    );
+  }, [data]);
+
+  return (
+    <Select
+      data={options}
+      value={value?.value ?? null}
+      onChange={(val) => {
+        const opt = options.find((o) => o.value === val) || null;
+        onChange(opt);
+      }}
+      onSearchChange={setSearchTerm}
+      searchable
+      clearable
+      nothingFoundMessage="Не найдено"
+      placeholder="ФИО"
+      style={{ flex: 1 }}
+    />
   );
 };
 

@@ -24,6 +24,13 @@ export const StyledButton = Button.extend({
         "--button-color": "var(--mantine-color-primary-9)",
       };
     }
+    if (props.variant === "subtle") {
+      vars.root = {
+        ...vars.root,
+        "--button-color": "var(--mantine-color-primary-9)",
+      };
+    }
+
     if (props.size === "lg") {
       vars.root = {
         ...vars.root,
