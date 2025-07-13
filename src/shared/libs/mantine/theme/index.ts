@@ -10,6 +10,7 @@ import { StyledTable } from "./table";
 import { StyledModal } from "./modal";
 import { StyledTextInput } from "./text-input";
 import { StyledDateInput } from "./date-input";
+import { StyledPagination } from "./pagination";
 
 const commonTheme = {
   fontFamily:
@@ -26,6 +27,7 @@ const commonTheme = {
     Modal: StyledModal,
     TextInput: StyledTextInput,
     DateInput: StyledDateInput,
+    Pagination: StyledPagination,
   },
   primaryColor: "primary",
 };

@@ -1,0 +1,13 @@
+/* rewrite mantine datatable styles */
+
+.mantine-datatable {
+    background-color: transparent;
+}
+
+.mantine-datatable-header th {
+    border-bottom: none;
+}
+
+.mantine-datatable-pagination {
+    border-top: none
+}

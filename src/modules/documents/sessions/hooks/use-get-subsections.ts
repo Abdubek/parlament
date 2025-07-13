@@ -16,7 +16,7 @@ export const useGetSubsections = (
 ) => {
   const { page = 0, size = 100 } = pagination;
 
-  const { data } = useKnowledgeGetAllNested(
+  const resoonse = useKnowledgeGetAllNested(
     sectionId,
     // @ts-expect-error TODO: The OpenAPI schema exposes `page` & `size` as query params, but the types are incorrect.
     { page, size },
@@ -25,7 +25,7 @@ export const useGetSubsections = (
 
   useEffect(() => {
     setBreadcrumbs(
-      data?.content?.reduce(
+      resoonse.data?.content?.reduce(
         (acc, subsection) => {
           if (subsection?.id) {
             acc[subsection.id] = {
@@ -41,7 +41,7 @@ export const useGetSubsections = (
         {} as Record<string, BreadcrumbEntry>,
       ) || {},
     );
-  }, [data]);
+  }, [resoonse]);
 
-  return data;
+  return resoonse;
 };

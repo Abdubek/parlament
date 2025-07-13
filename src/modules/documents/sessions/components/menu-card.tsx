@@ -3,7 +3,6 @@ import { useGetSections } from "@/modules/documents/sessions/hooks/use-get-secti
 import type { SectionDto } from "@/shared/api/generated/knowledge/model";
 import { sessionsRoute } from "@/modules/documents/sessions/index.tsx";
 import { useEffect } from "react";
-import { setBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
 import ChevronRightIcon from "@/shared/icons/chevron.svg";
 import { useGetSubsections } from "../hooks/use-get-subsections";
 import { useSectionParams } from "../hooks/use-section-params";
@@ -31,7 +30,7 @@ export const MenuCard = () => {
   }
 
   return (
-    <Card>
+    <Card shadow="xs">
       <Flex gap={8}>
         {sections?.content?.map((section) => (
           <SectionMenu
@@ -54,7 +53,7 @@ const SectionMenu = ({
 }) => {
   const isActive = String(section.id) === activeSectionId;
   const navigate = sessionsRoute.useNavigate();
-  const subsections = useGetSubsections(section.id ?? "", {
+  const { data: subsections } = useGetSubsections(section.id ?? "", {
     page: 0,
     size: 1000,
   });

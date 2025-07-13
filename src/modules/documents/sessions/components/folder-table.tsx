@@ -12,7 +12,7 @@ import { CreateFolderModal } from "@/modules/documents/sessions/components/creat
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { DataTable, type DataTableColumnTextAlign } from "mantine-datatable";
 import type { SectionDto } from "@/shared/api/generated/knowledge/model";
-import React from "react";
+import { useDataTableProps } from "@/shared/libs/mantine/hooks/use-data-table-props.ts";
 
 const columns = [
   {
@@ -45,18 +45,19 @@ const columns = [
 export const FolderTable = () => {
   const navigate = useNavigate();
   const location = useRouterState({ select: (s) => s.location });
+  const { page, pageSize, defaultTableProps } = useDataTableProps();
 
   const { lastSectionId, level } = useSectionParams();
 
-  const PAGE_SIZE = 10;
-  const [page, setPage] = React.useState(1);
-
   const paginationOpts: SubsectionPaginationOptions = {
     page: page - 1,
-    size: PAGE_SIZE,
+    size: pageSize,
   };
 
-  const subsections = useGetSubsections(lastSectionId ?? "", paginationOpts);
+  const { data: subsections, isLoading } = useGetSubsections(
+    lastSectionId ?? "",
+    paginationOpts,
+  );
 
   if (level === 1) {
     return null;
@@ -69,12 +70,11 @@ export const FolderTable = () => {
   return (
     <>
       <DataTable
+        {...defaultTableProps}
         columns={columns}
         records={subsections.content}
-        page={page}
-        onPageChange={setPage}
         totalRecords={subsections.totalElements ?? subsections.content.length}
-        recordsPerPage={PAGE_SIZE}
+        fetching={isLoading}
         onRowClick={({ record }) => {
           navigate({
             to: `${location.pathname.replace(/\/$/, "")}/${record.id}`,
