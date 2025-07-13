@@ -57,6 +57,45 @@
         }
       }
     },
+    "/api/v1/section/reorder/{uuid}": {
+      "post": {
+        "tags": [
+          "section-controller"
+        ],
+        "summary": "Настройка порядка файлов вопроса",
+        "description": "Принимает UUID раздела и значение UP или DOWN для изменения порядка данной секции относительно других.",
+        "operationId": "reorderSection",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "UP",
+                "DOWN"
+              ],
+              "default": "UP"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/section/create-subsection-folder": {
       "post": {
         "tags": [
@@ -385,11 +424,37 @@
         "operationId": "getAll",
         "parameters": [
           {
-            "name": "pageable",
+            "name": "page",
             "in": "query",
-            "required": true,
+            "description": "Zero-based page index (0..N)",
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Pageable"
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -413,7 +478,7 @@
           "section-controller"
         ],
         "summary": "Получение всех подразделов по разделу(Например: Расширенные заседания комитетов).",
-        "description": "Принимает в себя UUID секции. В ответе возвращается список подсекций, каждый из которых состоит из UUID записи,\n наименований на русском и казахском языках, а также дата проведения(гггг-ММ-дд).",
+        "description": "Принимает в себя UUID секции. В ответе возвращается список подсекций, каждый из которых состоит из UUID записи,\nнаименований на русском и казахском языках, а также дата проведения(гггг-ММ-дд).\n",
         "operationId": "getAllNested",
         "parameters": [
           {
@@ -426,11 +491,37 @@
             }
           },
           {
-            "name": "pageable",
+            "name": "page",
             "in": "query",
-            "required": true,
+            "description": "Zero-based page index (0..N)",
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Pageable"
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -465,11 +556,37 @@
             }
           },
           {
-            "name": "pageable",
+            "name": "page",
             "in": "query",
-            "required": true,
+            "description": "Zero-based page index (0..N)",
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/Pageable"
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ],
@@ -733,27 +850,10 @@
           },
           "file_name": {
             "type": "string"
-          }
-        }
-      },
-      "Pageable": {
-        "type": "object",
-        "properties": {
-          "page": {
-            "minimum": 0,
+          },
+          "order": {
             "type": "integer",
             "format": "int32"
-          },
-          "size": {
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32"
-          },
-          "sort": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       },
@@ -813,6 +913,10 @@
           },
           "file_name": {
             "type": "string"
+          },
+          "order": {
+            "type": "integer",
+            "format": "int32"
           },
           "members": {
             "type": "array",

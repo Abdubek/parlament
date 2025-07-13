@@ -10,6 +10,7 @@ import {
 import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import dayjs, { Dayjs } from "dayjs";
+import type { FC } from "react";
 import { useKnowledgeCreateSubSectionFolder } from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDisclosure } from "@mantine/hooks";
@@ -21,9 +22,13 @@ interface FormValues {
   meetingDate: Dayjs | null;
 }
 
-export const CreateFolderModal = () => {
+interface CreateFolderModalProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+const CreateFolderModal: FC<CreateFolderModalProps> = ({ open, onClose }) => {
   const queryClient = useQueryClient();
-  const [opened, { close, open }] = useDisclosure(false);
   const breadcrumbs = useBreadcrumbs();
   const parentSectionId = breadcrumbs[breadcrumbs.length - 1].meta?.sectionId;
   const parentFolderId = breadcrumbs[breadcrumbs.length - 1].meta?.folderId;
@@ -38,7 +43,7 @@ export const CreateFolderModal = () => {
           queryKey: [`/api/v1/question/${parentSectionId}`],
         });
         form.reset();
-        close();
+        onClose();
       },
     },
   });
@@ -68,64 +73,71 @@ export const CreateFolderModal = () => {
   };
 
   return (
+    <Modal
+      opened={open}
+      onClose={onClose}
+      title={
+        <Text variant="title" fw={600}>
+          Добавить папку
+        </Text>
+      }
+      size="lg"
+      centered
+    >
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Stack gap="md">
+          <TextInput
+            label="Наименование на казахском"
+            placeholder="Введите наименование"
+            {...form.getInputProps("nameKz")}
+          />
+
+          <TextInput
+            label="Наименование на русском языке"
+            placeholder="Введите наименование"
+            {...form.getInputProps("nameRu")}
+          />
+
+          <DateInput
+            label="Дата заседания"
+            value={
+              form.values.meetingDate ? form.values.meetingDate.toDate() : null
+            }
+            onChange={(value) =>
+              form.setFieldValue("meetingDate", value ? dayjs(value) : null)
+            }
+            size="lg"
+            placeholder="дд.мм.гггг"
+            valueFormat="DD.MM.YYYY"
+            rightSectionWidth={0}
+          />
+
+          <Group justify="flex-end" gap="sm">
+            <Button variant="outline" size="md" onClick={onClose} type="button">
+              Отмена
+            </Button>
+            <Button variant="filled" size="md" type="submit">
+              Сохранить
+            </Button>
+          </Group>
+        </Stack>
+      </form>
+    </Modal>
+  );
+};
+
+export const CreateFolder: FC = () => {
+  const [opened, { open, close }] = useDisclosure(false);
+
+  return (
     <>
       <Box>
         <Button size="lg" variant="filled" onClick={open}>
           Добавить папку
         </Button>
       </Box>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title={
-          <Text variant="title" fw={600}>
-            Добавить папку
-          </Text>
-        }
-        size="lg"
-        centered
-      >
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Stack gap="md">
-            <TextInput
-              label="Наименование на казахском"
-              placeholder="Введите наименование"
-              {...form.getInputProps("nameKz")}
-            />
 
-            <TextInput
-              label="Наименование на русском языке"
-              placeholder="Введите наименование"
-              {...form.getInputProps("nameRu")}
-            />
-
-            <DateInput
-              label="Дата заседания"
-              value={
-                form.values.meetingDate
-                  ? form.values.meetingDate.toDate()
-                  : null
-              }
-              onChange={(value) =>
-                form.setFieldValue("meetingDate", value ? dayjs(value) : null)
-              }
-              size="lg"
-              placeholder="дд.мм.гггг"
-              valueFormat="DD.MM.YYYY"
-              rightSectionWidth={0}
-            />
-
-            <Group justify="flex-end" gap="sm">
-              <Button variant="outline" size="md" onClick={close} type="button">
-                Отмена
-              </Button>
-              <Button variant="filled" size="md" type="submit">
-                Сохранить
-              </Button>
-            </Group>
-          </Stack>
-        </form>
-      </Modal>
+      <CreateFolderModal open={opened} onClose={close} />
     </>
   );
 };

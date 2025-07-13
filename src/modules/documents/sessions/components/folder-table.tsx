@@ -8,11 +8,12 @@ import {
   type SubsectionPaginationOptions,
 } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
-import { CreateFolderModal } from "@/modules/documents/sessions/components/create-folder.tsx";
+import { CreateFolder } from "./create-folder.tsx";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { DataTable, type DataTableColumnTextAlign } from "mantine-datatable";
 import type { SectionDto } from "@/shared/api/generated/knowledge/model";
 import { useDataTableProps } from "@/shared/libs/mantine/hooks/use-data-table-props.ts";
+import { CreateQuestion } from "./create-question.tsx";
 
 const columns = [
   {
@@ -82,7 +83,10 @@ export const FolderTable = () => {
         }}
       />
 
-      <CreateFolderModal />
+      <Flex gap={16}>
+        <CreateFolder />
+        <CreateQuestion />
+      </Flex>
     </>
   );
 };
@@ -107,7 +111,10 @@ const EmptyState = () => {
           В данной папке нет файлов или папок
         </Title>
 
-        <CreateFolderModal />
+        <Flex gap={16}>
+          <CreateFolder />
+          <CreateQuestion />
+        </Flex>
       </Stack>
     </Center>
   );
