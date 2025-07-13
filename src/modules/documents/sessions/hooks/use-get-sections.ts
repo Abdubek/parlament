@@ -12,7 +12,6 @@ const SESSION_NAME = "MEETINGS";
 
 export const useGetSections = () => {
   const { data: sessions } = useKnowledgeGetAll({
-    // @ts-expect-error TODO: need to fix in OpenAPI schema in backend
     page: 0,
     size: 10,
   });
@@ -24,7 +23,6 @@ export const useGetSections = () => {
   const { data: sections } = useKnowledgeGetAllNested(
     session?.id ?? "",
     {
-      // @ts-expect-error TODO: need to fix in OpenAPI schema in backend
       page: 0,
       size: 10,
     },

@@ -18,6 +18,7 @@ export const useDataTableProps = () => {
       page: page,
       onPageChange: setPage,
       onRecordsPerPageChange: setPageSize,
+      paginationText: () => ''
     },
   };
 };

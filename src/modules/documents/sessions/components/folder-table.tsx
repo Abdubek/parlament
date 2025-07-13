@@ -1,4 +1,4 @@
-import { Flex, ActionIcon, Center, Stack, Title } from "@mantine/core";
+import { Flex, ActionIcon, Center, Stack, Title, Text } from "@mantine/core";
 import dayjs from "dayjs";
 import DocumentIcon from "@/shared/icons/document.svg";
 import DotsIcon from "@/shared/icons/dots.svg";
@@ -20,10 +20,16 @@ const columns = [
     title: "Наименование",
     accessor: "name_ru",
     render: (record: SectionDto) => (
-      <Flex align="center" gap={32}>
-        <DocumentIcon />
-        {record.name_ru}
-      </Flex>
+      <Text c="primary.9">
+        <Flex align="center" gap={32}>
+          {record.type === "FOLDER" ? (
+            <FolderIcon width={32} height={32} />
+          ) : (
+            <DocumentIcon />
+          )}
+          {record.name_ru}
+        </Flex>
+      </Text>
     ),
   },
   {

@@ -18,7 +18,6 @@ export const useGetSubsections = (
 
   const resoonse = useKnowledgeGetAllNested(
     sectionId,
-    // @ts-expect-error TODO: The OpenAPI schema exposes `page` & `size` as query params, but the types are incorrect.
     { page, size },
     { query: { enabled: !!sectionId } },
   );
