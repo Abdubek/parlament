@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { MenuCard } from "./components/menu-card.tsx";
 import { FolderTable } from "./components/folder-table.tsx";
 import { SessionTitle } from "./components/session-title.tsx";
+import { QuestionInfo } from "./components/question-info.tsx";
 
 export function SessionsPage() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export function SessionsPage() {
       <Stack gap={24}>
         <SessionTitle />
         <FolderTable />
+        <QuestionInfo />
       </Stack>
     </Stack>
   );

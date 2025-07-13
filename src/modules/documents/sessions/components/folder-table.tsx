@@ -14,6 +14,7 @@ import { DataTable, type DataTableColumnTextAlign } from "mantine-datatable";
 import type { SectionDto } from "@/shared/api/generated/knowledge/model";
 import { useDataTableProps } from "@/shared/libs/mantine/hooks/use-data-table-props.ts";
 import { CreateQuestion } from "./create-question.tsx";
+import { type PropsWithChildren } from "react";
 
 const columns = [
   {
@@ -66,12 +67,22 @@ export const FolderTable = () => {
     paginationOpts,
   );
 
-  if (level === 1) {
+  const isFirstLayer = level === 1;
+  const isQuestionLayer = level === 4;
+  const isCanCreateQuestion = level === 3;
+  const isCanCreateFolder = level === 2;
+
+  if (isFirstLayer || isQuestionLayer) {
     return null;
   }
 
   if (!subsections?.content?.length) {
-    return <EmptyState />;
+    return (
+      <EmptyState>
+        {isCanCreateFolder ? <CreateFolder /> : null}
+        {isCanCreateQuestion ? <CreateQuestion /> : null}
+      </EmptyState>
+    );
   }
 
   return (
@@ -90,14 +101,14 @@ export const FolderTable = () => {
       />
 
       <Flex gap={16}>
-        <CreateFolder />
-        <CreateQuestion />
+        {isCanCreateFolder ? <CreateFolder /> : null}
+        {isCanCreateQuestion ? <CreateQuestion /> : null}
       </Flex>
     </>
   );
 };
 
-const EmptyState = () => {
+const EmptyState = ({ children }: PropsWithChildren) => {
   return (
     <Center h="500px">
       <Stack gap={32} align="center">
@@ -117,10 +128,7 @@ const EmptyState = () => {
           В данной папке нет файлов или папок
         </Title>
 
-        <Flex gap={16}>
-          <CreateFolder />
-          <CreateQuestion />
-        </Flex>
+        <Flex gap={16}>{children}</Flex>
       </Stack>
     </Center>
   );
