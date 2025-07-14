@@ -22,7 +22,7 @@ const columns = [
     accessor: "name_ru",
     render: (record: SectionDto) => (
       <Text c="primary.9">
-        <Flex align="center" gap={32}>
+        <Flex align="center" gap={32} component="span">
           {record.type === "FOLDER" ? (
             <FolderIcon width={32} height={32} />
           ) : (
