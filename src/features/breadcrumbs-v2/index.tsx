@@ -17,16 +17,20 @@ interface BreadcrumbsProps {
   resolver: (id: string, index: number) => Promise<BreadcrumbEntry>;
 }
 
+type BreadcrumbState = {
+  entry: BreadcrumbEntry | null;
+  isLoading: boolean;
+  error: string | null;
+};
+
 export const BreadcrumbsV2 = ({
   startIndex = 0,
   resolver,
 }: BreadcrumbsProps) => {
   const location = useLocation();
-  const [breadcrumbEntries, setBreadcrumbEntries] = useState<BreadcrumbEntry[]>(
+  const [breadcrumbStates, setBreadcrumbStates] = useState<BreadcrumbState[]>(
     [],
   );
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const resolverRef = useRef(resolver);
   resolverRef.current = resolver;
@@ -37,63 +41,80 @@ export const BreadcrumbsV2 = ({
 
   const loadBreadcrumbs = useCallback(async () => {
     if (pathSegments.length === 0) {
-      setBreadcrumbEntries([]);
-      setIsLoading(false);
+      setBreadcrumbStates([]);
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
+    // Initialize all segments as loading
+    setBreadcrumbStates(
+      pathSegments.map(() => ({
+        entry: null,
+        isLoading: true,
+        error: null,
+      })),
+    );
 
-    try {
-      const promises = pathSegments.map((segment, index) =>
-        resolverRef.current(segment, index),
-      );
-      const entries = await Promise.all(promises);
-      setBreadcrumbEntries(entries);
-    } catch (err) {
-      console.error("Error loading breadcrumbs:", err);
-      setError(
-        err instanceof Error ? err.message : "Failed to load breadcrumbs",
-      );
-      setBreadcrumbEntries([]);
-    } finally {
-      setIsLoading(false);
-    }
+    // Load each segment independently
+    pathSegments.forEach(async (segment, index) => {
+      try {
+        const entry = await resolverRef.current(segment, index);
+        setBreadcrumbStates((prev) =>
+          prev.map((state, i) =>
+            i === index ? { entry, isLoading: false, error: null } : state,
+          ),
+        );
+      } catch (err) {
+        console.error(`Error loading breadcrumb for segment ${segment}:`, err);
+        setBreadcrumbStates((prev) =>
+          prev.map((state, i) =>
+            i === index
+              ? {
+                  entry: { label: segment, href: "" },
+                  isLoading: false,
+                  error: err instanceof Error ? err.message : "Failed to load",
+                }
+              : state,
+          ),
+        );
+      }
+    });
   }, [pathSegments]);
 
   useEffect(() => {
     loadBreadcrumbs();
   }, [loadBreadcrumbs]);
 
-  if (isLoading) {
-    return (
-      <MantineBreadcrumbs>
-        {pathSegments.map((_, index) => (
-          <Skeleton key={index} height={14} width={60} />
-        ))}
-      </MantineBreadcrumbs>
-    );
+  if (pathSegments.length === 0) {
+    return null;
   }
 
-  if (error) {
-    return (
-      <MantineBreadcrumbs>
-        <Text c="red" fz={14}>
-          Не удалось загрузить хлебные крошки
+  const items = breadcrumbStates.map((state, index) => {
+    const isLast = index === breadcrumbStates.length - 1;
+
+    if (state.isLoading) {
+      return (
+        <Skeleton
+          key={`skeleton-${index}`}
+          height={14}
+          width={index === 0 ? 120 : 80} // First segment typically longer
+        />
+      );
+    }
+
+    if (state.error || !state.entry) {
+      return (
+        <Text key={`error-${index}`} c="red" fz={14}>
+          Ошибка
         </Text>
-      </MantineBreadcrumbs>
-    );
-  }
+      );
+    }
 
-  const items = breadcrumbEntries.map((item, index) => {
     const capitalizedLabel =
-      item.label.charAt(0).toUpperCase() + item.label.slice(1);
-    const isLast = index === breadcrumbEntries.length - 1;
+      state.entry.label.charAt(0).toUpperCase() + state.entry.label.slice(1);
 
     if (isLast) {
       return (
-        <Text key={item.href} fw={500} fz={14} c="dimmed">
+        <Text key={state.entry.href} fw={500} fz={14} c="dimmed">
           {capitalizedLabel}
         </Text>
       );
@@ -101,9 +122,9 @@ export const BreadcrumbsV2 = ({
 
     return (
       <Anchor
-        key={item.href}
+        key={state.entry.href}
         component={Link}
-        href={item.href}
+        href={state.entry.href}
         underline="hover"
         c="link.10"
         fz={14}
