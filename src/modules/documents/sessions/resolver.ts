@@ -41,7 +41,7 @@ export const useSessionsBreadcrumbResolver = () => {
         throw new Error("Sessions path not found in current URL");
       }
 
-      const href = "/" + pathSegments.slice(0, baseIndex + 2 + index).join("/");
+      const href = "/" + pathSegments.slice(0, baseIndex + 1 + index).join("/");
 
       return {
         label,

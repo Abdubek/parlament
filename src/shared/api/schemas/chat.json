@@ -1914,6 +1914,27 @@
           }
         }
       },
+      "PermitsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
       "PersonalAffairClientDto": {
         "type": "object",
         "properties": {
@@ -1940,6 +1961,79 @@
           },
           "homePhoneNumber": {
             "type": "string"
+          }
+        }
+      },
+      "RealmsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RolesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "realm": {
+            "$ref": "#/components/schemas/RealmsDto"
+          },
+          "permits": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermitsDto"
+            }
+          },
+          "deleted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SpacesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "code": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "nameKk": {
+            "type": "string"
+          },
+          "deleted": {
+            "type": "boolean"
           }
         }
       },
@@ -1973,7 +2067,8 @@
             "enum": [
               "ACTIVE",
               "CLOSED",
-              "BLOCKED"
+              "BLOCKED",
+              "PENDING"
             ]
           },
           "position": {
@@ -1990,6 +2085,16 @@
           },
           "workPhoneNumber": {
             "type": "string"
+          },
+          "roles": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RolesDto"
+            }
+          },
+          "space": {
+            "$ref": "#/components/schemas/SpacesDto"
           }
         }
       },
@@ -2186,6 +2291,12 @@
             "type": "integer",
             "format": "int32"
           },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -2202,12 +2313,6 @@
           },
           "sort": {
             "$ref": "#/components/schemas/SortObject"
-          },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
