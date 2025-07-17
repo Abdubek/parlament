@@ -3,10 +3,7 @@ import dayjs from "dayjs";
 import DocumentIcon from "@/shared/icons/document.svg";
 import DotsIcon from "@/shared/icons/dots.svg";
 import { useSectionParams } from "../hooks/use-section-params";
-import {
-  useGetSubsections,
-  type SubsectionPaginationOptions,
-} from "../hooks/use-get-subsections";
+import { useGetSubsections } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
 import { CreateFolder } from "./create-folder.tsx";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
