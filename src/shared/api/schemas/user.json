@@ -272,8 +272,9 @@
               "type": "string",
               "enum": [
                 "ACTIVE",
-                "CLOSED",
                 "BLOCKED",
+                "CLOSED",
+                "ARCHIVE",
                 "PENDING"
               ]
             }
@@ -798,8 +799,9 @@
             "type": "string",
             "enum": [
               "ACTIVE",
-              "CLOSED",
               "BLOCKED",
+              "CLOSED",
+              "ARCHIVE",
               "PENDING"
             ]
           },
@@ -812,6 +814,27 @@
           },
           "space": {
             "$ref": "#/components/schemas/SpacesDto"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "UNKNOWN",
+              "EXTERNAL",
+              "ARCHIVE",
+              "CONTRACTOR",
+              "DEPUTY",
+              "DISMISSED",
+              "EMPLOYEE",
+              "INTERNSHIP",
+              "PUBLIC_HELPER",
+              "SOCIAL_LEAVE"
+            ]
+          },
+          "workEmail": {
+            "type": "string"
+          },
+          "workPhoneNumber": {
+            "type": "string"
           },
           "roles": {
             "uniqueItems": true,

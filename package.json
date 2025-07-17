@@ -7,7 +7,7 @@
     "dev": "rsbuild dev --port 5173",
     "build": "rsbuild build",
     "preview": "rsbuild preview",
-    "sdk:generate": "npx tsx ./scripts/generate-sdk.ts"
+    "api:generate": "npx tsx ./scripts/generate-sdk.ts"
   },
   "dependencies": {
     "@mantine/charts": "^8.1.2",

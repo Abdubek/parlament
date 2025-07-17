@@ -10,6 +10,7 @@ COPY . .
 
 RUN ls -al /app && npm ls
 
+RUN npm run api:generate
 RUN npm run build
 
 FROM nginx:alpine

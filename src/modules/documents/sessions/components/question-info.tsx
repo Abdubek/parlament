@@ -22,12 +22,15 @@ import { useHover } from "@mantine/hooks";
 
 export const QuestionInfo = () => {
   const { lastSectionId, level } = useSectionParams();
-  const { data } = useGetQuestions(lastSectionId ?? "");
+  const isQuestionLevel = level === 4;
+  const { data } = useGetQuestions(
+    isQuestionLevel ? (lastSectionId ?? "") : "",
+  );
 
   const navigate = useNavigate();
   const location = useRouterState({ select: (s) => s.location });
 
-  if (level !== 4 || !data) {
+  if (!isQuestionLevel || !data) {
     return null;
   }
 

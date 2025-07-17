@@ -3,10 +3,7 @@ import dayjs from "dayjs";
 import DocumentIcon from "@/shared/icons/document.svg";
 import DotsIcon from "@/shared/icons/dots.svg";
 import { useSectionParams } from "../hooks/use-section-params";
-import {
-  useGetSubsections,
-  type SubsectionPaginationOptions,
-} from "../hooks/use-get-subsections";
+import { useGetSubsections } from "../hooks/use-get-subsections";
 import FolderIcon from "@/shared/icons/folder.svg";
 import { CreateFolder } from "./create-folder.tsx";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
@@ -22,7 +19,7 @@ const columns = [
     accessor: "name_ru",
     render: (record: SectionDto) => (
       <Text c="primary.9">
-        <Flex align="center" gap={32}>
+        <Flex align="center" gap={32} component="span">
           {record.type === "FOLDER" ? (
             <FolderIcon width={32} height={32} />
           ) : (
@@ -57,14 +54,12 @@ export const FolderTable = () => {
 
   const { lastSectionId, level } = useSectionParams();
 
-  const paginationOpts: SubsectionPaginationOptions = {
-    page: page - 1,
-    size: pageSize,
-  };
-
   const { data: subsections, isLoading } = useGetSubsections(
     lastSectionId ?? "",
-    paginationOpts,
+    {
+      page: page - 1,
+      size: pageSize,
+    },
   );
 
   const isFirstLayer = level === 1;
