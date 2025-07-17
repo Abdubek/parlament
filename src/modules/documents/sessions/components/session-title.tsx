@@ -1,8 +1,26 @@
-import { useBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
-import { Title } from "@mantine/core";
+import { Title, Skeleton } from "@mantine/core";
+import { useSectionParams } from "../hooks/use-section-params";
+import { useSessionsBreadcrumbResolver } from "../resolver";
+import { useEffect, useState } from "react";
 
 export const SessionTitle = () => {
-  const breadcrumbs = useBreadcrumbs(2);
+  const { lastSectionId } = useSectionParams();
+  const breadcrumbResolver = useSessionsBreadcrumbResolver();
+  const [label, setLabel] = useState<string>("");
 
-  return <Title order={1}>{breadcrumbs[breadcrumbs.length - 1].label}</Title>;
+  useEffect(() => {
+    if (lastSectionId) {
+      breadcrumbResolver(lastSectionId, 0).then((entry) => {
+        setLabel(entry.label);
+      });
+    } else {
+      setLabel("");
+    }
+  }, [lastSectionId, breadcrumbResolver]);
+
+  if (label === "") {
+    return <Skeleton height={46} width={600} />;
+  }
+
+  return <Title order={1}>{label}</Title>;
 };

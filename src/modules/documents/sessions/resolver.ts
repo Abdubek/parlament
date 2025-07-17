@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { getKnowledgeGetSectionQueryOptions } from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
-import type { BreadcrumbEntry } from "@/features/breadcrumbs-v2";
+import type { BreadcrumbEntry } from "@/features/breadcrumbs";
 
 export const useSessionsBreadcrumbResolver = () => {
   const queryClient = useQueryClient();
@@ -15,6 +15,8 @@ export const useSessionsBreadcrumbResolver = () => {
       }
 
       const queryOptions = getKnowledgeGetSectionQueryOptions(id);
+
+      console.log("in resolver", queryOptions.queryKey);
 
       let section = queryClient.getQueryData(queryOptions.queryKey);
 

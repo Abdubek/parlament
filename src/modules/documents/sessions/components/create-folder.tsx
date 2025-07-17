@@ -11,10 +11,13 @@ import { DateInput } from "@mantine/dates";
 import { useForm } from "@mantine/form";
 import dayjs, { Dayjs } from "dayjs";
 import type { FC } from "react";
-import { useKnowledgeCreateSubSectionFolder } from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
+import {
+  useKnowledgeCreateSubSectionFolder,
+  useKnowledgeGetSection,
+} from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
 import { useQueryClient } from "@tanstack/react-query";
 import { useDisclosure } from "@mantine/hooks";
-import { useBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs.ts";
+import { useSectionParams } from "../hooks/use-section-params";
 
 interface FormValues {
   nameKz: string;
@@ -29,9 +32,11 @@ interface CreateFolderModalProps {
 
 const CreateFolderModal: FC<CreateFolderModalProps> = ({ open, onClose }) => {
   const queryClient = useQueryClient();
-  const breadcrumbs = useBreadcrumbs();
-  const parentSectionId = breadcrumbs[breadcrumbs.length - 1].meta?.sectionId;
-  const parentFolderId = breadcrumbs[breadcrumbs.length - 1].meta?.folderId;
+  const { lastSectionId: parentSectionId } = useSectionParams();
+  const { data: sectionData } = useKnowledgeGetSection(parentSectionId ?? "", {
+    query: { staleTime: 5 * 60 * 1000 },
+  });
+  const parentFolderId = sectionData?.folder_id ?? "";
 
   const { mutate: createFolder } = useKnowledgeCreateSubSectionFolder({
     mutation: {

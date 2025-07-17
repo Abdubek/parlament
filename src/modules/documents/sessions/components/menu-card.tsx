@@ -26,7 +26,7 @@ export const MenuCard = () => {
   }, [activeSectionId, sections, navigate]);
 
   if (!sections) {
-    return <Skeleton height={68} />;
+    return <Skeleton height={72} />;
   }
 
   return (

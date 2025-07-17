@@ -57,14 +57,12 @@ export const FolderTable = () => {
 
   const { lastSectionId, level } = useSectionParams();
 
-  const paginationOpts: SubsectionPaginationOptions = {
-    page: page - 1,
-    size: pageSize,
-  };
-
   const { data: subsections, isLoading } = useGetSubsections(
     lastSectionId ?? "",
-    paginationOpts,
+    {
+      page: page - 1,
+      size: pageSize,
+    },
   );
 
   const isFirstLayer = level === 1;

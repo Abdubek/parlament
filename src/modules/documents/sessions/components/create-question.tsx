@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUserGetAll } from "@/shared/api/generated/user/userServiceAPI";
 import { useKnowledgeCreateQuestion } from "@/shared/api/generated/knowledge/knowledgeServiceAPI";
-import { useBreadcrumbs } from "@/features/breadcrumbs/use-breadcrumbs";
+import { useSectionParams } from "../hooks/use-section-params";
 
 interface CreateQuestionProps {
   open: boolean;
@@ -39,8 +39,7 @@ interface FormValues {
 
 const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
   const queryClient = useQueryClient();
-  const breadcrumbs = useBreadcrumbs();
-  const sectionId = breadcrumbs[breadcrumbs.length - 1].meta?.sectionId ?? "";
+  const { lastSectionId: sectionId } = useSectionParams();
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -78,7 +77,7 @@ const CreateQuestionModal: FC<CreateQuestionProps> = ({ open, onClose }) => {
 
     createQuestion(
       {
-        sectionId,
+        sectionId: sectionId ?? "",
         data: {
           name_kz: values.nameKz,
           name_ru: values.nameRu,
