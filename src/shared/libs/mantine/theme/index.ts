@@ -12,6 +12,7 @@ import { StyledTextInput } from "./text-input";
 import { StyledDateInput } from "./date-input";
 import { StyledPagination } from "./pagination";
 import { StyledSelect } from "./select";
+import { StyledDropzone } from "./dropzone";
 
 const commonTheme = {
   fontFamily:
@@ -30,6 +31,7 @@ const commonTheme = {
     DateInput: StyledDateInput,
     Pagination: StyledPagination,
     Select: StyledSelect,
+    Dropzone: StyledDropzone,
   },
   primaryColor: "primary",
 };

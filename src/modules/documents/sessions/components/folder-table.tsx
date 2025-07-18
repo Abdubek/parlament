@@ -12,6 +12,8 @@ import type { SectionDto } from "@/shared/api/generated/knowledge/model";
 import { useDataTableProps } from "@/shared/libs/mantine/hooks/use-data-table-props.ts";
 import { CreateQuestion } from "./create-question.tsx";
 import { type PropsWithChildren } from "react";
+import { FilesInput } from "@/features/files-input/index.tsx";
+import { useUploadFile } from "../hooks/use-upload-file.ts";
 
 const columns = [
   {
@@ -51,6 +53,7 @@ export const FolderTable = () => {
   const navigate = useNavigate();
   const location = useRouterState({ select: (s) => s.location });
   const { page, pageSize, defaultTableProps } = useDataTableProps();
+  const { handleUploadFile, isPending } = useUploadFile();
 
   const { lastSectionId, level } = useSectionParams();
 
@@ -66,6 +69,7 @@ export const FolderTable = () => {
   const isQuestionLayer = level === 4;
   const isCanCreateQuestion = level === 3;
   const isCanCreateFolder = level === 2;
+  const isCanUploadFile = level === 5;
 
   if (isFirstLayer || isQuestionLayer) {
     return null;
@@ -73,10 +77,22 @@ export const FolderTable = () => {
 
   if (!subsections?.content?.length) {
     return (
-      <EmptyState>
-        {isCanCreateFolder ? <CreateFolder /> : null}
-        {isCanCreateQuestion ? <CreateQuestion /> : null}
-      </EmptyState>
+      <>
+        <EmptyState>
+          {isCanCreateFolder ? <CreateFolder /> : null}
+          {isCanCreateQuestion ? <CreateQuestion /> : null}
+        </EmptyState>
+
+        {isCanUploadFile ? (
+          <Flex>
+            <FilesInput
+              label="Файлы на казахском и русском языках"
+              onDrop={handleUploadFile}
+              loading={isPending}
+            />
+          </Flex>
+        ) : null}
+      </>
     );
   }
 
@@ -98,6 +114,13 @@ export const FolderTable = () => {
       <Flex gap={16}>
         {isCanCreateFolder ? <CreateFolder /> : null}
         {isCanCreateQuestion ? <CreateQuestion /> : null}
+        {isCanUploadFile ? (
+          <FilesInput
+            label="Файлы на казахском и русском языках"
+            onDrop={handleUploadFile}
+            loading={isPending}
+          />
+        ) : null}
       </Flex>
     </>
   );
